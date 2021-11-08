@@ -15,9 +15,9 @@ namespace NetworkPrimitives.Benchmarks
     [CsvMeasurementsExporter]
     [HtmlExporter]
     [MarkdownExporterAttribute.GitHub]
-    [SimpleJob(RuntimeMoniker.Net48)]
-    [SimpleJob(RuntimeMoniker.NetCoreApp31)]
-    [SimpleJob(RuntimeMoniker.Net50)]
+    [SimpleJob(RuntimeMoniker.Net48, launchCount: 1, warmupCount: 1, targetCount: 1)]
+    [SimpleJob(RuntimeMoniker.NetCoreApp31, launchCount: 1, warmupCount: 1, targetCount: 1)]
+    [SimpleJob(RuntimeMoniker.Net50, launchCount: 1, warmupCount: 1, targetCount: 1)]
     public class Ipv4AddressParsing
     {
         [Benchmark]

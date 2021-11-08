@@ -17,8 +17,6 @@ namespace NetworkPrimitives.Ipv4
             return TryParseDottedDecimalUInt32(ref span, ref charsRead, out result);
         }
         
-        
-        
         internal static bool TryParseDottedDecimalUInt32(ref SpanWrapper text, ref int charsRead, out uint result)
         {
             result = default;

@@ -24,6 +24,13 @@ namespace NetworkPrimitives
             if (span.IsEmpty)
                 return false;
             value = span[0];
+            if (span.Length == 1)
+            {
+                // Workaround because for some reason on .NET Framework, it turns 1..
+                // into Slice(1, -1) when resulting length will be zero?
+                span = new SpanWrapper(string.Empty);
+                return true;
+            }
             span = span[1..];
             return true;
         }

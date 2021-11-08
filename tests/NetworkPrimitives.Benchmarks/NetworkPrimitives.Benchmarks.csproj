@@ -9,16 +9,13 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
     <PackageReference Include="IPNetwork2" Version="2.5.366" Aliases="Lib_IPN2" />
+    <PackageReference Include="NetworkPrimitives.Ipv4" Version="1.0.0-alpha" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="TestData\random_ips.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj" />
   </ItemGroup>
 
 </Project>
