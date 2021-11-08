@@ -1,9 +1,7 @@
 ﻿using System;
-using JetBrains.Annotations;
 
 namespace NetworkPrimitives.Ipv4
 {
-    [PublicAPI]
     public ref struct Ipv4AddressEnumerator
     {
         private readonly Ipv4Address startAddress;
@@ -26,7 +24,6 @@ namespace NetworkPrimitives.Ipv4
             this.Reset();
         }
 
-        [PublicAPI]
         public bool MoveNext()
         {
             switch (this.state)
@@ -46,7 +43,6 @@ namespace NetworkPrimitives.Ipv4
                     return false;
             }
         }
-        [PublicAPI]
         public void Reset()
         {
             this.state = default;
@@ -54,7 +50,6 @@ namespace NetworkPrimitives.Ipv4
             this.current = default;
         }
         
-        [PublicAPI]
         public Ipv4Address Current => state switch
         {
             0 => throw new InvalidOperationException("Enumeration not yet started."),

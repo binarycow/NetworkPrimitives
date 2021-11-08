@@ -2,5 +2,17 @@
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <LangVersion>9</LangVersion>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>binarycow</Authors>
+    <Copyright>© 2021 Mike Christiansen</Copyright>
+    <RepositoryUrl>https://github.com/binarycow/NetworkPrimitives</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  
+  
 </Project>

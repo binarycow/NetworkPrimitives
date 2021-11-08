@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net48;net5.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFramework />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+    <PackageReference Include="IPNetwork2" Version="2.5.366" Aliases="Lib_IPN2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestData\random_ips.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj" />
+  </ItemGroup>
+
+</Project>

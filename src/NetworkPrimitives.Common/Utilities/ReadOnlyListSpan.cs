@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace NetworkPrimitives.Utilities
 {
-    [PublicAPI]
     public readonly struct ReadOnlyListSpan<T> : IEquatable<ReadOnlyListSpan<T>>, ISlice<ReadOnlyListSpan<T>, T>
     {
         private readonly IReadOnlyList<T> list;
