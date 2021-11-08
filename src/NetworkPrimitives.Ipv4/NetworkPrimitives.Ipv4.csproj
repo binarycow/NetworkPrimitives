@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetworkPrimitives.Common\NetworkPrimitives.Common.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Ipv4AddressRange.RefStructEnumerator.cs">
+      <DependentUpon>Ipv4AddressRange.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Ipv4AddressRange.ClassEnumerator.cs">
+      <DependentUpon>Ipv4AddressRange.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,55 @@
+#nullable enable
+abstract NetworkPrimitives.Utilities.ImmutableListWrapperBuilder<TDerived, TItem, TImmutable>.ToImmutable() -> TImmutable
+abstract NetworkPrimitives.Utilities.ImmutableListWrapperWithBuilder<TDerived, TItem, TBuilder>.ToBuilder() -> TBuilder!
+abstract NetworkPrimitives.Utilities.ImmutableListWrapperWithBuilder<TDerived, TItem, TEnumerator, TBuilder>.ToBuilder() -> TBuilder!
+NetworkPrimitives.ISlice<TDerived, TItem>
+NetworkPrimitives.ISlice<TDerived, TItem>.Length.get -> int
+NetworkPrimitives.ISlice<TDerived, TItem>.Slice(int start, int length) -> TDerived
+NetworkPrimitives.ISlice<TDerived, TItem>.this[int index].get -> TItem
+NetworkPrimitives.ITryFormat
+NetworkPrimitives.ITryFormat.MaximumLengthRequired.get -> int
+NetworkPrimitives.ITryFormat.TryFormat(System.Span<char> destination, out int charsWritten) -> bool
+NetworkPrimitives.ITryFormattable
+NetworkPrimitives.ITryFormattable.TryFormat(System.Span<char> destination, out int charsWritten, System.ReadOnlySpan<char> format, System.IFormatProvider? formatProvider) -> bool
+NetworkPrimitives.TryFormatExtensions
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.Add(TItem item) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.AddRange(System.Collections.Generic.IEnumerable<TItem>! items) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.Clear() -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.Count.get -> int
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.Find(System.Predicate<TItem>! predicate) -> TItem?
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.FindAll(System.Predicate<TItem>! predicate) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.GetRange(int index, int count) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.IndexOf(TItem item) -> int
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.Insert(int index, TItem item) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.InsertRange(int index, System.Collections.Generic.IEnumerable<TItem>! items) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.IsEmpty.get -> bool
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.ItemRef(int index) -> TItem
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.LastIndexOf(TItem item) -> int
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.Remove(TItem item) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.RemoveAll(System.Predicate<TItem>! predicate) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.RemoveAt(int index) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.RemoveRange(System.Collections.Generic.IEnumerable<TItem>! items) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.Replace(TItem oldValue, TItem newValue) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.Reverse() -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.Reverse(int index, int count) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.SetItem(int index, TItem item) -> TDerived!
+NetworkPrimitives.Utilities.ImmutableListWrapper<TDerived, TItem>.this[int index].get -> TItem
+NetworkPrimitives.Utilities.ImmutableListWrapperBuilder<TDerived, TItem, TImmutable>
+NetworkPrimitives.Utilities.ImmutableListWrapperBuilder<TDerived, TItem, TImmutable>.ImmutableListWrapperBuilder() -> void
+NetworkPrimitives.Utilities.ImmutableListWrapperWithBuilder<TDerived, TItem, TBuilder>
+NetworkPrimitives.Utilities.ImmutableListWrapperWithBuilder<TDerived, TItem, TBuilder>.ImmutableListWrapperWithBuilder() -> void
+NetworkPrimitives.Utilities.ImmutableListWrapperWithBuilder<TDerived, TItem, TEnumerator, TBuilder>
+NetworkPrimitives.Utilities.ImmutableListWrapperWithBuilder<TDerived, TItem, TEnumerator, TBuilder>.ImmutableListWrapperWithBuilder() -> void
+NetworkPrimitives.Utilities.ReadOnlyListSpan<T>
+NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.Equals(NetworkPrimitives.Utilities.ReadOnlyListSpan<T> other) -> bool
+NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.IsEmpty.get -> bool
+NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.Length.get -> int
+NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.ReadOnlyListSpan() -> void
+NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.ReadOnlyListSpan(System.Collections.Generic.IReadOnlyList<T>! list) -> void
+NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.Slice(int start, int length) -> NetworkPrimitives.Utilities.ReadOnlyListSpan<T>
+NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.this[int index].get -> T
+override NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.Equals(object? obj) -> bool
+override NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.GetHashCode() -> int
+static NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.operator !=(NetworkPrimitives.Utilities.ReadOnlyListSpan<T> left, NetworkPrimitives.Utilities.ReadOnlyListSpan<T> right) -> bool
+static NetworkPrimitives.Utilities.ReadOnlyListSpan<T>.operator ==(NetworkPrimitives.Utilities.ReadOnlyListSpan<T> left, NetworkPrimitives.Utilities.ReadOnlyListSpan<T> right) -> bool

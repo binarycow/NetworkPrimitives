@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9A24AE3F-E98C-406F-8EF6-8816224ECB2B}"
+ProjectSection(SolutionItems) = preProject
+	src\Directory.Build.props = src\Directory.Build.props
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1044DFB0-ADCA-41F0-AFA3-B942A47792A1}"
+ProjectSection(SolutionItems) = preProject
+	tests\Directory.Build.props = tests\Directory.Build.props
+EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "tests\Demo\Demo.csproj", "{56A5EA26-AD4A-4CAB-81FB-CF21BB8C0704}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkPrimitives.Tests", "tests\NetworkPrimitives.Tests\NetworkPrimitives.Tests.csproj", "{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Common", "src\NetworkPrimitives.Common\NetworkPrimitives.Common.csproj", "{9F88B24D-2CA8-4178-B575-CEA182FCF776}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv4", "src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj", "{F30DAE77-C764-4CE0-9E63-FF992AEEE251}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\shared\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{252d0a49-9751-468e-a3a7-f0523437de34}*SharedItemsImports = 13
+		src\shared\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{5ddebbfe-0415-491b-941c-201b4cc112f9}*SharedItemsImports = 5
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56A5EA26-AD4A-4CAB-81FB-CF21BB8C0704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56A5EA26-AD4A-4CAB-81FB-CF21BB8C0704}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56A5EA26-AD4A-4CAB-81FB-CF21BB8C0704}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56A5EA26-AD4A-4CAB-81FB-CF21BB8C0704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F88B24D-2CA8-4178-B575-CEA182FCF776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F88B24D-2CA8-4178-B575-CEA182FCF776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F88B24D-2CA8-4178-B575-CEA182FCF776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F88B24D-2CA8-4178-B575-CEA182FCF776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F30DAE77-C764-4CE0-9E63-FF992AEEE251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F30DAE77-C764-4CE0-9E63-FF992AEEE251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F30DAE77-C764-4CE0-9E63-FF992AEEE251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F30DAE77-C764-4CE0-9E63-FF992AEEE251}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{56A5EA26-AD4A-4CAB-81FB-CF21BB8C0704} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
+		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
+		{9F88B24D-2CA8-4178-B575-CEA182FCF776} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
+		{F30DAE77-C764-4CE0-9E63-FF992AEEE251} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {157805D8-FB4B-4043-ABB9-61C17CC21945}
+	EndGlobalSection
+EndGlobal

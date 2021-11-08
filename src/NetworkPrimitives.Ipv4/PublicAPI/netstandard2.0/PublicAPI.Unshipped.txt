@@ -1,0 +1,172 @@
+#nullable enable
+NetworkPrimitives.Ipv4.Ipv4Address
+NetworkPrimitives.Ipv4.Ipv4Address.BigEndianValue.get -> uint
+NetworkPrimitives.Ipv4.Ipv4Address.Equals(NetworkPrimitives.Ipv4.Ipv4Address other) -> bool
+NetworkPrimitives.Ipv4.Ipv4Address.GetOctet(int index) -> byte
+NetworkPrimitives.Ipv4.Ipv4Address.Ipv4Address() -> void
+NetworkPrimitives.Ipv4.Ipv4Address.IsInSubnet(NetworkPrimitives.Ipv4.Ipv4Subnet subnet) -> bool
+NetworkPrimitives.Ipv4.Ipv4Address.TryFormat(System.Span<char> destination, out int charsWritten) -> bool
+NetworkPrimitives.Ipv4.Ipv4Address.TryWriteBytes(System.Span<byte> destination, out int bytesWritten) -> bool
+NetworkPrimitives.Ipv4.Ipv4AddressEnumerator
+NetworkPrimitives.Ipv4.Ipv4AddressEnumerator.Current.get -> NetworkPrimitives.Ipv4.Ipv4Address
+NetworkPrimitives.Ipv4.Ipv4AddressEnumerator.Ipv4AddressEnumerator() -> void
+NetworkPrimitives.Ipv4.Ipv4AddressEnumerator.Ipv4AddressEnumerator(NetworkPrimitives.Ipv4.Ipv4Address startAddress, ulong totalAddresses) -> void
+NetworkPrimitives.Ipv4.Ipv4AddressEnumerator.MoveNext() -> bool
+NetworkPrimitives.Ipv4.Ipv4AddressEnumerator.Reset() -> void
+NetworkPrimitives.Ipv4.Ipv4AddressListSpan
+NetworkPrimitives.Ipv4.Ipv4AddressListSpan.GetEnumerator() -> System.Collections.Generic.IEnumerator<NetworkPrimitives.Ipv4.Ipv4Address>!
+NetworkPrimitives.Ipv4.Ipv4AddressListSpan.Ipv4AddressListSpan() -> void
+NetworkPrimitives.Ipv4.Ipv4AddressListSpan.Length.get -> ulong
+NetworkPrimitives.Ipv4.Ipv4AddressListSpan.Slice(int start) -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
+NetworkPrimitives.Ipv4.Ipv4AddressListSpan.Slice(int start, int length) -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
+NetworkPrimitives.Ipv4.Ipv4AddressListSpan.Slice(ulong start) -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
+NetworkPrimitives.Ipv4.Ipv4AddressListSpan.Slice(ulong start, ulong length) -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
+NetworkPrimitives.Ipv4.Ipv4AddressListSpan.this[int index].get -> NetworkPrimitives.Ipv4.Ipv4Address
+NetworkPrimitives.Ipv4.Ipv4AddressRange
+NetworkPrimitives.Ipv4.Ipv4AddressRange.Equals(NetworkPrimitives.Ipv4.Ipv4AddressRange other) -> bool
+NetworkPrimitives.Ipv4.Ipv4AddressRange.GetEnumerator() -> NetworkPrimitives.Ipv4.Ipv4AddressEnumerator
+NetworkPrimitives.Ipv4.Ipv4AddressRange.Ipv4AddressRange() -> void
+NetworkPrimitives.Ipv4.Ipv4AddressRange.Ipv4AddressRange(NetworkPrimitives.Ipv4.Ipv4Address startAddress, ulong inclusiveLength) -> void
+NetworkPrimitives.Ipv4.Ipv4AddressRange.Length.get -> ulong
+NetworkPrimitives.Ipv4.Ipv4AddressRange.Slice(int start) -> NetworkPrimitives.Ipv4.Ipv4AddressRange
+NetworkPrimitives.Ipv4.Ipv4AddressRange.Slice(int start, int length) -> NetworkPrimitives.Ipv4.Ipv4AddressRange
+NetworkPrimitives.Ipv4.Ipv4AddressRange.Slice(uint start, uint length) -> NetworkPrimitives.Ipv4.Ipv4AddressRange
+NetworkPrimitives.Ipv4.Ipv4AddressRange.Slice(ulong start) -> NetworkPrimitives.Ipv4.Ipv4AddressRange
+NetworkPrimitives.Ipv4.Ipv4AddressRange.this[int index].get -> NetworkPrimitives.Ipv4.Ipv4Address
+NetworkPrimitives.Ipv4.Ipv4AddressRange.this[uint index].get -> NetworkPrimitives.Ipv4.Ipv4Address
+NetworkPrimitives.Ipv4.Ipv4AddressRange.ToEnumerable() -> System.Collections.Generic.IEnumerable<NetworkPrimitives.Ipv4.Ipv4Address>!
+NetworkPrimitives.Ipv4.Ipv4AddressRange.TryFormat(System.Span<char> destination, out int charsWritten) -> bool
+NetworkPrimitives.Ipv4.Ipv4AddressRange.TryFormat(System.Span<char> destination, out int charsWritten, System.ReadOnlySpan<char> format, System.IFormatProvider? formatProvider = null) -> bool
+NetworkPrimitives.Ipv4.Ipv4AddressRangeList
+NetworkPrimitives.Ipv4.Ipv4AddressRangeList.GetAllAddresses() -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
+NetworkPrimitives.Ipv4.Ipv4AddressRangeList.GetEnumerator() -> NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator
+NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator
+NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator.Current.get -> NetworkPrimitives.Ipv4.Ipv4AddressRange
+NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator.Ipv4AddressRangeListEnumerator() -> void
+NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator.MoveNext() -> bool
+NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator.Reset() -> void
+NetworkPrimitives.Ipv4.Ipv4Cidr
+NetworkPrimitives.Ipv4.Ipv4Cidr.Equals(NetworkPrimitives.Ipv4.Ipv4Cidr other) -> bool
+NetworkPrimitives.Ipv4.Ipv4Cidr.Ipv4Cidr() -> void
+NetworkPrimitives.Ipv4.Ipv4Cidr.ToSubnetMask() -> NetworkPrimitives.Ipv4.Ipv4SubnetMask
+NetworkPrimitives.Ipv4.Ipv4Cidr.TotalHosts.get -> ulong
+NetworkPrimitives.Ipv4.Ipv4Cidr.TryFormat(System.Span<char> destination, out int charsWritten) -> bool
+NetworkPrimitives.Ipv4.Ipv4Cidr.UsableHosts.get -> uint
+NetworkPrimitives.Ipv4.Ipv4Subnet
+NetworkPrimitives.Ipv4.Ipv4Subnet.BroadcastAddress.get -> NetworkPrimitives.Ipv4.Ipv4Address
+NetworkPrimitives.Ipv4.Ipv4Subnet.Contains(NetworkPrimitives.Ipv4.Ipv4Address address) -> bool
+NetworkPrimitives.Ipv4.Ipv4Subnet.Contains(NetworkPrimitives.Ipv4.Ipv4Subnet other) -> bool
+NetworkPrimitives.Ipv4.Ipv4Subnet.Deconstruct(out NetworkPrimitives.Ipv4.Ipv4Address networkAddress, out NetworkPrimitives.Ipv4.Ipv4SubnetMask mask) -> void
+NetworkPrimitives.Ipv4.Ipv4Subnet.Equals(NetworkPrimitives.Ipv4.Ipv4Subnet other) -> bool
+NetworkPrimitives.Ipv4.Ipv4Subnet.FirstUsable.get -> NetworkPrimitives.Ipv4.Ipv4Address
+NetworkPrimitives.Ipv4.Ipv4Subnet.GetAllAddresses() -> NetworkPrimitives.Ipv4.Ipv4AddressRange
+NetworkPrimitives.Ipv4.Ipv4Subnet.GetUsableAddresses() -> NetworkPrimitives.Ipv4.Ipv4AddressRange
+NetworkPrimitives.Ipv4.Ipv4Subnet.Ipv4Subnet() -> void
+NetworkPrimitives.Ipv4.Ipv4Subnet.Ipv4Subnet(NetworkPrimitives.Ipv4.Ipv4Address address, NetworkPrimitives.Ipv4.Ipv4SubnetMask mask) -> void
+NetworkPrimitives.Ipv4.Ipv4Subnet.LastUsable.get -> NetworkPrimitives.Ipv4.Ipv4Address
+NetworkPrimitives.Ipv4.Ipv4Subnet.Mask.get -> NetworkPrimitives.Ipv4.Ipv4SubnetMask
+NetworkPrimitives.Ipv4.Ipv4Subnet.NetworkAddress.get -> NetworkPrimitives.Ipv4.Ipv4Address
+NetworkPrimitives.Ipv4.Ipv4Subnet.ToString(string? format, System.IFormatProvider? formatProvider = null) -> string!
+NetworkPrimitives.Ipv4.Ipv4Subnet.TotalHosts.get -> ulong
+NetworkPrimitives.Ipv4.Ipv4Subnet.TryFormat(System.Span<char> destination, out int charsWritten) -> bool
+NetworkPrimitives.Ipv4.Ipv4Subnet.TryFormat(System.Span<char> destination, out int charsWritten, System.ReadOnlySpan<char> format, System.IFormatProvider? formatProvider = null) -> bool
+NetworkPrimitives.Ipv4.Ipv4Subnet.TrySplit(out NetworkPrimitives.Ipv4.Ipv4Subnet low, out NetworkPrimitives.Ipv4.Ipv4Subnet high) -> bool
+NetworkPrimitives.Ipv4.Ipv4Subnet.UsableHosts.get -> uint
+NetworkPrimitives.Ipv4.Ipv4SubnetMask
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.Equals(NetworkPrimitives.Ipv4.Ipv4SubnetMask other) -> bool
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.Ipv4SubnetMask() -> void
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.MaximumLengthRequired.get -> int
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.ToCidr() -> NetworkPrimitives.Ipv4.Ipv4Cidr
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.TotalHosts.get -> ulong
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.ToWildcardMask() -> NetworkPrimitives.Ipv4.Ipv4WildcardMask
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.TryFormat(System.Span<char> destination, out int charsWritten) -> bool
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.TryParse(NetworkPrimitives.Ipv4.Ipv4WildcardMask value, out NetworkPrimitives.Ipv4.Ipv4SubnetMask result) -> bool
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.TryWriteBytes(System.Span<byte> destination, out int bytesWritten) -> bool
+NetworkPrimitives.Ipv4.Ipv4SubnetMask.UsableHosts.get -> uint
+NetworkPrimitives.Ipv4.Ipv4WildcardMask
+NetworkPrimitives.Ipv4.Ipv4WildcardMask.Equals(NetworkPrimitives.Ipv4.Ipv4WildcardMask other) -> bool
+NetworkPrimitives.Ipv4.Ipv4WildcardMask.Ipv4WildcardMask() -> void
+NetworkPrimitives.Ipv4.Ipv4WildcardMask.MaximumLengthRequired.get -> int
+NetworkPrimitives.Ipv4.Ipv4WildcardMask.TryFormat(System.Span<char> destination, out int charsWritten) -> bool
+override NetworkPrimitives.Ipv4.Ipv4Address.Equals(object? obj) -> bool
+override NetworkPrimitives.Ipv4.Ipv4Address.GetHashCode() -> int
+override NetworkPrimitives.Ipv4.Ipv4Address.ToString() -> string!
+override NetworkPrimitives.Ipv4.Ipv4AddressRange.Equals(object? obj) -> bool
+override NetworkPrimitives.Ipv4.Ipv4AddressRange.GetHashCode() -> int
+override NetworkPrimitives.Ipv4.Ipv4Cidr.Equals(object? obj) -> bool
+override NetworkPrimitives.Ipv4.Ipv4Cidr.GetHashCode() -> int
+override NetworkPrimitives.Ipv4.Ipv4Cidr.ToString() -> string!
+override NetworkPrimitives.Ipv4.Ipv4Subnet.Equals(object? obj) -> bool
+override NetworkPrimitives.Ipv4.Ipv4Subnet.GetHashCode() -> int
+override NetworkPrimitives.Ipv4.Ipv4Subnet.ToString() -> string!
+override NetworkPrimitives.Ipv4.Ipv4SubnetMask.Equals(object? obj) -> bool
+override NetworkPrimitives.Ipv4.Ipv4SubnetMask.GetHashCode() -> int
+override NetworkPrimitives.Ipv4.Ipv4SubnetMask.ToString() -> string!
+override NetworkPrimitives.Ipv4.Ipv4WildcardMask.Equals(object? obj) -> bool
+override NetworkPrimitives.Ipv4.Ipv4WildcardMask.GetHashCode() -> int
+override NetworkPrimitives.Ipv4.Ipv4WildcardMask.ToString() -> string!
+static NetworkPrimitives.Ipv4.Ipv4Address.operator !=(NetworkPrimitives.Ipv4.Ipv4Address left, NetworkPrimitives.Ipv4.Ipv4Address right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Address.operator &(NetworkPrimitives.Ipv4.Ipv4Address left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> NetworkPrimitives.Ipv4.Ipv4Address
+static NetworkPrimitives.Ipv4.Ipv4Address.operator &(NetworkPrimitives.Ipv4.Ipv4Address left, NetworkPrimitives.Ipv4.Ipv4SubnetMask right) -> NetworkPrimitives.Ipv4.Ipv4Address
+static NetworkPrimitives.Ipv4.Ipv4Address.operator +(NetworkPrimitives.Ipv4.Ipv4Address left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> NetworkPrimitives.Ipv4.Ipv4Subnet
+static NetworkPrimitives.Ipv4.Ipv4Address.operator +(NetworkPrimitives.Ipv4.Ipv4Address left, NetworkPrimitives.Ipv4.Ipv4SubnetMask right) -> NetworkPrimitives.Ipv4.Ipv4Subnet
+static NetworkPrimitives.Ipv4.Ipv4Address.operator ==(NetworkPrimitives.Ipv4.Ipv4Address left, NetworkPrimitives.Ipv4.Ipv4Address right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Address.Parse(string! value) -> NetworkPrimitives.Ipv4.Ipv4Address
+static NetworkPrimitives.Ipv4.Ipv4Address.TryParse(string! text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4Address result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Address.TryParse(string! text, out NetworkPrimitives.Ipv4.Ipv4Address result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Address.TryParse(System.Net.IPAddress! ipAddress, out NetworkPrimitives.Ipv4.Ipv4Address result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Address.TryParse(System.ReadOnlySpan<byte> octets, out NetworkPrimitives.Ipv4.Ipv4Address result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4AddressListSpan.CreateNew(System.Collections.Immutable.ImmutableList<NetworkPrimitives.Ipv4.Ipv4AddressRange>! ranges) -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
+static NetworkPrimitives.Ipv4.Ipv4AddressRange.EqualityComparer.get -> System.Collections.Generic.IEqualityComparer<NetworkPrimitives.Ipv4.Ipv4AddressRange>!
+static NetworkPrimitives.Ipv4.Ipv4AddressRange.operator !=(NetworkPrimitives.Ipv4.Ipv4AddressRange left, NetworkPrimitives.Ipv4.Ipv4AddressRange right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4AddressRange.operator ==(NetworkPrimitives.Ipv4.Ipv4AddressRange left, NetworkPrimitives.Ipv4.Ipv4AddressRange right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4AddressRange.TryParse(string! text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4AddressRange result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4AddressRange.TryParse(string! text, out NetworkPrimitives.Ipv4.Ipv4AddressRange result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Empty.get -> NetworkPrimitives.Ipv4.Ipv4AddressRangeList!
+static NetworkPrimitives.Ipv4.Ipv4AddressRangeList.TryParse(string! text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4AddressRangeList? result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4AddressRangeList.TryParse(string! text, out NetworkPrimitives.Ipv4.Ipv4AddressRangeList? result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator !=(byte left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator !=(NetworkPrimitives.Ipv4.Ipv4Cidr left, byte right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator !=(NetworkPrimitives.Ipv4.Ipv4Cidr left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator <(byte left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator <(NetworkPrimitives.Ipv4.Ipv4Cidr left, byte right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator <(NetworkPrimitives.Ipv4.Ipv4Cidr left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator <=(byte left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator <=(NetworkPrimitives.Ipv4.Ipv4Cidr left, byte right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator <=(NetworkPrimitives.Ipv4.Ipv4Cidr left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator ==(byte left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator ==(NetworkPrimitives.Ipv4.Ipv4Cidr left, byte right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator ==(NetworkPrimitives.Ipv4.Ipv4Cidr left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator >(byte left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator >(NetworkPrimitives.Ipv4.Ipv4Cidr left, byte right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator >(NetworkPrimitives.Ipv4.Ipv4Cidr left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator >=(byte left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator >=(NetworkPrimitives.Ipv4.Ipv4Cidr left, byte right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.operator >=(NetworkPrimitives.Ipv4.Ipv4Cidr left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.Parse(byte value) -> NetworkPrimitives.Ipv4.Ipv4Cidr
+static NetworkPrimitives.Ipv4.Ipv4Cidr.Parse(int value) -> NetworkPrimitives.Ipv4.Ipv4Cidr
+static NetworkPrimitives.Ipv4.Ipv4Cidr.Parse(string! value) -> NetworkPrimitives.Ipv4.Ipv4Cidr
+static NetworkPrimitives.Ipv4.Ipv4Cidr.TryParse(byte value, out NetworkPrimitives.Ipv4.Ipv4Cidr result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.TryParse(string! text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4Cidr result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Cidr.TryParse(string! text, out NetworkPrimitives.Ipv4.Ipv4Cidr result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Subnet.operator !=(NetworkPrimitives.Ipv4.Ipv4Subnet left, NetworkPrimitives.Ipv4.Ipv4Subnet right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Subnet.operator ==(NetworkPrimitives.Ipv4.Ipv4Subnet left, NetworkPrimitives.Ipv4.Ipv4Subnet right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Subnet.TryParse(string! text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4Subnet result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4Subnet.TryParse(string! text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4Subnet result, out bool implicitSlash32) -> bool
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.implicit operator NetworkPrimitives.Ipv4.Ipv4Cidr(NetworkPrimitives.Ipv4.Ipv4SubnetMask mask) -> NetworkPrimitives.Ipv4.Ipv4Cidr
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.implicit operator NetworkPrimitives.Ipv4.Ipv4SubnetMask(NetworkPrimitives.Ipv4.Ipv4Cidr cidr) -> NetworkPrimitives.Ipv4.Ipv4SubnetMask
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.implicit operator NetworkPrimitives.Ipv4.Ipv4WildcardMask(NetworkPrimitives.Ipv4.Ipv4SubnetMask mask) -> NetworkPrimitives.Ipv4.Ipv4WildcardMask
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.operator !=(NetworkPrimitives.Ipv4.Ipv4SubnetMask left, NetworkPrimitives.Ipv4.Ipv4SubnetMask right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.operator ==(NetworkPrimitives.Ipv4.Ipv4SubnetMask left, NetworkPrimitives.Ipv4.Ipv4SubnetMask right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.TryParse(NetworkPrimitives.Ipv4.Ipv4Address address, out NetworkPrimitives.Ipv4.Ipv4SubnetMask result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.TryParse(string! text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4SubnetMask result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.TryParse(string! text, out NetworkPrimitives.Ipv4.Ipv4SubnetMask result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.TryParse(System.Net.IPAddress! ipAddress, out NetworkPrimitives.Ipv4.Ipv4SubnetMask result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4SubnetMask.TryParse(System.ReadOnlySpan<byte> octets, out NetworkPrimitives.Ipv4.Ipv4SubnetMask result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4WildcardMask.operator !=(NetworkPrimitives.Ipv4.Ipv4WildcardMask left, NetworkPrimitives.Ipv4.Ipv4WildcardMask right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4WildcardMask.operator ==(NetworkPrimitives.Ipv4.Ipv4WildcardMask left, NetworkPrimitives.Ipv4.Ipv4WildcardMask right) -> bool
+static NetworkPrimitives.Ipv4.Ipv4WildcardMask.Parse(NetworkPrimitives.Ipv4.Ipv4Address address) -> NetworkPrimitives.Ipv4.Ipv4WildcardMask
+static NetworkPrimitives.Ipv4.Ipv4WildcardMask.Parse(NetworkPrimitives.Ipv4.Ipv4SubnetMask mask) -> NetworkPrimitives.Ipv4.Ipv4WildcardMask
+static NetworkPrimitives.Ipv4.Ipv4WildcardMask.TryParse(string! text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4WildcardMask result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4WildcardMask.TryParse(System.Net.IPAddress! ipAddress, out NetworkPrimitives.Ipv4.Ipv4WildcardMask result) -> bool
+static NetworkPrimitives.Ipv4.Ipv4WildcardMask.TryParse(System.ReadOnlySpan<byte> octets, out NetworkPrimitives.Ipv4.Ipv4WildcardMask result) -> bool
