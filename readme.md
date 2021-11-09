@@ -25,7 +25,7 @@ These benchmarks compare the performance of this library against [IPNetwork2](ht
 using the benchmark library [BenchmarkDotNet](https://benchmarkdotnet.org/articles/overview.html).
 
 *Note:* It is not an error when the NetworkPrimitives benchmarks show `-` in the `Gen0` and `Allocated` columns.  
-This means that there were no allocations.
+This means that there were no allocations. (or at least, below whatever reporting thresholds BenchmarkDotNet may have...)
 
 To run your own benchmarks, use [NetworkPrimitives.Benchmarks.sln](NetworkPrimitives.Benchmarks.sln)
 
