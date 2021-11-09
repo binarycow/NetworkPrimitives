@@ -28,15 +28,21 @@ namespace NetworkPrimitives.Ipv4
 
         int ISlice<Ipv4AddressRange, Ipv4Address>.Length => (int)this.Length;
 
-        public bool IsSubnet(out Ipv4SubnetMask subnet)
+        public bool IsSubnet(out Ipv4Subnet subnet)
         {
-            if (SubnetMaskLookups.TryGetMaskFromTotalHosts(Length, out var mask))
+            if (!SubnetMaskLookups.TryGetMaskFromTotalHosts(this.Length, out var mask))
             {
-                subnet = Ipv4SubnetMask.Parse(mask);
-                return true;
+                subnet = default;
+                return false;
             }
-            subnet = default;
-            return false;
+            var subnetMask = Ipv4SubnetMask.Parse(mask);
+            if ((this.startAddress & subnetMask) != this.startAddress)
+            {
+                subnet = default;
+                return false;
+            }
+            subnet = this.startAddress + subnetMask;
+            return true;
         }
 
         public Ipv4AddressRange Slice(int start, int length)
