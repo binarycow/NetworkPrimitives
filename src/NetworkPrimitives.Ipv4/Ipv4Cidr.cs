@@ -43,7 +43,7 @@ namespace NetworkPrimitives.Ipv4
 
 
 
-        public static Ipv4Cidr Parse(string value)
+        public static Ipv4Cidr Parse(string? value)
             => TryParse(value, out var result) ? result : throw new FormatException();
 
         public static Ipv4Cidr Parse(int value)
@@ -53,9 +53,13 @@ namespace NetworkPrimitives.Ipv4
         public static bool TryParse(byte value, out Ipv4Cidr result) 
             => (value <= 32, value <= 32 ? new Ipv4Cidr(value) : default).Try(out result);
 
-        public static bool TryParse(string text, out Ipv4Cidr result)
-            => TryParse(text, out var charsRead, out result) && charsRead == text.Length;
-        public static bool TryParse(string text, out int charsRead, out Ipv4Cidr result)
+        public static bool TryParse(string? text, out Ipv4Cidr result)
+        {
+            result = default;
+            return text is not null && Ipv4Cidr.TryParse(text, out var charsRead, out result) && charsRead == text.Length;
+        }
+
+        public static bool TryParse(string? text, out int charsRead, out Ipv4Cidr result)
         {
             var span = new SpanWrapper(text);
             charsRead = default;

@@ -75,7 +75,7 @@ namespace NetworkPrimitives.Ipv4
 
         public IEnumerable<Ipv4Address> ToEnumerable()
         {
-            using var enumerator = ((IEnumerable<Ipv4Address>)this).GetEnumerator();
+            var enumerator = new ClassEnumerator(this.startAddress, this.inclusiveLength);
             while (enumerator.MoveNext())
                 yield return enumerator.Current;
         }
@@ -87,7 +87,7 @@ namespace NetworkPrimitives.Ipv4
         public static bool operator ==(Ipv4AddressRange left, Ipv4AddressRange right) => left.Equals(right);
         public static bool operator !=(Ipv4AddressRange left, Ipv4AddressRange right) => !left.Equals(right);
 
-        public static Ipv4AddressRange Parse(string text)
+        public static Ipv4AddressRange Parse(string? text)
             => TryParse(text, out var value)
                 ? value
                 : throw new FormatException();
@@ -98,10 +98,13 @@ namespace NetworkPrimitives.Ipv4
         public bool TryFormat(Span<char> destination, out int charsWritten) 
             => TryFormat(destination, out charsWritten, default);
 
-        public static bool TryParse(string text, out Ipv4AddressRange result)
-            => TryParse(text, out var charsRead, out result) && charsRead == text.Length;
-        
-        public static bool TryParse(string text, out int charsRead, out Ipv4AddressRange result)
+        public static bool TryParse(string? text, out Ipv4AddressRange result)
+        {
+            result = default;
+            return text is not null && Ipv4AddressRange.TryParse(text, out var charsRead, out result) && charsRead == text.Length;
+        }
+
+        public static bool TryParse(string? text, out int charsRead, out Ipv4AddressRange result)
         {
             var span = new SpanWrapper(text);
             charsRead = default;
@@ -111,7 +114,7 @@ namespace NetworkPrimitives.Ipv4
         internal static bool TryParse(ref SpanWrapper text, ref int charsRead, out Ipv4AddressRange result)
         {
             result = default;
-            if (!Ipv4Subnet.TryParse(ref text, ref charsRead, out var subnet, out var implicitSlash32))
+            if (!Ipv4Subnet.TryParseInternal(ref text, ref charsRead, out var subnet, out var implicitSlash32))
                 return false;
             result = subnet.GetAllAddresses();
             if (!implicitSlash32 || subnet.Mask.IsSlash32 == false)

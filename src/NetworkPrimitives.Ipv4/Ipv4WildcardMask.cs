@@ -53,7 +53,7 @@ namespace NetworkPrimitives.Ipv4
         public static Ipv4WildcardMask Parse(Ipv4Address address) => new Ipv4WildcardMask(address.Value);
 
 
-        public static bool TryParse(string text, out int charsRead, out Ipv4WildcardMask result)
+        public static bool TryParse(string? text, out int charsRead, out Ipv4WildcardMask result)
         {
             result = default;
             if (!Ipv4Address.TryParse(text, out charsRead, out var address))

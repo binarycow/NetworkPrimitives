@@ -23,7 +23,7 @@ namespace NetworkPrimitives.Ipv4
         public ulong TotalHosts => SubnetMaskLookups.GetTotalHosts(this.Value);
         public uint UsableHosts => SubnetMaskLookups.GetUsableHosts(this.Value);
 
-        public static Ipv4SubnetMask Parse(string text)
+        public static Ipv4SubnetMask Parse(string? text)
             => TryParse(text, out var mask)
                 ? mask
                 : throw new FormatException();
@@ -99,7 +99,7 @@ namespace NetworkPrimitives.Ipv4
         }
 
 
-        public static bool TryParse(string text, out int charsRead, out Ipv4SubnetMask result)
+        public static bool TryParse(string? text, out int charsRead, out Ipv4SubnetMask result)
         {
             result = default;
             return Ipv4Address.TryParse(text, out charsRead, out var address) && Ipv4SubnetMask.TryParse(address, out result);
@@ -109,7 +109,7 @@ namespace NetworkPrimitives.Ipv4
 
         private string GetString() => SubnetMaskLookups.GetString(Value);
 
-        public static bool TryParse(string text, out Ipv4SubnetMask result)
+        public static bool TryParse(string? text, out Ipv4SubnetMask result)
         {
             if (SubnetMaskLookups.TryGetSubnetMask(text, out var mask))
             {

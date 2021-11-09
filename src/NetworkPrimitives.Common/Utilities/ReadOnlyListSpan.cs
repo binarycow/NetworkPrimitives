@@ -7,7 +7,7 @@ namespace NetworkPrimitives.Utilities
     {
         private readonly IReadOnlyList<T> list;
         private readonly int startIndex;
-        public ReadOnlyListSpan(IReadOnlyList<T> list) : this(list, 0, list.Count)
+        public ReadOnlyListSpan(IReadOnlyList<T>? list) : this(list ?? Array.Empty<T>(), 0, list?.Count ?? 0)
         {
         }
         private ReadOnlyListSpan(IReadOnlyList<T> list, int startIndex, int length)

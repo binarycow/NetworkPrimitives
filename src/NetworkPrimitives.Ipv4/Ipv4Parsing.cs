@@ -8,9 +8,14 @@ namespace NetworkPrimitives.Ipv4
 {
     internal static class Ipv4Parsing
     {
-        public static bool TryParseDottedDecimalUInt32(string text, out uint result)
-            => TryParseDottedDecimalUInt32(text, out var charsRead, out result) && charsRead == text.Length;
-        public static bool TryParseDottedDecimalUInt32(string text, out int charsRead, out uint result)
+        public static bool TryParseDottedDecimalUInt32(string? text, out uint result)
+        {
+            result = default;
+            return text is not null && Ipv4Parsing.TryParseDottedDecimalUInt32(text, out var charsRead, out result) &&
+                charsRead == text.Length;
+        }
+
+        public static bool TryParseDottedDecimalUInt32(string? text, out int charsRead, out uint result)
         {
             charsRead = default;
             var span = new SpanWrapper(text);

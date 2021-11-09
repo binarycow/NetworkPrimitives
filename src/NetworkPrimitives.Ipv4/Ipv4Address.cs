@@ -6,7 +6,7 @@ using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
 {
-    public readonly struct Ipv4Address : IEquatable<Ipv4Address>, ITryFormat
+    public readonly struct Ipv4Address : IEquatable<Ipv4Address>, ITryFormat, IComparable<Ipv4Address>, IComparable
     {
         internal const int MINIMUM_LENGTH = 7; // 1.1.1.1
         internal const int MAXIMUM_LENGTH = 15; // 123.123.123.123
@@ -59,12 +59,12 @@ namespace NetworkPrimitives.Ipv4
 
         public static Ipv4Address Parse(uint value)
             => new Ipv4Address(value);
-        public static Ipv4Address Parse(string value)
+        public static Ipv4Address Parse(string? value)
             => TryParse(value, out var result) ? result : throw new FormatException();
-        public static bool TryParse(IPAddress ipAddress, out Ipv4Address result)
+        public static bool TryParse(IPAddress? ipAddress, out Ipv4Address result)
         {
             result = default;
-            if (ipAddress.AddressFamily != AddressFamily.InterNetwork)
+            if (ipAddress is null || ipAddress.AddressFamily != AddressFamily.InterNetwork)
                 return false;
             Span<byte> octets = stackalloc byte[4];
             return ipAddress.TryWriteBytes(octets, out var written) 
@@ -79,7 +79,7 @@ namespace NetworkPrimitives.Ipv4
                 && TryParse(value, out result);
         }
 
-        public static bool TryParse(string text, out Ipv4Address result)
+        public static bool TryParse(string? text, out Ipv4Address result)
         {
             result = default;
             return Ipv4Parsing.TryParseDottedDecimalUInt32(text, out var value)
@@ -88,7 +88,7 @@ namespace NetworkPrimitives.Ipv4
 
         public IPAddress ToIpAddress() => this.Value.ToIpAddress();
 
-        public static bool TryParse(string text, out int charsRead, out Ipv4Address result)
+        public static bool TryParse(string? text, out int charsRead, out Ipv4Address result)
         {
             result = default;
             return Ipv4Parsing.TryParseDottedDecimalUInt32(text, out charsRead, out var value)
@@ -114,6 +114,20 @@ namespace NetworkPrimitives.Ipv4
                 && TryParse(value, out result);
         }
 #endif
+
+        public int CompareTo(Ipv4Address other) => this.Value.CompareTo(other.Value);
+
+        public int CompareTo(object? obj) => obj switch
+        {
+            null => 1,
+            Ipv4Address other => CompareTo(other),
+            _ => throw new ArgumentException($"Object must be of type {nameof(Ipv4Address)}"),
+        };
+
+        public static bool operator <(Ipv4Address left, Ipv4Address right) => left.CompareTo(right) < 0;
+        public static bool operator >(Ipv4Address left, Ipv4Address right) => left.CompareTo(right) > 0;
+        public static bool operator <=(Ipv4Address left, Ipv4Address right) => left.CompareTo(right) <= 0;
+        public static bool operator >=(Ipv4Address left, Ipv4Address right) => left.CompareTo(right) >= 0;
     }
 
 }

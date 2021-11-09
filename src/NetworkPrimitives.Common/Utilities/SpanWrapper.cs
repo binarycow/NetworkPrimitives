@@ -18,10 +18,10 @@ namespace NetworkPrimitives.Utilities
 #else
         private readonly string text;
         private readonly int startIndex;
-        public SpanWrapper(string text) : this(text, 0, text.Length) { }
-        private SpanWrapper(string text, int startIndex, int length)
+        public SpanWrapper(string? text) : this(text, 0, text?.Length ?? 0) { }
+        private SpanWrapper(string? text, int startIndex, int length)
         {
-            this.text = text;
+            this.text = text ?? string.Empty;
             this.startIndex = startIndex;
             this.Length = length;
         }

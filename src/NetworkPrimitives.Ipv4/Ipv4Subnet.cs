@@ -61,21 +61,45 @@ namespace NetworkPrimitives.Ipv4
         public bool TryFormat(Span<char> destination, out int charsWritten) 
             => TryFormat(destination, out charsWritten, default);
 
-        public static Ipv4Subnet Parse(string text)
-            => TryParse(text, out var charsRead, out var result) && charsRead == text.Length
+        public static Ipv4Subnet Parse(string? address, string? mask) 
+            => Ipv4Subnet.TryParse(address, mask, out var result)
                 ? result
                 : throw new FormatException();
         
-        public static bool TryParse(string text, out int charsRead, out Ipv4Subnet result)
-            => TryParse(text, out charsRead, out result, out _);
-        public static bool TryParse(string text, out int charsRead, out Ipv4Subnet result, out bool implicitSlash32)
+        public static Ipv4Subnet Parse(string? text) 
+            => Ipv4Subnet.TryParse(text, out var result)
+                ? result
+                : throw new FormatException();
+
+        public static bool TryParse(string? address, string? maskOrCidr, out Ipv4Subnet result)
+        {
+            result = default;
+            if (!Ipv4Address.TryParse(address, out var parsedAddress))
+                return false;
+            if (Ipv4SubnetMask.TryParse(maskOrCidr, out var mask))
+            {
+                result = parsedAddress + mask;
+                return true;
+            }
+            if (!Ipv4Cidr.TryParse(maskOrCidr, out var cidr))
+                return false;
+            result = parsedAddress / cidr;
+            return true;
+        }
+        
+        
+        public static bool TryParse(string? text, out Ipv4Subnet result)
+            => Ipv4Subnet.TryParseInternal(text, out _, out result, out _);
+        public static bool TryParse(string? text, out int charsRead, out Ipv4Subnet result)
+            => Ipv4Subnet.TryParseInternal(text, out charsRead, out result, out _);
+        internal static bool TryParseInternal(string? text, out int charsRead, out Ipv4Subnet result, out bool implicitSlash32)
         {
             var span = new SpanWrapper(text);
             charsRead = default;
-            return TryParse(ref span, ref charsRead, out result, out implicitSlash32);
+            return Ipv4Subnet.TryParseInternal(ref span, ref charsRead, out result, out implicitSlash32);
         }
 
-        internal static bool TryParse(ref SpanWrapper text, ref int charsRead, out Ipv4Subnet result, out bool implicitSlash32)
+        internal static bool TryParseInternal(ref SpanWrapper text, ref int charsRead, out Ipv4Subnet result, out bool implicitSlash32)
         {
             implicitSlash32 = default;
             result = default;
@@ -129,7 +153,7 @@ namespace NetworkPrimitives.Ipv4
         {
             var span = new SpanWrapper(text);
             charsRead = default;
-            return TryParse(ref span, ref charsRead, out result, out implicitSlash32);
+            return Ipv4Subnet.TryParseInternal(ref span, ref charsRead, out result, out implicitSlash32);
         }
         
         

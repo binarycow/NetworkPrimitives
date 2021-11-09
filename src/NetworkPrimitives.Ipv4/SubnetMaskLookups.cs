@@ -18,7 +18,7 @@ namespace NetworkPrimitives.Ipv4
             _ = SubnetMaskLookups.TryGetCidr(value, out var result);
             return result;
         }
-        public static bool TryGetSubnetMask(string value, out uint result)
+        public static bool TryGetSubnetMask(string? value, out uint result)
         {
             bool success;
             (success, result) = SubnetMaskLookups.TryGetSubnetMask(value);
@@ -362,7 +362,7 @@ namespace NetworkPrimitives.Ipv4
             _ => (false, default),
         };
         
-        public static (bool Success, uint Value) TryGetSubnetMask(string value) => value switch
+        public static (bool Success, uint Value) TryGetSubnetMask(string? value) => value switch
         {
             "0.0.0.0" => (true, (uint)0x00000000),
             "128.0.0.0" => (true, 0x80000000),

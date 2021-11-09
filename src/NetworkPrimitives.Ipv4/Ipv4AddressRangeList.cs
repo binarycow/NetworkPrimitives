@@ -22,18 +22,21 @@ namespace NetworkPrimitives.Ipv4
         protected override IEqualityComparer<Ipv4AddressRange> EqualityComparer => Ipv4AddressRange.EqualityComparer;
         protected override Ipv4AddressRangeList CreateInstance(ImmutableList<Ipv4AddressRange> items) => new (items);
 
-        public static Ipv4AddressRangeList Parse(string text)
+        public static Ipv4AddressRangeList Parse(string? text)
             => TryParse(text, out var result)
                 ? result
                 : throw new FormatException();
         
-        public static bool TryParse(string text, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
-            => TryParse(text, out var charsRead, out result) && charsRead == text.Length;
+        public static bool TryParse(string? text, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
+        {
+            result = default;
+            return text is not null && Ipv4AddressRangeList.TryParse(text, out var charsRead, out result) && charsRead == text.Length;
+        }
 
         public Ipv4AddressRangeListEnumerator GetEnumerator() => new (new (Items));
         public Ipv4AddressListSpan GetAllAddresses() => Ipv4AddressListSpan.CreateNew(Items);
 
-        public static bool TryParse(string text, out int charsRead, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
+        public static bool TryParse(string? text, out int charsRead, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
         {
             var span = new SpanWrapper(text);
             charsRead = default;
@@ -88,7 +91,7 @@ namespace NetworkPrimitives.Ipv4
             this.Length = length;
         }
 
-        public static Ipv4AddressListSpan CreateNew(ImmutableList<Ipv4AddressRange> ranges)
+        public static Ipv4AddressListSpan CreateNew(ImmutableList<Ipv4AddressRange>? ranges)
         {
             var span = new ReadOnlyListSpan<Ipv4AddressRange>(ranges);
             _ = span.TrySliceFirst(out Ipv4AddressRange firstSlice);
@@ -216,7 +219,7 @@ namespace NetworkPrimitives.Ipv4
         
         private sealed class Ipv4AddressListSpanEnumerator : IEnumerator<Ipv4Address>
         {
-            private Ipv4AddressListSpan original;
+            private readonly Ipv4AddressListSpan original;
             private Ipv4AddressListSpan span;
             private Ipv4Address current;
             public Ipv4AddressListSpanEnumerator(Ipv4AddressListSpan span) => this.original = this.span = span;
