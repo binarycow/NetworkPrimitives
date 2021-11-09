@@ -66,11 +66,26 @@ namespace NetworkPrimitives.Ipv4
                 ? result
                 : throw new FormatException();
         
+        public static Ipv4Subnet Parse(string? address, int mask) 
+            => Ipv4Subnet.TryParse(address, mask, out var result)
+                ? result
+                : throw new FormatException();
+        
         public static Ipv4Subnet Parse(string? text) 
             => Ipv4Subnet.TryParse(text, out var result)
                 ? result
                 : throw new FormatException();
-
+        public static bool TryParse(string? address, int cidr, out Ipv4Subnet result)
+        {
+            result = default;
+            if (!Ipv4Address.TryParse(address, out var parsedAddress))
+                return false;
+            if (cidr is < 0 or > 255 || !Ipv4Cidr.TryParse((byte)cidr, out var parsedCidr))
+                return false;
+            result = parsedAddress / parsedCidr;
+            return true;
+        }
+        
         public static bool TryParse(string? address, string? maskOrCidr, out Ipv4Subnet result)
         {
             result = default;

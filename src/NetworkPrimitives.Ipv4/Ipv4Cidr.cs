@@ -14,6 +14,8 @@ namespace NetworkPrimitives.Ipv4
 
         public override string ToString() => this.GetString();
 
+        public static explicit operator byte(Ipv4Cidr cidr) => cidr.Value;
+
         public bool Equals(Ipv4Cidr other) => this.Value == other.Value;
         public override bool Equals(object? obj) => obj is Ipv4Cidr other && Equals(other);
         public override int GetHashCode() => this.Value.GetHashCode();
