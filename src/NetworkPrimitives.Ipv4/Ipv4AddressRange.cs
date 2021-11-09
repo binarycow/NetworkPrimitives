@@ -69,6 +69,11 @@ namespace NetworkPrimitives.Ipv4
         public override int GetHashCode() => HashCode.Combine(this.startAddress, this.inclusiveLength);
         public static bool operator ==(Ipv4AddressRange left, Ipv4AddressRange right) => left.Equals(right);
         public static bool operator !=(Ipv4AddressRange left, Ipv4AddressRange right) => !left.Equals(right);
+
+        public static Ipv4AddressRange Parse(string text)
+            => TryParse(text, out var value)
+                ? value
+                : throw new FormatException();
         
         public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? formatProvider = null)
             => Ipv4Formatting.TryFormat(this, destination, out charsWritten, format, formatProvider);

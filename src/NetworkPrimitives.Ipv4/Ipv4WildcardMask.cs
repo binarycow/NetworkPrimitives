@@ -17,20 +17,20 @@ namespace NetworkPrimitives.Ipv4
         public static bool operator !=(Ipv4WildcardMask left, Ipv4WildcardMask right) => !left.Equals(right);
         
         
-        public bool TryFormat(Span<char> destination, out int charsWritten)
+        public bool TryFormat(Span<char> destination, out int charsWritten) 
+            => Ipv4Formatting.TryFormatDottedDecimal(this.Value, destination, out charsWritten);
+
+
+        public override string ToString()
         {
-            charsWritten = 0;
-            var result = this.GetString();
-            if (destination.Length < result.Length)
-                return false;
-            foreach (var ch in result)
-                destination.TryWrite(ch, ref charsWritten);
-            return charsWritten == result.Length;
+            var charsRequired = MaximumLengthRequired;
+            Span<char> chars = stackalloc char[charsRequired];
+            _ = TryFormat(chars, out var charsWritten);
+            chars = chars[..charsWritten];
+            return chars.CreateString();
         }
-        
-        public override string ToString() => this.GetString();
-        
-        
+
+
         public static bool TryParse(IPAddress ipAddress, out Ipv4WildcardMask result)
         {
             result = default;

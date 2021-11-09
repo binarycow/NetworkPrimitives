@@ -27,7 +27,10 @@ namespace NetworkPrimitives.Ipv4
         public static Ipv4Address operator &(Ipv4Address left, Ipv4SubnetMask right) => new (left.Value & right.Value);
         public static Ipv4Subnet operator +(Ipv4Address left, Ipv4SubnetMask right) => new (left, right);
         public static Ipv4Subnet operator +(Ipv4Address left, Ipv4Cidr right) => new (left, right);
+        public static Ipv4Subnet operator /(Ipv4Address left, Ipv4Cidr right) => new (left, right);
 
+        
+        
         internal Ipv4Address AddInternal(uint delta) => new (Value + delta);
         internal Ipv4Address SubtractInternal(uint delta) => new (Value - delta);
 
@@ -54,6 +57,8 @@ namespace NetworkPrimitives.Ipv4
 
         public override string ToString() => this.GetString();
 
+        public static Ipv4Address Parse(uint value)
+            => new Ipv4Address(value);
         public static Ipv4Address Parse(string value)
             => TryParse(value, out var result) ? result : throw new FormatException();
         public static bool TryParse(IPAddress ipAddress, out Ipv4Address result)
@@ -110,4 +115,5 @@ namespace NetworkPrimitives.Ipv4
         }
 #endif
     }
+
 }

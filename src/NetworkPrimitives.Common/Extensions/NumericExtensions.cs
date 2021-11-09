@@ -2,11 +2,21 @@
 
 using System;
 using System.Buffers.Binary;
+using System.Numerics;
 
 namespace NetworkPrimitives
 {
     internal static class NumericExtensions
     {
+        public static uint PopCount(this uint v)
+        {
+            // Intentionally not using BitOperations.PopCount as its not CLS compliant.
+            // https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel
+            v = v - ((v >> 1) & 0x55555555);                    
+            v = (v & 0x33333333) + ((v >> 2) & 0x33333333);     
+            return (((v + (v >> 4)) & 0xF0F0F0F) * 0x1010101) >> 24; 
+        }
+        
         public static bool TryWriteBigEndian(this uint value, Span<byte> span, out int bytesWritten)
         {
             bytesWritten = default;

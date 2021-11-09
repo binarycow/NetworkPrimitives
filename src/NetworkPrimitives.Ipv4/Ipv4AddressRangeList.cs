@@ -21,6 +21,12 @@ namespace NetworkPrimitives.Ipv4
         }
         protected override IEqualityComparer<Ipv4AddressRange> EqualityComparer => Ipv4AddressRange.EqualityComparer;
         protected override Ipv4AddressRangeList CreateInstance(ImmutableList<Ipv4AddressRange> items) => new (items);
+
+        public static Ipv4AddressRangeList Parse(string text)
+            => TryParse(text, out var result)
+                ? result
+                : throw new FormatException();
+        
         public static bool TryParse(string text, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
             => TryParse(text, out var charsRead, out result) && charsRead == text.Length;
 

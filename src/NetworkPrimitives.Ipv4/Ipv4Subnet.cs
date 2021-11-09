@@ -61,6 +61,11 @@ namespace NetworkPrimitives.Ipv4
         public bool TryFormat(Span<char> destination, out int charsWritten) 
             => TryFormat(destination, out charsWritten, default);
 
+        public static Ipv4Subnet Parse(string text)
+            => TryParse(text, out var charsRead, out var result) && charsRead == text.Length
+                ? result
+                : throw new FormatException();
+        
         public static bool TryParse(string text, out int charsRead, out Ipv4Subnet result)
             => TryParse(text, out charsRead, out result, out _);
         public static bool TryParse(string text, out int charsRead, out Ipv4Subnet result, out bool implicitSlash32)
@@ -140,8 +145,7 @@ namespace NetworkPrimitives.Ipv4
         public override int GetHashCode() => HashCode.Combine(this.NetworkAddress, this.Mask);
         public static bool operator ==(Ipv4Subnet left, Ipv4Subnet right) => left.Equals(right);
         public static bool operator !=(Ipv4Subnet left, Ipv4Subnet right) => !left.Equals(right);
-
-        public Ipv4AddressRange GetUsableAddresses() => new (NetworkAddress, UsableHosts - 1);
+        public Ipv4AddressRange GetUsableAddresses() => new(this.FirstUsable, this.UsableHosts - 1);
         public Ipv4AddressRange GetAllAddresses() => new (NetworkAddress, (uint)(TotalHosts - 1));
     }
 }

@@ -23,6 +23,11 @@ namespace NetworkPrimitives.Ipv4
         public ulong TotalHosts => SubnetMaskLookups.GetTotalHosts(this.Value);
         public uint UsableHosts => SubnetMaskLookups.GetUsableHosts(this.Value);
 
+        public static Ipv4SubnetMask Parse(string text)
+            => TryParse(text, out var mask)
+                ? mask
+                : throw new FormatException();
+        
         public bool TryParse(Ipv4WildcardMask value, out Ipv4SubnetMask result)
         {
             var val = ~value.Value;
@@ -44,7 +49,8 @@ namespace NetworkPrimitives.Ipv4
             BinaryPrimitives.TryWriteUInt32BigEndian(destination, this.Value);
             return true;
         }
-        public int MaximumLengthRequired => Ipv4Address.MAXIMUM_LENGTH;
+        int ITryFormat.MaximumLengthRequired => Ipv4Address.MAXIMUM_LENGTH;
+
         internal bool IsSlash32Or31 => Value is 0xFFFFFFFF or 0xFFFFFFFE;
         internal bool IsSlash32 => Value is 0xFFFFFFFF;
 
