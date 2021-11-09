@@ -167,6 +167,49 @@ namespace NetworkPrimitives.Ipv4
             _ => 0,
         };
 
+        public static bool TryGetMaskFromTotalHosts(ulong totalHosts, out uint mask)
+        {
+            bool success;
+            (success, mask) = totalHosts switch
+            {
+                4294967296 => (true, (uint)0x00000000),
+                2147483648 => (true, 0x80000000),
+                1073741824 => (true, 0xC0000000),
+                536870912 => (true, 0xE0000000),
+                268435456 => (true, 0xF0000000),
+                134217728 => (true, 0xF8000000),
+                67108864 => (true, 0xFC000000),
+                33554432 => (true, 0xFE000000),
+                16777216 => (true, 0xFF000000),
+                8388608 => (true, 0xFF800000),
+                4194304 => (true, 0xFFC00000),
+                2097152 => (true, 0xFFE00000),
+                1048576 => (true, 0xFFF00000),
+                524288 => (true, 0xFFF80000),
+                262144 => (true, 0xFFFC0000),
+                131072 => (true, 0xFFFE0000),
+                65536 => (true, 0xFFFF0000),
+                32768 => (true, 0xFFFF8000),
+                16384 => (true, 0xFFFFC000),
+                8192 => (true, 0xFFFFE000),
+                4096 => (true, 0xFFFFF000),
+                2048 => (true, 0xFFFFF800),
+                1024 => (true, 0xFFFFFC00),
+                512 => (true, 0xFFFFFE00),
+                256 => (true, 0xFFFFFF00),
+                128 => (true, 0xFFFFFF80),
+                64 => (true, 0xFFFFFFC0),
+                32 => (true, 0xFFFFFFE0),
+                16 => (true, 0xFFFFFFF0),
+                8 => (true, 0xFFFFFFF8),
+                4 => (true, 0xFFFFFFFC),
+                2 => (true, 0xFFFFFFFE),
+                1 => (true, 0xFFFFFFFF),
+                _ => (false, default),
+            };
+            return success;
+        }
+
         public static uint GetUsableHosts(uint value) => value switch
         {
             0x00000000 => 4294967294,

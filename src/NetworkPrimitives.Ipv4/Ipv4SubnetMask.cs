@@ -27,19 +27,24 @@ namespace NetworkPrimitives.Ipv4
             => TryParse(text, out var mask)
                 ? mask
                 : throw new FormatException();
-        
-        public bool TryParse(Ipv4WildcardMask value, out Ipv4SubnetMask result)
+
+        public static Ipv4SubnetMask Parse(uint value)
+            => TryParse(value, out var mask)
+                ? mask
+                : throw new FormatException();
+
+        public static bool TryParse(uint value, out Ipv4SubnetMask result)
         {
-            var val = ~value.Value;
-            if (SubnetMaskLookups.IsValidSubnetMask(val))
+            if (SubnetMaskLookups.IsValidSubnetMask(value))
             {
-                result = new (val);
+                result = new (value);
                 return true;
             }
             result = default;
             return false;
         }
-        
+        public bool TryParse(Ipv4WildcardMask value, out Ipv4SubnetMask result) => TryParse(~value.Value, out result);
+
         public bool TryWriteBytes(Span<byte> destination, out int bytesWritten)
         {
             bytesWritten = default;

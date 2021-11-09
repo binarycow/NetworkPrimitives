@@ -28,6 +28,17 @@ namespace NetworkPrimitives.Ipv4
 
         int ISlice<Ipv4AddressRange, Ipv4Address>.Length => (int)this.Length;
 
+        public bool IsSubnet(out Ipv4SubnetMask subnet)
+        {
+            if (SubnetMaskLookups.TryGetMaskFromTotalHosts(Length, out var mask))
+            {
+                subnet = Ipv4SubnetMask.Parse(mask);
+                return true;
+            }
+            subnet = default;
+            return false;
+        }
+
         public Ipv4AddressRange Slice(int start, int length)
         {
             if(start < 0 || length < 0) throw new ArgumentOutOfRangeException();
