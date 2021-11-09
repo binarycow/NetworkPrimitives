@@ -86,16 +86,7 @@ namespace NetworkPrimitives.Ipv4
                 && TryParse(value, out result);
         }
 
-        public IPAddress ToIpAddress()
-        {
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-            Span<byte> bytes = stackalloc byte[4];
-#else
-            var bytes = new byte[4];
-#endif
-            TryWriteBytes(bytes, out _);
-            return new (bytes);
-        }
+        public IPAddress ToIpAddress() => this.Value.ToIpAddress();
 
         public static bool TryParse(string text, out int charsRead, out Ipv4Address result)
         {

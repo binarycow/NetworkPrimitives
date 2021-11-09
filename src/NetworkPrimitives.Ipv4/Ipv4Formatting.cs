@@ -2,6 +2,7 @@
 
 using System;
 using System.Buffers.Binary;
+using System.Net;
 using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
@@ -25,7 +26,17 @@ namespace NetworkPrimitives.Ipv4
             }
             return true;
         }
-
+        
+        public static IPAddress ToIpAddress(this uint value)
+        {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+            Span<byte> bytes = stackalloc byte[4];
+#else
+            var bytes = new byte[4];
+#endif
+            value.TryWriteBigEndian(bytes, out _);
+            return new (bytes);
+        }
 
         public static bool TryFormat(Ipv4Address value, Span<char> destination, out int charsWritten)
             => TryFormatDottedDecimal(value.Value, destination, out charsWritten);

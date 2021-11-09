@@ -20,6 +20,7 @@ namespace NetworkPrimitives.Ipv4
         public bool TryFormat(Span<char> destination, out int charsWritten) 
             => Ipv4Formatting.TryFormatDottedDecimal(this.Value, destination, out charsWritten);
 
+        public IPAddress ToIpAddress() => this.Value.ToIpAddress();
 
         public override string ToString()
         {

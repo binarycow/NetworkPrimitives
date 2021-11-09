@@ -54,6 +54,7 @@ namespace NetworkPrimitives.Ipv4
         internal bool IsSlash32Or31 => Value is 0xFFFFFFFF or 0xFFFFFFFE;
         internal bool IsSlash32 => Value is 0xFFFFFFFF;
 
+        public IPAddress ToIpAddress() => this.Value.ToIpAddress();
         public bool TryFormat(Span<char> destination, out int charsWritten)
         {
             charsWritten = 0;
