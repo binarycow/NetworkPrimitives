@@ -15,7 +15,7 @@ namespace NetworkPrimitives.Benchmarks
             Environment.CurrentDirectory = path;
 
 
-             _ = BenchmarkSwitcher.FromTypes(new[]{typeof(Ipv4AddressParsing)})
+             _ = BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly)
                      ?.RunAll() ?? Enumerable.Empty<Summary>();
         }
     }

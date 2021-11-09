@@ -2,7 +2,11 @@
 
 Lightweight libraries for working with various networking objects
 
+- [Ipv4](#networkingprimitivesipv4)
+
 ## NetworkingPrimitives.Ipv4
+
+![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/NetworkPrimitives.Ipv4)
 
 Various IPv4 types
 
@@ -14,6 +18,70 @@ Various IPv4 types
 - `Ipv4SubnetMask`
 - `Ipv4AddressRange`
 - `Ipv4AddressRangeList`
+
+### Benchmarks
+
+These benchmarks compare the performance of this library against [IPNetwork2](https://github.com/lduchosal/ipnetwork),
+using the benchmark library [BenchmarkDotNet](https://benchmarkdotnet.org/articles/overview.html).
+
+*Note:* It is not an error when the NetworkPrimitives benchmarks show `-` in the `Gen0` and `Allocated` columns.  
+This means that there were no allocations.
+
+To run your own benchmarks, use [NetworkPrimitives.Benchmarks.sln](NetworkPrimitives.Benchmarks.sln)
+
+#### Parsing
+
+```c#
+public void NetworkPrimitives()
+{
+    foreach (var address in TestData.RandomIpAddresses)
+    {
+        _ = NetworkPrimitives.Ipv4.Ipv4Address.Parse(address);
+    }
+}
+
+public void IpNetwork2()
+{
+    foreach (var address in TestData.RandomIpAddresses)
+    {
+        _ = System.Net.IPNetwork.Parse(address);
+    }
+}
+```
+
+|            Method |      Mean |    Error |   StdDev |    Median |   Gen 0 | Allocated |
+|------------------ |----------:|---------:|---------:|----------:|--------:|----------:|
+| NetworkPrimitives |  51.80 μs | 1.085 μs | 2.915 μs |  50.21 μs |       - |         - |
+|        IpNetwork2 | 168.41 μs | 2.808 μs | 7.687 μs | 165.02 μs | 34.6680 | 145,053 B |
+
+#### Iterating IP addresses
+
+```c#
+public void NetworkPrimitives()
+{
+    var subnet = Ipv4Subnet.Parse("10.0.0.0/24");
+    foreach (var address in subnet.GetAllAddresses())
+    {
+
+    }
+}
+
+public void IpNetwork2()
+{
+    var subnet = System.Net.IPNetwork.Parse("10.0.0.0/24");
+    foreach (var address in subnet.ListIPAddress())
+    {
+        
+    }
+}
+```
+
+|            Method |       Mean |      Error |      StdDev |     Median |    Gen 0 | Allocated |
+|------------------ |-----------:|-----------:|------------:|-----------:|---------:|----------:|
+| NetworkPrimitives |   1.514 μs |  0.0815 μs |   0.2203 μs |   1.447 μs |        - |         - |
+|        IpNetwork2 | 540.961 μs | 41.5761 μs | 113.8139 μs | 518.839 μs | 134.7656 | 564,865 B |
+
+
 
 ### Examples
 
