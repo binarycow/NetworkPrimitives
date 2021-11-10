@@ -1,4 +1,6 @@
-﻿#nullable enable
+﻿/*
+
+#nullable enable
 
 using System;
 using System.Collections;
@@ -62,3 +64,6 @@ namespace NetworkPrimitives.Utilities
         IEnumerator<TItem> IEnumerable<TItem>.GetEnumerator() => GetClassEnumerator();
     }
 }
+
+
+*/

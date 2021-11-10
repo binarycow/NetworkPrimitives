@@ -4,23 +4,28 @@ using System;
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
+//using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
 {
-    public sealed class Ipv4AddressRangeList : ImmutableListWrapper<Ipv4AddressRangeList, Ipv4AddressRange>
+    public sealed class Ipv4AddressRangeList  //: ImmutableListWrapper<Ipv4AddressRangeList, Ipv4AddressRange>
     {
+        private IReadOnlyList<Ipv4AddressRange> Items { get; }
         public static Ipv4AddressRangeList Empty { get; } = new Ipv4AddressRangeList();
-        private Ipv4AddressRangeList() : this(ImmutableList<Ipv4AddressRange>.Empty)
+        private Ipv4AddressRangeList() : this(Array.Empty<Ipv4AddressRange>())
         {
         }
-        private Ipv4AddressRangeList(ImmutableList<Ipv4AddressRange> ranges) : base(ranges)
+        private Ipv4AddressRangeList(IReadOnlyList<Ipv4AddressRange> ranges) // : base(ranges)
         {
+            Items = ranges;
         }
-        protected override IEqualityComparer<Ipv4AddressRange> EqualityComparer => Ipv4AddressRange.EqualityComparer;
-        protected override Ipv4AddressRangeList CreateInstance(ImmutableList<Ipv4AddressRange> items) => new (items);
+
+        public int Count => Items.Count;
+        
+        // protected override IEqualityComparer<Ipv4AddressRange> EqualityComparer => Ipv4AddressRange.EqualityComparer;
+        // protected override Ipv4AddressRangeList CreateInstance(ImmutableList<Ipv4AddressRange> items) => new (items);
 
         public static Ipv4AddressRangeList Parse(string? text)
             => TryParse(text, out var result)
@@ -54,9 +59,9 @@ namespace NetworkPrimitives.Ipv4
             text = textCopy;
             charsRead = charsReadCopy;
 
-            var builder = ImmutableList.CreateBuilder<Ipv4AddressRange>();
-            builder.Add(range);
-            
+            // var builder = ImmutableList.CreateBuilder<Ipv4AddressRange>();
+            var builder = new List<Ipv4AddressRange> { range };
+
             while (textCopy.TryConsumeWhiteSpace(ref charsReadCopy))
             {
                 if (!Ipv4AddressRange.TryParse(ref textCopy, ref charsReadCopy, out range))
@@ -68,7 +73,7 @@ namespace NetworkPrimitives.Ipv4
             _ = textCopy.TryConsumeWhiteSpace(ref charsReadCopy);
             text = textCopy;
             charsRead = charsReadCopy;
-            result = new (builder.ToImmutable());
+            result = new (builder.AsReadOnly());
             return true;
         }
     }
@@ -91,7 +96,7 @@ namespace NetworkPrimitives.Ipv4
             this.Length = length;
         }
 
-        public static Ipv4AddressListSpan CreateNew(ImmutableList<Ipv4AddressRange>? ranges)
+        public static Ipv4AddressListSpan CreateNew(IReadOnlyList<Ipv4AddressRange>? ranges)
         {
             var span = new ReadOnlyListSpan<Ipv4AddressRange>(ranges);
             _ = span.TrySliceFirst(out Ipv4AddressRange firstSlice);
