@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
     <PackageReference Include="IPNetwork2" Version="2.5.366" Aliases="Lib_IPN2" />
-    <PackageReference Include="NetworkPrimitives.Ipv4" Version="1.0.0-alpha" />
+    <PackageReference Include="NetworkPrimitives.Ipv4" Version="1.0.0-alpha06" />
   </ItemGroup>
 
   <ItemGroup>

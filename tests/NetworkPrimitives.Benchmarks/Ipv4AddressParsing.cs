@@ -26,6 +26,15 @@ namespace NetworkPrimitives.Benchmarks
                 _ = Ipv4Address.Parse(address);
             }
         }
+        
+        [Benchmark]
+        public void DotNet()
+        {
+            foreach (var address in TestData.RandomIpAddresses)
+            {
+                _ = System.Net.IPAddress.Parse(address);
+            }
+        }
 
         [Benchmark]
         public void IpNetwork2()
