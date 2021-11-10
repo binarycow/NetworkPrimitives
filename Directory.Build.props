@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <Authors>binarycow</Authors>
     <Copyright>© 2021 Mike Christiansen</Copyright>
     <RepositoryUrl>https://github.com/binarycow/NetworkPrimitives</RepositoryUrl>
