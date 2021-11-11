@@ -38,7 +38,7 @@ namespace NetworkPrimitives.Utilities
             return this.SliceImplementation(start, length);
         }
 
-        public bool IsEmpty => this.text.Length == 0;
+        public bool IsEmpty => this.Length == 0;
 
     }
 }
