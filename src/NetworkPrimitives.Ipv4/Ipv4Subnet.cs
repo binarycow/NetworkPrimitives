@@ -35,7 +35,15 @@ namespace NetworkPrimitives.Ipv4
             high = new (highAddress, cidr);
             return true;
         }
+        
+        public static Ipv4Subnet GetContainingSupernet(params Ipv4Subnet[] subnets)
+            => SubnetOperations.GetContainingSupernet(subnets);
+        public static Ipv4Subnet GetContainingSupernet(IEnumerable<Ipv4Subnet> subnets)
+            => SubnetOperations.GetContainingSupernet(subnets);
+        public static Ipv4Subnet GetContainingSupernet(Ipv4Subnet a, Ipv4Subnet b)
+            => SubnetOperations.GetContainingSupernet(a, b);
 
+        
         public bool Contains(Ipv4Address address) => (address & this.Mask) == NetworkAddress;
         
         public bool Contains(Ipv4Subnet other)

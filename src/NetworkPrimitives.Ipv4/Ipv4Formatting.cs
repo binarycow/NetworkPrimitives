@@ -75,7 +75,7 @@ namespace NetworkPrimitives.Ipv4
 
             static bool TryFormatCidr(Ipv4Subnet value, Span<char> destination, ref int charsWritten)
                 => value.NetworkAddress.TryWriteTo(ref destination, ref charsWritten)
-                    && ' '.TryWriteTo(ref destination, ref charsWritten)
+                    && '/'.TryWriteTo(ref destination, ref charsWritten)
                     && value.Mask.ToCidr().TryWriteTo(ref destination, ref charsWritten);
             
             static bool TryFormatWildcard(Ipv4Subnet value, Span<char> destination, ref int charsWritten)
