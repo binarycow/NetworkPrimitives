@@ -19,7 +19,7 @@ namespace NetworkPrimitives.Ipv4
         public Ipv4SubnetMask Mask { get; }
         public Ipv4Subnet(Ipv4Address address, Ipv4SubnetMask mask)
         {
-            this.NetworkAddress = address;
+            this.NetworkAddress = address & mask;
             this.Mask = mask;
         }
 
