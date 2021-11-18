@@ -9,13 +9,18 @@ namespace NetworkPrimitives.Utilities
         
         
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+        public string GetString() => new string(this.text);
         private readonly ReadOnlySpan<char> text;
         public SpanWrapper(ReadOnlySpan<char> text) => this.text = text;
         private string DebuggerDisplay => this.text.ToString();
         public int Length => this.text.Length;
         public char this[int index] => this.text[index];
         private SpanWrapper SliceImplementation(int start, int length) => new(this.text.Slice(start, length));
+        public int IndexOf(ReadOnlySpan<char> other, StringComparison comparison = StringComparison.Ordinal) 
+            => this.text.IndexOf(other, comparison);
+
 #else
+        public string GetString() => text.Substring(this.startIndex, this.Length);
         private readonly string text;
         private readonly int startIndex;
         public SpanWrapper(string? text) : this(text, 0, text?.Length ?? 0) { }
@@ -29,6 +34,8 @@ namespace NetworkPrimitives.Utilities
         public int Length { get; }
         public char this[int index] => this.text[this.startIndex + index];
         private SpanWrapper SliceImplementation(int start, int length) => new (this.text, this.startIndex + start, length);
+        public int IndexOf(string other, StringComparison comparison = StringComparison.Ordinal) 
+            => this.text.IndexOf(other, this.startIndex, this.Length,  comparison);
 #endif
         
         public SpanWrapper Slice(int start, int length)

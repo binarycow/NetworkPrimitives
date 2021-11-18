@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>NetworkPrimitives.Ipv6</Title>
+    <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address;</PackageTags>
+    <Description>Lightweight package for working with IPv6 addresses, ranges, and subnets.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetworkPrimitives.Common\NetworkPrimitives.Common.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -5,7 +5,7 @@ using System.Net;
 using NetworkPrimitives.Ipv4;
 using NUnit.Framework;
 
-namespace NetworkPrimitives.Tests
+namespace NetworkPrimitives.Tests.Ipv4
 {
     [TestFixture]
     public class Ipv4AddressTests
@@ -164,10 +164,5 @@ namespace NetworkPrimitives.Tests
             Assert.AreEqual(input.Length, charsRead);
             Assert.AreEqual(expectedValue, address.Value.SwapEndianIfLittleEndian());
         }
-        
-        
-        
-        
-        
     }
 }

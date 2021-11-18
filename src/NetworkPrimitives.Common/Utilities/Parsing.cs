@@ -1,9 +1,40 @@
-﻿#nullable enable
+﻿using System;
+
+#nullable enable
 
 namespace NetworkPrimitives.Utilities
 {
     internal static class Parsing
     {
+
+        public static bool TryParseHexUshort(
+            ref this SpanWrapper text, 
+            ref int charsRead, 
+            out ushort value
+        )
+        {
+            var length = GetHexChars(text);
+            length = Math.Min(4, length);
+            value = default;
+            for (var i = 0; i < length; ++i)
+            {
+                var hex = text[0];
+                text = text[1..];
+                value <<= 4;
+                value |= GetValue(hex);
+            }
+            charsRead += length;
+            return length > 0;
+
+            static ushort GetValue(char ch) => ch switch
+            {
+                >= '0' and <= '9' => (ushort)(ch - '0'),
+                >= 'a' and <= 'f' => (ushort)(ch - 'a' + 10),
+                >= 'A' and <= 'F' => (ushort)(ch - 'A' + 10),
+                _ => 0,
+            };
+        }
+        
         public static bool TryParseByte(
             ref this SpanWrapper text, 
             ref int charsRead, 
@@ -29,6 +60,14 @@ namespace NetworkPrimitives.Utilities
         {
             var length = 0;
             while (text.TrySliceFirst(out var ch) && ch is >= '0' and <= '9')
+                ++length;
+            return length;
+        }
+        
+        private static int GetHexChars(SpanWrapper text)
+        {
+            var length = 0;
+            while (text.TrySliceFirst(out var ch) && ch.IsHex())
                 ++length;
             return length;
         }

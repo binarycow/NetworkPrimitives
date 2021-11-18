@@ -3,4 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)src/NetworkPrimitives.Ipv4/NetworkPrimitives.Ipv4.csproj" />
+    <ProjectReference Include="$(SolutionDir)src/NetworkPrimitives.Ipv6/NetworkPrimitives.Ipv6.csproj" />
+    <ProjectReference Include="$(SolutionDir)src/NetworkPrimitives.Common/NetworkPrimitives.Common.csproj" />
+  </ItemGroup>
 </Project>

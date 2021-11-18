@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>A55F6197-6943-4A26-B2B7-3C96ADDAC3FD</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>NetworkPrimitives.Tests</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4AddressTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4SubnetTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4SubnetMaskTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipv6\Ipv6AddressTests.cs" />
+  </ItemGroup>
+</Project>
