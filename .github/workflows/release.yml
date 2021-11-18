@@ -28,8 +28,8 @@ jobs:
         
     - name: Set Version
       run: |
-        echo "Will create git tag '${ github.event.inputs.packageVersion }'"
-        VERSION="${github.event.inputs.packageVersion}"
+        echo "Will create git tag '${{ github.event.inputs.packageVersion }}'"
+        VERSION="${{github.event.inputs.packageVersion}}"
         
     - name: Commit tagger
       uses: tvdias/github-tagger@v0.0.2
