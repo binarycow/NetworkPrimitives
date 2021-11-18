@@ -1,8 +1,12 @@
 on:  
   workflow_dispatch:
-  push:
-    tags:
-    - "v[0-9]+.[0-9]+.[0-9]+(-[a-z]+[0-9]+)?"
+    inputs:
+      packageVersion:
+        description: 'Nuget Package Version'
+        required: true
+  #push:
+  #  tags:
+  #  - "v[0-9]+.[0-9]+.[0-9]+(-[a-z]+[0-9]+)?"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,21 +15,35 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NUGET_FEED: https://api.nuget.org/v3/index.json
       NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      
     - name: Verify commit exists in origin/master
+    
       run: |
         git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
         git branch --remote --contains | grep origin/master
+        
     - name: Set Version
       run: |
-          echo GITHUB_REF: ${GITHUB_REF}
-          arrTag=(${GITHUB_REF//\// })
-          VERSION="${arrTag[2]}"
-          echo Version: $VERSION
-          VERSION="${VERSION//v}"
-          echo Clean Version: $VERSION
+        echo "Will create git tag '${ github.event.inputs.packageVersion }'"
+        VERSION="${github.event.inputs.packageVersion}"
+        
+    - name: Commit tagger
+      uses: tvdias/github-tagger@v0.0.2
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        tag: ${{ github.event.inputs.packageVersion }}
+        
+      #run: |
+      #    echo GITHUB_REF: ${GITHUB_REF}
+      #    arrTag=(${GITHUB_REF//\// })
+      #    VERSION="${arrTag[2]}"
+      #    echo Version: $VERSION
+      #    VERSION="${VERSION//v}"
+      #    echo Clean Version: $VERSION
     #- name: Set VERSION variable from tag
     #  run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
     #- name: Build
