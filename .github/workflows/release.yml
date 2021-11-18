@@ -20,6 +20,7 @@ jobs:
         git branch --remote --contains | grep origin/master
     - name: Set Version
       run: |
+          echo GITHUB_REF: ${GITHUB_REF}
           arrTag=(${GITHUB_REF//\// })
           VERSION="${arrTag[2]}"
           echo Version: $VERSION
