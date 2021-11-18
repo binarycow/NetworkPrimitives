@@ -7,6 +7,14 @@
     <PackageOutputPath>$(SolutionDir)publish/$(Version)</PackageOutputPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>NetworkPrimitives.Tests.Core</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>NetworkPrimitives.Tests.Framework</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 <!-- 
   <PropertyGroup>
     <IncludeSymbols>true</IncludeSymbols>
