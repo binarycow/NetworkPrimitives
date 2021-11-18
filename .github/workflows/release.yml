@@ -44,4 +44,4 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration Release /p:Version=${{github.event.inputs.packageVersion}} --no-build --output . --include-symbols --include-source NetworkPrimitives.sln
     - name: Push
-      run: dotnet nuget push *.${{github.event.inputs.packageVersion}}.nupkg --source $NUGET_FEED --api-key $NUGET_KEY
+      run: dotnet nuget push NetworkPrimitives.*.${{github.event.inputs.packageVersion}}.nupkg --source $NUGET_FEED --api-key $NUGET_KEY
