@@ -93,7 +93,7 @@ namespace NetworkPrimitives.Ipv6
 
         internal static bool TryParse(SpanWrapper text, out int charsRead, out Ipv6Address result)
         {
-            if (!Ipv6Parsing.TryParseIpv6Address(text, out charsRead, out var high, out var low))
+            if (Ipv6Parsing.TryParseIpv6Address(text, out charsRead, out var high, out var low))
             {
                 result = new Ipv6Address(low, high);
                 return true;
