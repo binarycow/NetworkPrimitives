@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>NetworkPrimitives.Yang</Title>
+    <PackageTags>yang;</PackageTags>
+    <Description>Lightweight package for working with YANG types</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetworkPrimitives.Common\NetworkPrimitives.Common.csproj" />
+  </ItemGroup>
+</Project>
