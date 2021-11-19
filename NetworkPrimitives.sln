@@ -35,6 +35,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{BC67F332-7
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Demo", "tests\Demo\Demo.shproj", "{259B9FDD-ACF3-4EFF-A0C8-3C48D38B00D4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C004A053-6172-4403-935C-6B60AC3B2F53}"
+ProjectSection(SolutionItems) = preProject
+	docs\ipv4.md = docs\ipv4.md
+	docs\ipv6.md = docs\ipv6.md
+	docs\switching.md = docs\switching.md
+	LICENSE = LICENSE
+	readme.md = readme.md
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\shared\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{252d0a49-9751-468e-a3a7-f0523437de34}*SharedItemsImports = 13
