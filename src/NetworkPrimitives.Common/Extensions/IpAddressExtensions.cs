@@ -3,7 +3,6 @@
 using System;
 using System.Net;
 
-// ReSharper disable once CheckNamespace
 namespace NetworkPrimitives
 {
     internal static class IpAddressExtensions
