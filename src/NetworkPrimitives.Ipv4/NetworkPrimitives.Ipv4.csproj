@@ -28,4 +28,7 @@
       <DependentUpon>Ipv4AddressRange.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions" />
+  </ItemGroup>
 </Project>
