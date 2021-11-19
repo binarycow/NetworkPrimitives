@@ -25,6 +25,7 @@ namespace NetworkPrimitives.Ipv4
 
         public static Ipv4Address operator &(Ipv4Address left, Ipv4Cidr right) => left & right.ToSubnetMask();
         public static Ipv4Address operator &(Ipv4Address left, Ipv4SubnetMask right) => new (left.Value & right.Value);
+        public static Ipv4Address operator &(Ipv4Address left, Ipv4WildcardMask right) => new (left.Value & right.Value);
         public static Ipv4Subnet operator +(Ipv4Address left, Ipv4SubnetMask right) => new (left, right);
         public static Ipv4Subnet operator +(Ipv4Address left, Ipv4Cidr right) => new (left, right);
         public static Ipv4Subnet operator /(Ipv4Address left, Ipv4Cidr right) => new (left, right);
