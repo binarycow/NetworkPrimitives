@@ -28,15 +28,13 @@ namespace NetworkPrimitives.Tests.Ipv4
     {
         public static IReadOnlyList<Ipv4TestCase> LoadTestCases(string path)
         {
-            var fullPath = Path.GetFullPath(Path.Combine("../../../..",path));
-            var jsonString = File.ReadAllText(fullPath);
+            var jsonString = EmbeddedResourceUtils.ReadFromResourceFile("randomips.json") ?? "[]";
             var strings = JsonSerializer.Deserialize<Ipv4TestCaseStrings[]>(jsonString)
                 ?? Array.Empty<Ipv4TestCaseStrings>();
             return strings.Select(ParseTestCase).ToList();
         }
         private static Ipv4TestCase ParseTestCase(Ipv4TestCaseStrings arg)
         {
-            ;
             return new Ipv4TestCase(
                 IpString: arg.IpString,
                 MaskString: arg.MaskString,

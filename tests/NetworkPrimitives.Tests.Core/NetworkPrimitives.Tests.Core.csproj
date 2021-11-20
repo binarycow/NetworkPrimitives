@@ -14,6 +14,12 @@
     <PackageReference Include="coverlet.collector" Version="3.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="..\randomips.json">
+      <Link>randomips.json</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <Import Project="..\NetworkPrimitives.Tests\NetworkPrimitives.Tests.projitems" Label="Shared" />
 
 </Project>
