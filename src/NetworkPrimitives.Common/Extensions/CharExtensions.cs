@@ -1,5 +1,6 @@
 ﻿namespace NetworkPrimitives
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class CharExtensions
     {
         public static bool IsHex(this char ch) => ch switch

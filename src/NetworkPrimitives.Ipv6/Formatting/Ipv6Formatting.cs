@@ -7,6 +7,7 @@ using System.Text;
 
 namespace NetworkPrimitives.Ipv6
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class Ipv6Formatting
     {
         public static string FormatIpv6Address(

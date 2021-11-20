@@ -5,7 +5,7 @@ using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
 {
-    public readonly struct Ipv4SubnetMask : IEquatable<Ipv4SubnetMask>, ITryFormat
+    public readonly struct Ipv4SubnetMask : IFormattableBinaryNetworkPrimitive<Ipv4SubnetMask>
     {
         internal uint Value { get; }
         private Ipv4SubnetMask(uint value) => this.Value = value;
@@ -45,15 +45,9 @@ namespace NetworkPrimitives.Ipv4
         }
         public bool TryParse(Ipv4WildcardMask value, out Ipv4SubnetMask result) => TryParse(~value.Value, out result);
 
-        public bool TryWriteBytes(Span<byte> destination, out int bytesWritten)
-        {
-            bytesWritten = default;
-            if (destination.Length < 4)
-                return false;
-            bytesWritten = 4;
-            BinaryPrimitives.TryWriteUInt32BigEndian(destination, this.Value);
-            return true;
-        }
+        public bool TryWriteBytes(Span<byte> destination, out int bytesWritten) 
+            => this.Value.TryWriteBigEndian(destination, out bytesWritten);
+        public byte[] GetBytes() => this.Value.ToBytesBigEndian();
         int ITryFormat.MaximumLengthRequired => Ipv4Address.MAXIMUM_LENGTH;
 
         internal bool IsSlash32Or31 => Value is 0xFFFFFFFF or 0xFFFFFFFE;
@@ -72,6 +66,18 @@ namespace NetworkPrimitives.Ipv4
         }
         
         public override string ToString() => this.GetString();
+        public string ToString(string? format, IFormatProvider? formatProvider)
+            => this.GetString(format, formatProvider);
+        public bool TryFormat(Span<char> destination, out int charsWritten, string? format, IFormatProvider? formatProvider)
+        {
+            return format switch
+            {
+                null or "M" => Ipv4Formatting.TryFormatDottedDecimal(this.Value, destination, out charsWritten),
+                "W" => this.ToWildcardMask().TryFormat(destination, out charsWritten),
+                "C" => this.ToCidr().TryFormat(destination, out charsWritten),
+                _ => throw new FormatException(),
+            };
+        }
 
         public static bool TryParse(IPAddress ipAddress, out Ipv4SubnetMask result)
         {
@@ -132,13 +138,21 @@ namespace NetworkPrimitives.Ipv4
             return true;
         }
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+
+        public static Ipv4SubnetMask Parse(ReadOnlySpan<char> text)
+            => TryParse(text, out var mask)
+                ? mask
+                : throw new FormatException();
+
         public static bool TryParse(ReadOnlySpan<char> text, out Ipv4SubnetMask result)
             => TryParse(text, out var charsRead, out result) && charsRead == text.Length;
+
         public static bool TryParse(ReadOnlySpan<char> text, out int charsRead, out Ipv4SubnetMask result)
         {
             result = default;
             return Ipv4Address.TryParse(text, out charsRead, out var address) && TryParse(address, out result);
         }
+
 #endif
     }
 }

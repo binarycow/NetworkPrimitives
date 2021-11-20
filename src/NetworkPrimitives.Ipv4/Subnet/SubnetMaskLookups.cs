@@ -2,6 +2,7 @@
 
 namespace NetworkPrimitives.Ipv4
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class SubnetMaskLookups
     {
         public static bool IsValidSubnetMask(uint value) 

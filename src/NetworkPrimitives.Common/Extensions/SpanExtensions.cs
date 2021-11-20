@@ -5,6 +5,7 @@ using System.Buffers.Binary;
 
 namespace NetworkPrimitives
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class SpanExtensions
     {
         public static string CreateString(this Span<char> span)

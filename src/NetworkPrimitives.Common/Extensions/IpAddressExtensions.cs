@@ -5,6 +5,7 @@ using System.Net;
 
 namespace NetworkPrimitives
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class IpAddressExtensions
     {
 #if !(NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER)

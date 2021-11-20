@@ -1,7 +1,13 @@
 ﻿<Project>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <TargetFrameworks>net6.0;net5.0;netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' != 'Debug' ">
+    <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+  
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
   <PropertyGroup>
-    <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <PackageOutputPath>$(SolutionDir)publish/$(Version)</PackageOutputPath>
   </PropertyGroup>
@@ -23,6 +29,11 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="IsExternalInit" Version="1.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="IndexRange" Version="1.0.1-beta.1" />
   </ItemGroup>
   
   <ItemGroup>

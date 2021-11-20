@@ -20,7 +20,7 @@ namespace NetworkPrimitives.Yang
             var span = new SpanWrapper(text);
             return TryParse(span, out var charsRead, out expression, rfc) && charsRead == text.Length;
         }
-
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
         public static bool TryParse(
             ReadOnlySpan<char> text,
             [NotNullWhen(true)] out InstanceIdentifier? expression,
@@ -36,6 +36,7 @@ namespace NetworkPrimitives.Yang
             var span = new SpanWrapper(text);
             return TryParse(span, out charsRead, out expression, rfc);
         }
+#endif
         internal static bool TryParse(
             SpanWrapper text,
             out int charsRead,
@@ -56,7 +57,7 @@ namespace NetworkPrimitives.Yang
             }
 
             var expressions = new List<InstanceIdentifierExpression>();
-            while (InstanceIdentifierExpression.TryParse(ref text, ref charsRead, out var expr))
+            while (InstanceIdentifierExpression.TryParse(ref text, ref charsRead, out var expr, rfc))
             {
                 expressions.Add(expr);
                 if (!text.TryReadCharacter(ref charsRead, '/'))
@@ -95,7 +96,7 @@ namespace NetworkPrimitives.Yang
             charsRead = 0;
             if (!PrefixedName.TryParse(ref text, ref charsRead, out var name, rfc))
                 return false;
-            if (!InstanceIdentifierPredicate.TryParse(ref text, ref charsRead, out var predicate))
+            if (!InstanceIdentifierPredicate.TryParse(ref text, ref charsRead, out var predicate, rfc))
             {
                 expression = new (name, null);
                 return true;

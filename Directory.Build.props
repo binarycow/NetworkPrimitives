@@ -1,17 +1,31 @@
 ﻿<Project>
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <LangVersion>9</LangVersion>
+    <LangVersion>preview</LangVersion>
     <AnalysisLevel>latest</AnalysisLevel>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition = " '$(CICD)' != '' ">
     <DefineConstants>$(DefineConstants);CICD</DefineConstants>
   </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' And '$(TargetFramework)' == 'net6.0' ">
+    <EnablePreviewFeatures>True</EnablePreviewFeatures>
+    <DefineConstants>$(DefineConstants);STATIC_ABSTRACT</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(EnablePreviewFeatures)' == 'True' ">
+  </ItemGroup>
 
   <PropertyGroup>
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <!-- A stable release of a package should not have a prerelease dependency. -->
+    <!-- Pre-release dependency is the IndexRange package. -->
+    <NoWarn>$(NoWarn);NU5104</NoWarn>
   </PropertyGroup>
   
   <PropertyGroup>

@@ -4,6 +4,7 @@ using System;
 
 namespace NetworkPrimitives.Utilities
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class Formatting
     {
         private const int MAX_BYTE_LENGTH = 3;

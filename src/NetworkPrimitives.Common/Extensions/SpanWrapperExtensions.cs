@@ -5,6 +5,7 @@ using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class SpanWrapperExtensions
     {
         public static void SplitKeepFirst(ref this SpanWrapper first, int length, out SpanWrapper second)

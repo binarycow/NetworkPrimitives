@@ -6,7 +6,8 @@ using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
 {
-    public readonly struct Ipv4Address : IEquatable<Ipv4Address>, ITryFormat, IComparable<Ipv4Address>, IComparable
+    public readonly struct Ipv4Address 
+        : IComparable<Ipv4Address>, IComparable, IBinaryNetworkPrimitive<Ipv4Address>
     {
         internal const int MINIMUM_LENGTH = 7; // 1.1.1.1
         internal const int MAXIMUM_LENGTH = 15; // 123.123.123.123
@@ -14,7 +15,10 @@ namespace NetworkPrimitives.Ipv4
         private Ipv4Address(uint value) => this.Value = value;
         internal uint Value { get; }
 
+        [ExcludeFromCodeCoverage]
         public uint BigEndianValue => Value;
+        [ExcludeFromCodeCoverage]
+        public uint LittleEndianValue => Value.SwapEndianIfLittleEndian();
 
         public bool Equals(Ipv4Address other) => this.Value == other.Value;
         public override bool Equals(object? obj) => obj is Ipv4Address other && Equals(other);
@@ -32,7 +36,9 @@ namespace NetworkPrimitives.Ipv4
 
         
         
+        [ExcludeFromCodeCoverage]
         internal Ipv4Address AddInternal(uint delta) => new (Value + delta);
+        [ExcludeFromCodeCoverage]
         internal Ipv4Address SubtractInternal(uint delta) => new (Value - delta);
 
         public bool IsInSubnet(Ipv4Subnet subnet) => subnet.Contains(this);
@@ -48,10 +54,10 @@ namespace NetworkPrimitives.Ipv4
 
         internal byte this[int index] => GetOctet(index);
         
-        int ITryFormat.MaximumLengthRequired => MAXIMUM_LENGTH;
-
         public bool TryWriteBytes(Span<byte> destination, out int bytesWritten) 
             => this.Value.TryWriteBigEndian(destination, out bytesWritten);
+        public byte[] GetBytes() => this.Value.ToBytesBigEndian();
+        int ITryFormat.MaximumLengthRequired => Ipv4Address.MAXIMUM_LENGTH;
 
         public bool TryFormat(Span<char> destination, out int charsWritten)
             => Ipv4Formatting.TryFormat(this, destination, out charsWritten);
@@ -101,6 +107,7 @@ namespace NetworkPrimitives.Ipv4
             result = new Ipv4Address(value);
             return true;
         }
+
         internal static bool TryParse(ref SpanWrapper text, ref int charsRead, out Ipv4Address result)
         {
             result = default;
@@ -108,6 +115,14 @@ namespace NetworkPrimitives.Ipv4
                 && TryParse(value, out result);
         }
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+
+        public static Ipv4Address Parse(ReadOnlySpan<char> value)
+            => TryParse(value, out var result) ? result : throw new FormatException();
+
+        public static bool TryParse(ReadOnlySpan<char> text, out Ipv4Address result)
+            => TryParse(text, out var charsRead, out result) && charsRead == text.Length;
+
+
         public static bool TryParse(ReadOnlySpan<char> text, out int charsRead, out Ipv4Address result)
         {
             result = default;

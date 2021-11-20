@@ -7,4 +7,9 @@
   </PropertyGroup>
   <Import Project="..\Demo\Demo.projitems" Label="Shared" />
 
+  <ItemGroup>
+    <Compile Include="..\..\..\src\NetworkPrimitives.Common\ExcludeFromCodeCoverageAttribute.cs">
+      <Link>ExcludeFromCodeCoverageAttribute.cs</Link>
+    </Compile>
+  </ItemGroup>
 </Project>

@@ -3,12 +3,14 @@ using System.Diagnostics;
 
 namespace NetworkPrimitives.Utilities
 {
+    [ExcludeFromCodeCoverage("Internal")]
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     internal readonly ref struct SpanWrapper
     {
         
         
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+        public ReadOnlySpan<char> GetSpan() => this.text;
         public string GetString() => new string(this.text);
         private readonly ReadOnlySpan<char> text;
         public SpanWrapper(ReadOnlySpan<char> text) => this.text = text;
@@ -46,6 +48,5 @@ namespace NetworkPrimitives.Utilities
         }
 
         public bool IsEmpty => this.Length == 0;
-
     }
 }

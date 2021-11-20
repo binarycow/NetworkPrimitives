@@ -6,6 +6,7 @@ using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class Ipv4Parsing
     {
         public static bool TryParseDottedDecimalUInt32(string? text, out uint result)

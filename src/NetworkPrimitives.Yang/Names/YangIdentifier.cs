@@ -58,7 +58,8 @@ namespace NetworkPrimitives.Yang
                 result = default;
                 return false;
             }
-            var original = text[1..];
+            var original = text;
+            text = text[1..];
             var length = 1;
             while (text.Length > 0 && IsValidChar(text[0]))
             {
@@ -87,6 +88,7 @@ namespace NetworkPrimitives.Yang
             {
                 >= 'A' and <= 'Z' => true,
                 >= 'a' and <= 'z' => true,
+                >= '0' and <= '9' => true,
                 '_' => true,
                 '-' => true,
                 '.' => true,

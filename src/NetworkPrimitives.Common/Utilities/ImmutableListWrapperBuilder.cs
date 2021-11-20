@@ -1,4 +1,4 @@
-﻿#nullable enable
+﻿/*#nullable enable
 
 using System;
 
@@ -13,4 +13,4 @@ namespace NetworkPrimitives.Utilities
         }
         //public abstract TImmutable ToImmutable();
     }
-}
+}*/

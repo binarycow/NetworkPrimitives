@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace NetworkPrimitives
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class SliceExtensions
     {
         [return: NotNullIfNotNull("defaultValue")]
