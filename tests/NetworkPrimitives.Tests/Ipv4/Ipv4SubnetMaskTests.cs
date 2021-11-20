@@ -3,9 +3,12 @@ using NUnit.Framework;
 
 namespace NetworkPrimitives.Tests.Ipv4
 {
+#if CICD
     [TestFixture]
+#endif
     public class Ipv4SubnetMaskTests
     {
+#if CICD
         [Test]
         [TestCase("0.0.0.0")]
         [TestCase("128.0.0.0")]
@@ -45,5 +48,6 @@ namespace NetworkPrimitives.Tests.Ipv4
             Assert.AreEqual(true, Ipv4SubnetMask.TryParse(input, out var mask));
             Assert.AreEqual(input, mask.ToString());
         }
+#endif
     }
 }
