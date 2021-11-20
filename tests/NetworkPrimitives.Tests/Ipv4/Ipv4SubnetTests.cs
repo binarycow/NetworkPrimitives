@@ -4,9 +4,7 @@ using NUnit.Framework;
 
 namespace NetworkPrimitives.Tests.Ipv4
 {
-#if CICD
     [TestFixture]
-#endif
     public class Ipv4SubnetTests
     {
         public static IReadOnlyList<Ipv4TestCase> GetTestCases() 
@@ -20,10 +18,10 @@ namespace NetworkPrimitives.Tests.Ipv4
             foreach (var testCase in Ipv4SubnetTests.GetTestCases())
                 TestParse(testCase);
         }
-// #else
+#else
         [Test]
         [TestCaseSource(nameof(Ipv4SubnetTests.GetTestCases))]
-// #endif
+#endif
         public void TestParse(Ipv4TestCase testCase)
         {
             Assert.AreEqual(true, Ipv4Subnet.TryParse(testCase.SubnetInput, out var subnet));
@@ -35,6 +33,5 @@ namespace NetworkPrimitives.Tests.Ipv4
             Assert.AreEqual(testCase.LastUsable, subnet.LastUsable.Value);
             Assert.AreEqual(testCase.SubnetExpected, subnet.ToString());
         }
-#endif
     }
 }

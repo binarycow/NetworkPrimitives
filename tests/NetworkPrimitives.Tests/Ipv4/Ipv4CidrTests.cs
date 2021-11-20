@@ -6,12 +6,9 @@ using NUnit.Framework;
 
 namespace NetworkPrimitives.Tests.Ipv4
 {
-#if CICD
     [TestFixture]
-#endif
     public class Ipv4CidrTests
     {
-#if CICD
         [Test]
         [TestCase((byte)32, (ulong)1, (uint)1, (uint)0xFFFFFFFF)]
         [TestCase((byte)31, (ulong)2, (uint)2, (uint)0xFFFFFFFE)]
@@ -56,6 +53,5 @@ namespace NetworkPrimitives.Tests.Ipv4
             Assert.AreEqual(value.ToString(), cidr.ToString());
             Assert.AreEqual(mask, cidr.ToSubnetMask().Value);
         }
-#endif
     }
 }
