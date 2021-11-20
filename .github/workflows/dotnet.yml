@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore NetworkPrimitives.sln
+      run: dotnet restore /p:CICD=CICD NetworkPrimitives.sln
     - name: Build
-      run: dotnet build --no-restore NetworkPrimitives.sln
+      run: dotnet build /p:CICD=CICD --no-restore NetworkPrimitives.sln
     - name: Test
-      run: dotnet test --no-build --verbosity normal NetworkPrimitives.sln
+      run: dotnet test /p:CICD=CICD --no-build --verbosity normal NetworkPrimitives.sln
