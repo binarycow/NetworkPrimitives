@@ -2,6 +2,7 @@
 
 namespace NetworkPrimitives.Ipv6
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal readonly struct Ipv6FormatInfo : IEquatable<Ipv6FormatInfo>
     {
         public bool Compress { get; }

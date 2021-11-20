@@ -8,12 +8,13 @@ namespace NetworkPrimitives
         public bool TryFormat(Span<char> destination, out int charsWritten);
     }
 
-    internal interface ITryFormattable : ITryFormat
+    internal interface ITryFormattable : ITryFormat, IFormattable
     {
-        public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? formatProvider);
+        public bool TryFormat(Span<char> destination, out int charsWritten, string? format, IFormatProvider? formatProvider);
     }
     
 
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class TryFormatExtensions
     {
         private const int MAXIMUM_STACKALLOC_LENGTH = 256;
@@ -32,7 +33,7 @@ namespace NetworkPrimitives
         
         internal static string GetString<T>(
             this T tryFormat, 
-            ReadOnlySpan<char> format, 
+            string? format, 
             IFormatProvider? formatProvider
         ) where T : ITryFormattable
         {

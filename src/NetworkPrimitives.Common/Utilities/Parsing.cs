@@ -4,6 +4,7 @@
 
 namespace NetworkPrimitives.Utilities
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class Parsing
     {
 
@@ -34,7 +35,25 @@ namespace NetworkPrimitives.Utilities
                 _ => 0,
             };
         }
-        
+        public static bool TryParseUInt64(
+            ref this SpanWrapper text, 
+            ref int charsRead, 
+            out ulong value
+        )
+        {
+            value = default;
+            var length = Parsing.GetDigitLength(text);
+            if (length == 0) return false;
+            text.SplitKeepSecond(length, out var remainder);
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+            var success = ulong.TryParse(remainder.GetSpan(), out value);
+#else
+            var success = ulong.TryParse(remainder.GetString(), out value);
+#endif
+            if (!success) return false;
+            charsRead += length;
+            return true;
+        }
         public static bool TryParseByte(
             ref this SpanWrapper text, 
             ref int charsRead, 
@@ -42,21 +61,20 @@ namespace NetworkPrimitives.Utilities
         )
         {
             value = default;
-            var length = Parsing.GetByteChars(text);
+            var length = Parsing.GetDigitLength(text);
             if (length == 0) return false;
             text.SplitKeepSecond(length, out var remainder);
-            var intValue = 0;
-            while (remainder.TrySliceFirst(out var ch))
-            {
-                intValue *= 10;
-                intValue += ch - '0';
-            }
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+            var success = byte.TryParse(remainder.GetSpan(), out value);
+#else
+            var success = byte.TryParse(remainder.GetString(), out value);
+#endif
+            if (!success) return false;
             charsRead += length;
-            value = (byte)intValue;
             return true;
         }
         
-        private static int GetByteChars(SpanWrapper text)
+        private static int GetDigitLength(SpanWrapper text)
         {
             var length = 0;
             while (text.TrySliceFirst(out var ch) && ch is >= '0' and <= '9')

@@ -10,4 +10,5 @@
   <ItemGroup>
     <ProjectReference Include="..\NetworkPrimitives.Common\NetworkPrimitives.Common.csproj" />
   </ItemGroup>
+
 </Project>

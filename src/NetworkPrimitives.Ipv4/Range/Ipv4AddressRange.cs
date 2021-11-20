@@ -7,26 +7,31 @@ using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
 {
-    public readonly partial struct Ipv4AddressRange : IEquatable<Ipv4AddressRange>, IEnumerable<Ipv4Address>, ISlice<Ipv4AddressRange, Ipv4Address>
+    public readonly partial struct Ipv4AddressRange 
+        : INetworkPrimitive<Ipv4AddressRange>, IEnumerable<Ipv4Address>, ISlice<Ipv4AddressRange, Ipv4Address>
     {
         public static IEqualityComparer<Ipv4AddressRange> EqualityComparer { get; } = new StartAddressInclusiveLengthEqualityComparer();
-        
-        private readonly Ipv4Address startAddress;
+
+        internal Ipv4Address StartAddress { get; }
+        internal Ipv4Address LastAddressInclusive => StartAddress.AddInternal((uint)this.inclusiveLength);
+        internal bool AllIpsSameFirstThreeOctets => (StartAddress / Ipv4Cidr.Parse(24)).Contains(LastAddressInclusive);
         private readonly ulong inclusiveLength;
 
         public Ipv4AddressRange(Ipv4Address startAddress, ulong inclusiveLength)
         {
-            this.startAddress = startAddress;
+            this.StartAddress = startAddress;
             this.inclusiveLength = inclusiveLength;
         }
 
-        public Ipv4Address this[int index] => index >= 0 ? this.startAddress.AddInternal((uint)index) : throw new ArgumentOutOfRangeException(nameof(index));
+        public Ipv4Address this[int index] => index >= 0 ? this.StartAddress.AddInternal((uint)index) : throw new ArgumentOutOfRangeException(nameof(index));
 
-        public Ipv4Address this[uint index] => this.startAddress.AddInternal(index);
+        public Ipv4Address this[uint index] => this.StartAddress.AddInternal(index);
 
         public ulong Length => this.inclusiveLength + 1;
 
         int ISlice<Ipv4AddressRange, Ipv4Address>.Length => (int)this.Length;
+
+        int ITryFormat.MaximumLengthRequired => Ipv4Address.MAXIMUM_LENGTH + Ipv4Address.MAXIMUM_LENGTH + 1;
 
         public bool IsSubnet(out Ipv4Subnet subnet)
         {
@@ -36,12 +41,12 @@ namespace NetworkPrimitives.Ipv4
                 return false;
             }
             var subnetMask = Ipv4SubnetMask.Parse(mask);
-            if ((this.startAddress & subnetMask) != this.startAddress)
+            if ((this.StartAddress & subnetMask) != this.StartAddress)
             {
                 subnet = default;
                 return false;
             }
-            subnet = this.startAddress + subnetMask;
+            subnet = this.StartAddress + subnetMask;
             return true;
         }
 
@@ -63,27 +68,27 @@ namespace NetworkPrimitives.Ipv4
                 throw new ArgumentOutOfRangeException();
             // Make sure the length is *INCLUSIVE* due to uint bounds.
             --length;
-            return new (this.startAddress.AddInternal(start), length);
+            return new (this.StartAddress.AddInternal(start), length);
         }
         
         public Ipv4AddressEnumerator GetEnumerator() 
-            => new (this.startAddress, this.inclusiveLength);
+            => new (this.StartAddress, this.inclusiveLength);
 
-        IEnumerator IEnumerable.GetEnumerator() => new ClassEnumerator(this.startAddress, this.inclusiveLength);
+        IEnumerator IEnumerable.GetEnumerator() => new ClassEnumerator(this.StartAddress, this.inclusiveLength);
 
-        IEnumerator<Ipv4Address> IEnumerable<Ipv4Address>.GetEnumerator() => new ClassEnumerator(this.startAddress, this.inclusiveLength);
+        IEnumerator<Ipv4Address> IEnumerable<Ipv4Address>.GetEnumerator() => new ClassEnumerator(this.StartAddress, this.inclusiveLength);
 
         public IEnumerable<Ipv4Address> ToEnumerable()
         {
-            var enumerator = new ClassEnumerator(this.startAddress, this.inclusiveLength);
+            var enumerator = new ClassEnumerator(this.StartAddress, this.inclusiveLength);
             while (enumerator.MoveNext())
                 yield return enumerator.Current;
         }
 
 
-        public bool Equals(Ipv4AddressRange other) => this.startAddress.Equals(other.startAddress) && this.inclusiveLength == other.inclusiveLength;
+        public bool Equals(Ipv4AddressRange other) => this.StartAddress.Equals(other.StartAddress) && this.inclusiveLength == other.inclusiveLength;
         public override bool Equals(object? obj) => obj is Ipv4AddressRange other && Equals(other);
-        public override int GetHashCode() => HashCode.Combine(this.startAddress, this.inclusiveLength);
+        public override int GetHashCode() => HashCode.Combine(this.StartAddress, this.inclusiveLength);
         public static bool operator ==(Ipv4AddressRange left, Ipv4AddressRange right) => left.Equals(right);
         public static bool operator !=(Ipv4AddressRange left, Ipv4AddressRange right) => !left.Equals(right);
 
@@ -92,7 +97,7 @@ namespace NetworkPrimitives.Ipv4
                 ? value
                 : throw new FormatException();
         
-        public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? formatProvider = null)
+        public bool TryFormat(Span<char> destination, out int charsWritten, string? format, IFormatProvider? formatProvider = null)
             => Ipv4Formatting.TryFormat(this, destination, out charsWritten, format, formatProvider);
 
         public bool TryFormat(Span<char> destination, out int charsWritten) 
@@ -134,7 +139,13 @@ namespace NetworkPrimitives.Ipv4
         }
 
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-        
+
+
+        public static Ipv4AddressRange Parse(ReadOnlySpan<char> text)
+            => TryParse(text, out var value)
+                ? value
+                : throw new FormatException();
+
         public static bool TryParse(ReadOnlySpan<char> text, out Ipv4AddressRange result)
             => TryParse(text, out var charsRead, out result) && charsRead == text.Length;
 

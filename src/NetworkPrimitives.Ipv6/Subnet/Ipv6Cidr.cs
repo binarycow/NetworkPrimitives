@@ -52,8 +52,16 @@ namespace NetworkPrimitives.Ipv6
             => Parse((byte)value);
         public static Ipv6Cidr Parse(byte value)
             => TryParse(value, out var result) ? result : throw new ArgumentOutOfRangeException();
-        public static bool TryParse(byte value, out Ipv6Cidr result) 
-            => (value <= 128, value <= 128 ? new Ipv6Cidr(value) : default).Try(out result);
+        public static bool TryParse(byte value, out Ipv6Cidr result)
+        {
+            if (value <= 128)
+            {
+                result = new (value);
+                return true;
+            }
+            result = default;
+            return false;
+        }
 
         public static bool TryParse(string? text, out Ipv6Cidr result)
         {

@@ -4,6 +4,7 @@ using System;
 
 namespace NetworkPrimitives.Ipv6
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class SubnetMaskLookups
     {
         public static byte GetCidr(ulong high, ulong low) => (high, low) switch

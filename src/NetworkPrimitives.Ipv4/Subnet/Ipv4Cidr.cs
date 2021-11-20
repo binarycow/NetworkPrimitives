@@ -3,7 +3,7 @@ using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
 {
-    public readonly struct Ipv4Cidr : IEquatable<Ipv4Cidr>, ITryFormat
+    public readonly struct Ipv4Cidr : INetworkPrimitive<Ipv4Cidr>
     {
         internal byte Value { get; }
         private Ipv4Cidr(byte value) => this.Value = value;
@@ -17,7 +17,12 @@ namespace NetworkPrimitives.Ipv4
         public static explicit operator byte(Ipv4Cidr cidr) => cidr.Value;
 
         public bool Equals(Ipv4Cidr other) => this.Value == other.Value;
-        public override bool Equals(object? obj) => obj is Ipv4Cidr other && Equals(other);
+        public override bool Equals(object? obj) => obj switch
+        {
+            Ipv4Cidr other => Equals(other),
+            byte other => this.Value == other,
+            _ => false,
+        };
         public override int GetHashCode() => this.Value.GetHashCode();
         public static bool operator ==(Ipv4Cidr left, Ipv4Cidr right) => left.Equals(right);
         public static bool operator !=(Ipv4Cidr left, Ipv4Cidr right) => !left.Equals(right);
@@ -44,7 +49,6 @@ namespace NetworkPrimitives.Ipv4
         public uint UsableHosts => SubnetMaskLookups.GetUsableHosts(this.Value);
 
 
-
         public static Ipv4Cidr Parse(string? value)
             => TryParse(value, out var result) ? result : throw new FormatException();
 
@@ -52,8 +56,16 @@ namespace NetworkPrimitives.Ipv4
             => Parse((byte)value);
         public static Ipv4Cidr Parse(byte value)
             => TryParse(value, out var result) ? result : throw new ArgumentOutOfRangeException();
-        public static bool TryParse(byte value, out Ipv4Cidr result) 
-            => (value <= 32, value <= 32 ? new Ipv4Cidr(value) : default).Try(out result);
+        public static bool TryParse(byte value, out Ipv4Cidr result)
+        {
+            if (value <= 32)
+            {
+                result = new (value);
+                return true;
+            }
+            result = default;
+            return false;
+        }
 
         public static bool TryParse(string? text, out Ipv4Cidr result)
         {
@@ -78,6 +90,8 @@ namespace NetworkPrimitives.Ipv4
         }
 
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+        public static Ipv4Cidr Parse(ReadOnlySpan<char> text)
+            => TryParse(text, out var result) ? result : throw new FormatException();
         public static bool TryParse(ReadOnlySpan<char> text, out int charsRead, out Ipv4Cidr result)
         {
             var span = new SpanWrapper(text);

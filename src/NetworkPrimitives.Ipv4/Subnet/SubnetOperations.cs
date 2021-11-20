@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace NetworkPrimitives.Ipv4
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class SubnetOperations
     {
         public static Ipv4Subnet GetContainingSupernet(IEnumerable<Ipv4Subnet> subnets)

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace NetworkPrimitives.Utilities
 {
-    public readonly struct ReadOnlyListSpan<T> : IEquatable<ReadOnlyListSpan<T>>, ISlice<ReadOnlyListSpan<T>, T>
+    [ExcludeFromCodeCoverage("Internal")]
+    internal readonly struct ReadOnlyListSpan<T> : IEquatable<ReadOnlyListSpan<T>>, ISlice<ReadOnlyListSpan<T>, T>
     {
         private readonly IReadOnlyList<T> list;
         private readonly int startIndex;

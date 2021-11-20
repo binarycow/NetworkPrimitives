@@ -7,6 +7,7 @@ using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class Ipv4Formatting
     {
         public static bool TryFormatDottedDecimal(uint value, Span<char> destination, out int charsWritten)
@@ -53,16 +54,27 @@ namespace NetworkPrimitives.Ipv4
             "W" => $"{value.NetworkAddress.ToString()} {value.Mask.ToWildcardMask().ToString()}",
             _ => throw new FormatException("Input string was not in a correct format."),
         };
+        
+        
 
-        public static bool TryFormat(Ipv4Subnet value, Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? formatProvider)
+        public static bool TryFormat(Ipv4NetworkMatch value, Span<char> destination, out int charsWritten)
+        {
+            charsWritten = default;
+            return value.Address.TryWriteTo(ref destination, ref charsWritten)
+                && ' '.TryWriteTo(ref destination, ref charsWritten)
+                && value.Mask.TryWriteTo(ref destination, ref charsWritten);
+        }
+
+        public static bool TryFormat(Ipv4Subnet value, Span<char> destination, out int charsWritten, string? format, IFormatProvider? formatProvider)
         {
             charsWritten = 0;
-            var success = format.Length switch
+            var success = format switch
             {
-                0 => TryFormatCidr(value, destination, ref charsWritten),
-                1 when format[0] == 'M' => TryFormatMask(value, destination, ref charsWritten),
-                1 when format[0] == 'C' => TryFormatCidr(value, destination, ref charsWritten),
-                1 when format[0] == 'W' => TryFormatWildcard(value, destination, ref charsWritten),
+                null => TryFormatCidr(value, destination, ref charsWritten),
+                "" => TryFormatCidr(value, destination, ref charsWritten),
+                "M" => TryFormatMask(value, destination, ref charsWritten),
+                "C" => TryFormatCidr(value, destination, ref charsWritten),
+                "W" => TryFormatWildcard(value, destination, ref charsWritten),
                 _ => throw new FormatException("Input string was not in a correct format."),
             };
             if (!success) charsWritten = default;
@@ -91,7 +103,8 @@ namespace NetworkPrimitives.Ipv4
             charsWritten += len;
             return true;
         }
-        public static bool TryWriteTo(this char value, ref Span<char> destination, ref int charsWritten)
+        
+        internal static bool TryWriteTo(this char value, ref Span<char> destination, ref int charsWritten)
         {
             if (destination.Length == 0) return false;
             destination[0] = value;
@@ -121,11 +134,37 @@ namespace NetworkPrimitives.Ipv4
             Ipv4AddressRange value,
             Span<char> destination, 
             out int charsWritten, 
-            ReadOnlySpan<char> format,
+            string? format,
             IFormatProvider? formatProvider
         )
         {
-            throw new NotImplementedException();
+            charsWritten = default;
+            var success = format switch
+            {
+                _ when value.IsSubnet(out var subnet) => TryFormat(subnet, destination, out charsWritten, format, formatProvider),
+                "C" or "M" or "W" => throw new FormatException($"Cannot use '{format}' format string unless range is a valid {nameof(Ipv4Subnet)}"),
+                null when value.Length <= 1 => TryFormat(value.StartAddress, destination, out charsWritten),
+                null when value.AllIpsSameFirstThreeOctets => TryFormatRange(value, destination, out charsWritten),
+                null => false,
+                _ => throw new FormatException("Input string was not in a correct format."),
+            };
+            if (!success) charsWritten = default;
+            return success;
+
+            static bool TryFormatRange(
+                Ipv4AddressRange value,
+                Span<char> destination, 
+                out int charsWritten
+            )
+            {
+                charsWritten = default;
+                Span<char> chars = stackalloc char[Ipv4Address.MAXIMUM_LENGTH + 4];
+                var lastOctet = value.LastAddressInclusive.GetOctet(3);
+                return value.StartAddress.TryWriteTo(ref chars, ref charsWritten)
+                    && '-'.TryWriteTo(ref chars, ref charsWritten)
+                    && lastOctet.TryFormatTo(ref chars, ref charsWritten)
+                    && chars[..charsWritten].TryCopyTo(destination);
+            }
         }
     }
 }

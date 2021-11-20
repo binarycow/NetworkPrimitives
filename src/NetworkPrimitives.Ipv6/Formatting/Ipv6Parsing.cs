@@ -7,6 +7,7 @@ using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv6
 {
+    [ExcludeFromCodeCoverage("Internal")]
     internal static class Ipv6Parsing
     {
         internal static bool TryParseIpv6Address(SpanWrapper text, out int charsRead, out ulong high, out ulong low)

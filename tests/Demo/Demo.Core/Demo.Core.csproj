@@ -6,6 +6,12 @@
     <RootNamespace>Demo</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="..\..\..\src\NetworkPrimitives.Common\ExcludeFromCodeCoverageAttribute.cs">
+      <Link>ExcludeFromCodeCoverageAttribute.cs</Link>
+    </Compile>
+  </ItemGroup>
+
   <Import Project="..\Demo\Demo.projitems" Label="Shared" />
 
 

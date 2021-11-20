@@ -9,6 +9,9 @@ using NetworkPrimitives.Ipv4;
 
 namespace NetworkPrimitives.Tests.Ipv4
 {
+    public record Ipv4CidrTestCase(byte Cidr, ulong TotalHosts, uint UsableHosts, uint Mask);
+
+
     public record Ipv4TestCaseStrings(
         string IpString,
         string MaskString,
