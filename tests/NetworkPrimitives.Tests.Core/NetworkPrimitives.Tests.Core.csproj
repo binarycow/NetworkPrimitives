@@ -1,10 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- 
     <TargetFramework>net5.0</TargetFramework>
-    -->
-    <TargetFramework>net48</TargetFramework>
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
     <RootNamespace>NetworkPrimitives.Tests</RootNamespace>
@@ -15,6 +12,12 @@
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageReference Include="coverlet.collector" Version="3.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\randomips.json">
+      <Link>randomips.json</Link>
+    </EmbeddedResource>
   </ItemGroup>
 
   <Import Project="..\NetworkPrimitives.Tests\NetworkPrimitives.Tests.projitems" Label="Shared" />

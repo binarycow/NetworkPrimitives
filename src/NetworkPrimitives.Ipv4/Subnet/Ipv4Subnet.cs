@@ -13,9 +13,26 @@ namespace NetworkPrimitives.Ipv4
         public ulong TotalHosts => Mask.TotalHosts;
         public uint UsableHosts => Mask.UsableHosts;
         public Ipv4Address NetworkAddress { get; }
-        public Ipv4Address BroadcastAddress => NetworkAddress.AddInternal((uint)(Mask.TotalHosts - 1));
-        public Ipv4Address FirstUsable => Mask.IsSlash32Or31 ? NetworkAddress : NetworkAddress.AddInternal(1);
-        public Ipv4Address LastUsable => Mask.IsSlash32Or31 ? NetworkAddress : NetworkAddress.AddInternal((uint)(Mask.TotalHosts - 2));
+        public Ipv4Address BroadcastAddress => Mask.Value switch
+        {
+            0xFFFFFFFF => this.NetworkAddress,
+            0xFFFFFFFE => this.NetworkAddress.AddInternal(1),
+            _ => NetworkAddress.AddInternal((uint)(Mask.TotalHosts - 1)),
+        };
+        
+        public Ipv4Address FirstUsable => Mask.Value switch
+        {
+            0xFFFFFFFF => this.NetworkAddress,
+            0xFFFFFFFE => this.NetworkAddress,
+            _ => this.NetworkAddress.AddInternal(1),
+        };
+        public Ipv4Address LastUsable => Mask.Value switch
+        {
+            0xFFFFFFFF => this.NetworkAddress,
+            0xFFFFFFFE => this.NetworkAddress.AddInternal(1),
+            _ => NetworkAddress.AddInternal((uint)(Mask.TotalHosts - 2)),
+        };
+        
         public Ipv4SubnetMask Mask { get; }
         public Ipv4Subnet(Ipv4Address address, Ipv4SubnetMask mask)
         {

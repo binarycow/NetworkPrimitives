@@ -21,14 +21,16 @@
 
 
   <ItemGroup>
-    <Compile Update="Ipv4AddressRange.RefStructEnumerator.cs">
-      <DependentUpon>Ipv4AddressRange.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Ipv4AddressRange.ClassEnumerator.cs">
-      <DependentUpon>Ipv4AddressRange.cs</DependentUpon>
-    </Compile>
+    <Compile Remove="Extensions\**" />
   </ItemGroup>
+
+
   <ItemGroup>
-    <Folder Include="Extensions" />
+    <EmbeddedResource Remove="Extensions\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="Extensions\**" />
   </ItemGroup>
 </Project>

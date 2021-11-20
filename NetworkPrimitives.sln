@@ -48,6 +48,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Switching
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Yang", "src\NetworkPrimitives.Yang\NetworkPrimitives.Yang.csproj", "{A02C01D2-375D-4774-AB09-A9C98710D0F8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestData", "TestData", "{EAD76E9F-50DC-47C8-ABE9-6975E6E140F3}"
+ProjectSection(SolutionItems) = preProject
+	tests\GenerateTestCases.ps1 = tests\GenerateTestCases.ps1
+	tests\randomips.csv = tests\randomips.csv
+	tests\randomips.json = tests\randomips.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\shared\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{252d0a49-9751-468e-a3a7-f0523437de34}*SharedItemsImports = 13
@@ -112,6 +119,7 @@ Global
 		{259B9FDD-ACF3-4EFF-A0C8-3C48D38B00D4} = {BC67F332-7F11-4C36-BAAB-DB477438211E}
 		{AD9EC0EF-2227-4FA4-8174-22E3544A5EF6} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
 		{A02C01D2-375D-4774-AB09-A9C98710D0F8} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
+		{EAD76E9F-50DC-47C8-ABE9-6975E6E140F3} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {157805D8-FB4B-4043-ABB9-61C17CC21945}

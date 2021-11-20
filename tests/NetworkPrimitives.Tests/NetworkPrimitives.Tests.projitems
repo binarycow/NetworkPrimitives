@@ -9,9 +9,12 @@
     <Import_RootNamespace>NetworkPrimitives.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)EmbeddedResourceUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4AddressTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4CidrTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4SubnetTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4SubnetMaskTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4TestCase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv6\Ipv6AddressTests.cs" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
-﻿using NetworkPrimitives.Ipv4;
+﻿using System.Collections.Generic;
+using NetworkPrimitives.Ipv4;
 using NUnit.Framework;
 
 namespace NetworkPrimitives.Tests.Ipv4
@@ -6,15 +7,31 @@ namespace NetworkPrimitives.Tests.Ipv4
     [TestFixture]
     public class Ipv4SubnetTests
     {
+        public static IReadOnlyList<Ipv4TestCase> GetTestCases() 
+            => Ipv4TestCaseProvider.LoadTestCases("randomips.json");
+        
+        
+#if CICD
         [Test]
-        [TestCase("1.2.3.4/8", "1.0.0.0/8", "1.0.0.0 255.0.0.0", "1.0.0.0 0.255.255.255")]
-        public void TestParse(string input, string cidr, string mask, string wildcard)
+        public void TestParse()
         {
-            Assert.AreEqual(true, Ipv4Subnet.TryParse(input, out var subnet));
-            Assert.AreEqual(cidr, subnet.ToString());
-            Assert.AreEqual(cidr, subnet.ToString("C"));
-            Assert.AreEqual(mask, subnet.ToString("M"));
-            Assert.AreEqual(wildcard, subnet.ToString("W"));
+            foreach (var testCase in Ipv4SubnetTests.GetTestCases())
+                TestParse(testCase);
+        }
+#else
+        [Test]
+        [TestCaseSource(nameof(Ipv4SubnetTests.GetTestCases))]
+#endif
+        public void TestParse(Ipv4TestCase testCase)
+        {
+            Assert.AreEqual(true, Ipv4Subnet.TryParse(testCase.SubnetInput, out var subnet));
+            Assert.AreEqual(testCase.TotalHosts, subnet.TotalHosts);
+            Assert.AreEqual(testCase.UsableHosts, subnet.UsableHosts);
+            Assert.AreEqual(testCase.Network, subnet.NetworkAddress.Value);
+            Assert.AreEqual(testCase.Broadcast, subnet.BroadcastAddress.Value);
+            Assert.AreEqual(testCase.FirstUsable, subnet.FirstUsable.Value);
+            Assert.AreEqual(testCase.LastUsable, subnet.LastUsable.Value);
+            Assert.AreEqual(testCase.SubnetExpected, subnet.ToString());
         }
     }
 }

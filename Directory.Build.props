@@ -5,6 +5,10 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
+  
+  <PropertyGroup Condition = " '$(CICD)' != '' ">
+    <DefineConstants>$(DefineConstants);CICD</DefineConstants>
+  </PropertyGroup>
 
   <PropertyGroup>
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
