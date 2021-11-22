@@ -1,10 +1,12 @@
 ﻿<Project>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <TargetFrameworks>net6.0;net5.0;netstandard2.0</TargetFrameworks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' != 'Debug' ">
+  <PropertyGroup>
     <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
+  <!--
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <TargetFrameworks>net6.0;net5.0;netstandard2.0</TargetFrameworks>
+  </PropertyGroup> 
+  -->
   
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
   <PropertyGroup>
