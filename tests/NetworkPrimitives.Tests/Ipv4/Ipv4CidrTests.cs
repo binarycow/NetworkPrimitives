@@ -104,10 +104,10 @@ namespace NetworkPrimitives.Tests.Ipv4
          
 #if CICD
         [Test]
-        public void TestOperators()
+        public void TestEquality()
         {
             foreach (var testCase in TestCases)
-                TestOperators(testCase);
+                TestEquality(testCase);
         }
 #else
         [Test]
