@@ -50,26 +50,27 @@ namespace NetworkPrimitives.Tests.Ipv4
             new Ipv4CidrTestCase(0, 4294967296, 4294967294, 0x00000000),
         };
 
-#if CICD
-        [Test]
-        public void TestParsing()
-        {
-            foreach (var testCase in TestCases)
-                TestParsing(testCase);
-        }
-#else
         [Test]
         [TestCaseSource(nameof(TestCases))]
-#endif
         public void TestParsing(Ipv4CidrTestCase testCase)
         {
+            Assert.That(Ipv4Cidr.TryParse(testCase.Cidr.ToString(), out _), Is.True);
+        }
+        
+        [Test]
+        [TestCaseSource(nameof(TestCases))]
+        public void TestValues(Ipv4CidrTestCase testCase)
+        {
             var (value, totalHosts, usableHosts, mask) = testCase;
-            Assert.AreEqual(true, Ipv4Cidr.TryParse(value.ToString(), out var cidr));
-            Assert.AreEqual(value, (byte)cidr);
-            Assert.AreEqual(totalHosts, cidr.TotalHosts);
-            Assert.AreEqual(usableHosts, cidr.UsableHosts);
-            Assert.AreEqual(value.ToString(), cidr.ToString());
-            Assert.AreEqual(mask, cidr.ToSubnetMask().Value);
+            Assume.That(Ipv4Cidr.TryParse(value.ToString(), out var cidr), Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(value, (byte)cidr);
+                Assert.AreEqual(totalHosts, cidr.TotalHosts);
+                Assert.AreEqual(usableHosts, cidr.UsableHosts);
+                Assert.AreEqual(value.ToString(), cidr.ToString());
+                Assert.AreEqual(mask, cidr.ToSubnetMask().Value);
+            });
         }
 
 
@@ -83,104 +84,86 @@ namespace NetworkPrimitives.Tests.Ipv4
             Assert.IsFalse(cidr.Equals(value));
         }
          
-#if CICD
-        [Test]
-        public void TestOperators()
-        {
-            foreach (var testCase in TestCases)
-                TestOperators(testCase);
-        }
-#else
         [Test]
         [TestCaseSource(nameof(TestCases))]
         [SuppressMessage("ReSharper", "EqualExpressionComparison")]
-#endif
         public void TestEquality(Ipv4CidrTestCase testCase)
         {
             var (value, totalHosts, usableHosts, mask) = testCase;
             object objValue = value;
-            var cidr = Ipv4Cidr.Parse(value.ToString());
-            Assert.IsTrue(cidr.Equals(objValue));
-            Assert.IsTrue(cidr.Equals(cidr));
-            Assert.IsTrue(cidr == value);
-            Assert.IsFalse(cidr != value);
-            Assert.IsTrue(value == cidr);
-            Assert.IsFalse(value != cidr);
+            Assume.That(Ipv4Cidr.TryParse(value.ToString(), out var cidr), Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(cidr.Equals(objValue));
+                Assert.IsTrue(cidr.Equals(cidr));
+                Assert.IsTrue(cidr == value);
+                Assert.IsFalse(cidr != value);
+                Assert.IsTrue(value == cidr);
+                Assert.IsFalse(value != cidr);
 #pragma warning disable CS1718 // Comparison made to same variable
-            Assert.IsTrue(cidr == cidr);
-            Assert.IsFalse(cidr != cidr);
+                Assert.IsTrue(cidr == cidr);
+                Assert.IsFalse(cidr != cidr);
 #pragma warning restore CS1718 // Comparison made to same variable
-            Assert.AreEqual(value.GetHashCode(), cidr.GetHashCode());
+                Assert.AreEqual(value.GetHashCode(), cidr.GetHashCode());
+            });
         }
         
-#if CICD
-        [Test]
-        public void TestOperators()
-        {
-            foreach (var testCase in TestCases)
-                TestOperators(testCase);
-        }
-#else
         [Test]
         [TestCaseSource(nameof(TestCases))]
         [SuppressMessage("ReSharper", "EqualExpressionComparison")]
-#endif
         public void TestOperators(Ipv4CidrTestCase testCase)
         {
             var (value, totalHosts, usableHosts, mask) = testCase;
-            var cidr = Ipv4Cidr.Parse(value.ToString());
-            Assert.AreEqual(true, Ipv4Cidr.Parse(0) <= cidr);
-            Assert.AreEqual(true, cidr >= Ipv4Cidr.Parse(0));
-            Assert.AreEqual(true, Ipv4Cidr.Parse(32) >= cidr);
-            Assert.AreEqual(true, cidr <= Ipv4Cidr.Parse(32));
-            
-            Assert.AreEqual(true, 0 <= cidr);
-            Assert.AreEqual(true, cidr >= 0);
-            Assert.AreEqual(true, 32 >= cidr);
-            Assert.AreEqual(true, cidr <= 32);
-            
-            if (value > 0)
+            Assume.That(Ipv4Cidr.TryParse(value.ToString(), out var cidr));
+            Assert.Multiple(() =>
             {
-                Assert.AreEqual(true, Ipv4Cidr.Parse(0) < cidr);
-                Assert.AreEqual(true, cidr > Ipv4Cidr.Parse(0));
-                Assert.AreEqual(true, 0 < cidr);
-                Assert.AreEqual(true, cidr > 0);
-            }
-            if (value < 32)
-            {
-                Assert.AreEqual(true, cidr < 32);
-                Assert.AreEqual(true, 32 > cidr);
-                Assert.AreEqual(true, cidr < 32);
-                Assert.AreEqual(true, 32 > cidr);
-            }
+                Assert.AreEqual(true, Ipv4Cidr.Parse(0) <= cidr);
+                Assert.AreEqual(true, cidr >= Ipv4Cidr.Parse(0));
+                Assert.AreEqual(true, Ipv4Cidr.Parse(32) >= cidr);
+                Assert.AreEqual(true, cidr <= Ipv4Cidr.Parse(32));
+            
+                Assert.AreEqual(true, 0 <= cidr);
+                Assert.AreEqual(true, cidr >= 0);
+                Assert.AreEqual(true, 32 >= cidr);
+                Assert.AreEqual(true, cidr <= 32);
+                if (value > 0)
+                {
+                    Assert.AreEqual(true, Ipv4Cidr.Parse(0) < cidr);
+                    Assert.AreEqual(true, cidr > Ipv4Cidr.Parse(0));
+                    Assert.AreEqual(true, 0 < cidr);
+                    Assert.AreEqual(true, cidr > 0);
+                }
+                if (value < 32)
+                {
+                    Assert.AreEqual(true, cidr < 32);
+                    Assert.AreEqual(true, 32 > cidr);
+                    Assert.AreEqual(true, cidr < 32);
+                    Assert.AreEqual(true, 32 > cidr);
+                }
+            });
+            
         }
 
-#if CICD
-        [Test]
-        public void TestInvalidBytes()
-        {
-            foreach (var testCase in InvalidCidrs)
-                TestInvalidBytes(testCase);
-        }
-#else
         [Test]
         [TestCaseSource(nameof(InvalidCidrs))]
-#endif
         public void TestInvalidBytes(byte cidr)
         {
-            Assert.False(Ipv4Cidr.TryParse(cidr, out _));
-            Assert.False(Ipv4Cidr.TryParse(cidr.ToString(), out _));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Ipv4Cidr.Parse(cidr));
-            Assert.Throws<FormatException>(() => Ipv4Cidr.Parse(cidr.ToString()));
+            Assert.Multiple(() =>
+            {
+                Assert.False(Ipv4Cidr.TryParse(cidr, out _));
+                Assert.False(Ipv4Cidr.TryParse(cidr.ToString(), out _));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Ipv4Cidr.Parse(cidr));
+                Assert.Throws<FormatException>(() => Ipv4Cidr.Parse(cidr.ToString()));
             
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-            Assert.Throws<FormatException>(() =>
-            {
-                ReadOnlySpan<char> span = cidr.ToString();
-                Ipv4Cidr.Parse(span);
-            });
-            Assert.False(Ipv4Cidr.TryParse(cidr.ToString().AsSpan(), out _));
+                Assert.Throws<FormatException>(() =>
+                {
+                    ReadOnlySpan<char> span = cidr.ToString();
+                    Ipv4Cidr.Parse(span);
+                });
+                Assert.False(Ipv4Cidr.TryParse(cidr.ToString().AsSpan(), out _));
 #endif
+            });
         }
 
         [Test]
@@ -190,17 +173,20 @@ namespace NetworkPrimitives.Tests.Ipv4
         [TestCase("12foo")]
         public void TestInvalidStrings(string? input)
         {
-            Assert.Throws<FormatException>(() => Ipv4Cidr.Parse(input));
-            Assert.IsFalse(Ipv4Cidr.TryParse(input, out _));
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-            Assert.Throws<FormatException>(() =>
+            Assert.Multiple(() =>
             {
+                Assert.Throws<FormatException>(() => Ipv4Cidr.Parse(input));
+                Assert.IsFalse(Ipv4Cidr.TryParse(input, out _));
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                Assert.Throws<FormatException>(() =>
+                {
+                    ReadOnlySpan<char> span = input;
+                    Ipv4Cidr.Parse(span);
+                });
                 ReadOnlySpan<char> span = input;
-                Ipv4Cidr.Parse(span);
-            });
-            ReadOnlySpan<char> span = input;
-            Assert.IsFalse(Ipv4Cidr.TryParse(span, out _));
+                Assert.IsFalse(Ipv4Cidr.TryParse(span, out _));
 #endif
+            });
         }
         
     }
