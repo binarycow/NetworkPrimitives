@@ -58,10 +58,10 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		tests\NetworkPrimitives.Tests\NetworkPrimitives.Tests.projitems*{1ed55674-d8a5-48af-8cea-eff47728c5d7}*SharedItemsImports = 13
-		tests\demo\Demo\Demo.projitems*{259b9fdd-acf3-4eff-a0c8-3c48d38b00d4}*SharedItemsImports = 13
-		tests\demo\Demo\Demo.projitems*{80f9e3e6-8f39-4b93-9c70-c4bd31b3aa84}*SharedItemsImports = 5
+		tests\Demo\Demo\Demo.projitems*{259b9fdd-acf3-4eff-a0c8-3c48d38b00d4}*SharedItemsImports = 13
+		tests\Demo\Demo\Demo.projitems*{80f9e3e6-8f39-4b93-9c70-c4bd31b3aa84}*SharedItemsImports = 5
 		tests\NetworkPrimitives.Tests\NetworkPrimitives.Tests.projitems*{d1b692d8-8578-4b87-9cca-0ac3ecf86540}*SharedItemsImports = 5
-		tests\demo\Demo\Demo.projitems*{d2cb65a6-b7c9-41bb-9dfb-133c517d4a28}*SharedItemsImports = 5
+		tests\Demo\Demo\Demo.projitems*{d2cb65a6-b7c9-41bb-9dfb-133c517d4a28}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
