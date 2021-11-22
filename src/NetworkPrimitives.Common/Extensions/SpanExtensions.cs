@@ -2,12 +2,27 @@
 
 using System;
 using System.Buffers.Binary;
+using System.Collections.Generic;
 
 namespace NetworkPrimitives
 {
     [ExcludeFromCodeCoverage("Internal")]
     internal static class SpanExtensions
     {
+
+        public static bool EqualToArray<T>(this Span<T> span, T[] array, IEqualityComparer<T>? comparer = null)
+        {
+            comparer ??= EqualityComparer<T>.Default;
+            if (span.Length != array.Length) return false;
+            for (var i = 0; i < span.Length; ++i)
+            {
+                if (comparer.Equals(span[i], array[i]) is false) 
+                    return false;
+            }
+            return true;
+        }
+        
+        
         public static string CreateString(this Span<char> span)
         {
 #if NETSTANDARD2_1_OR_GREATER

@@ -30,6 +30,13 @@ namespace NetworkPrimitives.Ipv4
         
         public override string ToString() => this.GetString();
 
+        public ulong HostCount => this.Value switch
+        {
+            0x00000000 => 4294967296,
+            0xFFFFFFFF => 1,
+            _ => (uint)(1 << (int)this.Value.PopCount()),
+        };
+
 
         public static bool TryParse(IPAddress ipAddress, out Ipv4WildcardMask result)
         {

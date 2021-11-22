@@ -14,9 +14,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)EmbeddedResourceUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4AddressTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4CidrTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4MatchTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4SubnetTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4SubnetMaskTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4TestCase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ipv4\Ipv4WildcardMaskTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ipv6\Ipv6AddressTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Yang\IdentifierTests.cs" />
   </ItemGroup>
