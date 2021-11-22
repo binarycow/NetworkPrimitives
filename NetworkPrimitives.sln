@@ -49,11 +49,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestData", "TestData", "{EA
 		tests\randomips.json = tests\randomips.json
 	EndProjectSection
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Demo", "tests\demo\Demo\Demo.shproj", "{259B9FDD-ACF3-4EFF-A0C8-3C48D38B00D4}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Demo", "tests\Demo\Demo\Demo.shproj", "{259B9FDD-ACF3-4EFF-A0C8-3C48D38B00D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Core", "tests\demo\Demo.Core\Demo.Core.csproj", "{D2CB65A6-B7C9-41BB-9DFB-133C517D4A28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Core", "tests\Demo\Demo.Core\Demo.Core.csproj", "{D2CB65A6-B7C9-41BB-9DFB-133C517D4A28}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Framework", "tests\demo\Demo.Framework\Demo.Framework.csproj", "{80F9E3E6-8F39-4B93-9C70-C4BD31B3AA84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Framework", "tests\Demo\Demo.Framework\Demo.Framework.csproj", "{80F9E3E6-8F39-4B93-9C70-C4BD31B3AA84}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
