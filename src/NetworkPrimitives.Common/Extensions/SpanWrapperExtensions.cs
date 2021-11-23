@@ -18,6 +18,11 @@ namespace NetworkPrimitives
             second = first[..length];
             first = first[length..];
         }
+        public static void SplitKeepSecond(ref this ReadOnlySpan<char> first, int length, out ReadOnlySpan<char> second)
+        {
+            second = first[..length];
+            first = first[length..];
+        }
 
         public static bool TrySliceFirst(ref this SpanWrapper span, out char value)
         {
@@ -30,6 +35,23 @@ namespace NetworkPrimitives
                 // Workaround because for some reason on .NET Framework, it turns 1..
                 // into Slice(1, -1) when resulting length will be zero?
                 span = new SpanWrapper(string.Empty);
+                return true;
+            }
+            span = span[1..];
+            return true;
+        }
+
+        public static bool TrySliceFirst<T>(ref this ReadOnlySpan<T> span, out T? value)
+        {
+            value = default;
+            if (span.IsEmpty)
+                return false;
+            value = span[0];
+            if (span.Length == 1)
+            {
+                // Workaround because for some reason on .NET Framework, it turns 1..
+                // into Slice(1, -1) when resulting length will be zero?
+                span = default;
                 return true;
             }
             span = span[1..];

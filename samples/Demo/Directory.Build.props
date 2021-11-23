@@ -1,0 +1,12 @@
+﻿<Project>
+  <PropertyGroup>
+    <MSBuildProjectExtensionsPath>obj\$(MSBuildProjectName)\</MSBuildProjectExtensionsPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NetworkPrimitives.Ipv4" Version="1.0.0-alpha12" />
+    <PackageReference Include="NetworkPrimitives.Ipv6" Version="1.0.0-alpha12" />
+    <PackageReference Include="NetworkPrimitives.Switching" Version="1.0.0-alpha12" />
+    <PackageReference Include="NetworkPrimitives.Yang" Version="1.0.0-alpha12" />
+  </ItemGroup>
+</Project>

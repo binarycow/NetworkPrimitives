@@ -22,7 +22,17 @@ namespace NetworkPrimitives
             return true;
         }
         
-        
+        public static string CreateString(this ReadOnlySpan<char> span)
+        {
+#if NETSTANDARD2_1_OR_GREATER
+            return new (span);
+#else
+            return new(GetArray(span.ToArray()));
+
+
+            static char[] GetArray(char[]? arr) => arr ?? Array.Empty<char>();
+#endif
+        }
         public static string CreateString(this Span<char> span)
         {
 #if NETSTANDARD2_1_OR_GREATER

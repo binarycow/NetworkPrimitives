@@ -44,15 +44,34 @@ namespace NetworkPrimitives.Ipv4
             result = BinaryPrimitives.ReadUInt32BigEndian(octets);
             return true;
         }
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+        
+        internal static bool TryParseDottedDecimalUInt32(ref ReadOnlySpan<char> text, ref int charsRead, out uint result)
+        {
+            result = default;
+            if (text.Length < Ipv4Address.MINIMUM_LENGTH)
+                return false;
+            Span<byte> octets = stackalloc byte[4];
+            var textCopy = text;
+            var charsReadCopy = charsRead;
+            for (var i = 0; i < 4; ++i)
+            {
+                if (i != 0 && !textCopy.TryReadCharacter(ref charsReadCopy, '.'))
+                    return false;
+                if (!textCopy.TryParseByte(ref charsReadCopy, out var octet))
+                    return false;
+                octets[i] = octet;
+            }
+            charsRead = charsReadCopy;
+            text = textCopy;
+            result = BinaryPrimitives.ReadUInt32BigEndian(octets);
+            return true;
+        }
         public static bool TryParseDottedDecimalUInt32(ReadOnlySpan<char> text, out uint result)
             => TryParseDottedDecimalUInt32(text, out var charsRead, out result) && charsRead == text.Length;
         public static bool TryParseDottedDecimalUInt32(ReadOnlySpan<char> text, out int charsRead, out uint result)
         {
             charsRead = default;
-            var span = new SpanWrapper(text);
-            return TryParseDottedDecimalUInt32(ref span, ref charsRead, out result);
+            return TryParseDottedDecimalUInt32(ref text, ref charsRead, out result);
         }
-#endif
     }
 }

@@ -9,6 +9,16 @@
   </PropertyGroup>
 
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\NetworkPrimitives.Ipv4.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\NetworkPrimitives.Ipv4.xml</DocumentationFile>
+  </PropertyGroup>
+
+
   <ItemGroup>
     <ProjectReference Include="..\NetworkPrimitives.Common\NetworkPrimitives.Common.csproj" />
   </ItemGroup>
