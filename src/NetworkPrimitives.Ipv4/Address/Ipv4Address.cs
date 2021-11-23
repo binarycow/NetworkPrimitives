@@ -68,6 +68,8 @@ namespace NetworkPrimitives.Ipv4
             => new Ipv4Address(value);
         public static Ipv4Address Parse(string? value)
             => TryParse(value, out var result) ? result : throw new FormatException();
+        public static Ipv4Address Parse(IPAddress? value)
+            => TryParse(value, out var result) ? result : throw new ArgumentException(nameof(value));
         public static bool TryParse(IPAddress? ipAddress, out Ipv4Address result)
         {
             result = default;
@@ -78,6 +80,8 @@ namespace NetworkPrimitives.Ipv4
                 && written == 4
                 && TryParse(octets, out result);
         }
+        
+        public IPAddress ToIpAddress() => this.Value.ToIpAddress();
 
         public static bool TryParse(ReadOnlySpan<byte> octets, out Ipv4Address result)
         {
@@ -85,16 +89,9 @@ namespace NetworkPrimitives.Ipv4
             return octets.TryReadUInt32BigEndian(out var value)
                 && TryParse(value, out result);
         }
-
-        public static bool TryParse(string? text, out Ipv4Address result)
-        {
-            result = default;
-            return Ipv4Parsing.TryParseDottedDecimalUInt32(text, out var value)
-                && TryParse(value, out result);
-        }
-
-        public IPAddress ToIpAddress() => this.Value.ToIpAddress();
-
+        
+        public static bool TryParse(string? text, out Ipv4Address result) 
+            => TryParse(text, out var charsRead, out result) && charsRead == text?.Length;
         public static bool TryParse(string? text, out int charsRead, out Ipv4Address result)
         {
             result = default;
@@ -130,7 +127,6 @@ namespace NetworkPrimitives.Ipv4
                 && TryParse(value, out result);
         }
 #endif
-
         public int CompareTo(Ipv4Address other) => this.Value.CompareTo(other.Value);
 
         public int CompareTo(object? obj) => obj switch

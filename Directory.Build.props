@@ -6,10 +6,14 @@
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
-  <PropertyGroup Condition = " '$(CICD)' != '' ">
-    <DefineConstants>$(DefineConstants);CICD</DefineConstants>
-  </PropertyGroup>
-  
+  <ItemGroup>
+    <AssemblyAttribute Include="NetworkPrimitives.BuildInformationAttribute">
+      <_Parameter1>$(GITHUB_SHA)</_Parameter1> <!-- GITHUB_SHA -->
+      <_Parameter2>$(TIMESTAMP)</_Parameter2> <!-- GITHUB_REF -->
+      <_Parameter3>$(GITHUB_RUN_ID)</_Parameter3>
+      <_Parameter4>$(GITHUB_REF_NAME)</_Parameter4>
+    </AssemblyAttribute>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' And '$(TargetFramework)' == 'net6.0' ">
     <EnablePreviewFeatures>True</EnablePreviewFeatures>
     <DefineConstants>$(DefineConstants);STATIC_ABSTRACT</DefineConstants>
