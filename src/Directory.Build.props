@@ -15,6 +15,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <AssemblyAttribute Include="NetworkPrimitives.BuildInformationAttribute">
+      <_Parameter1>$(GITHUB_SHA)</_Parameter1> <!-- GITHUB_SHA -->
+      <_Parameter2>$(TIMESTAMP)</_Parameter2> <!-- GITHUB_REF -->
+      <_Parameter3>$(GITHUB_RUN_ID)</_Parameter3>
+      <_Parameter4>$(GITHUB_REF_NAME)</_Parameter4>
+    </AssemblyAttribute>
+  </ItemGroup>
+  
+  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>NetworkPrimitives.Tests</_Parameter1>
     </AssemblyAttribute>

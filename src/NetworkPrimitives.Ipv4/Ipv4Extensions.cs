@@ -4,6 +4,9 @@ using System;
 
 namespace NetworkPrimitives.Ipv4
 {
+    /// <summary>
+    /// Utility methods for <see cref="Ipv4Address"/> and <see cref="Ipv4Subnet"/>
+    /// </summary>
     public static class Ipv4Extensions
     {
         private const uint CLASS_A_MASK = 0b_10000000_00000000_00000000_00000000;
@@ -15,6 +18,13 @@ namespace NetworkPrimitives.Ipv4
         private const uint CLASS_C_VALUE = 0b_11000000_00000000_00000000_00000000;
         private const uint CLASS_D_VALUE = 0b_11100000_00000000_00000000_00000000;
 
+        /// <summary>
+        /// Determine which special type of address (if any) that an <see cref="Ipv4Address"/> has.
+        /// </summary>
+        /// <param name="value">An instance of <see cref="Ipv4Address"/></param>
+        /// <returns>
+        /// The special address type, or <see cref="Ipv4AddressRangeType.Normal"/> if the address does not have a special address type.
+        /// </returns>
         public static Ipv4AddressRangeType GetRangeType(this Ipv4Address value)
         {
             return CheckAll(value, out var type) ? type : default;
@@ -35,6 +45,14 @@ namespace NetworkPrimitives.Ipv4
             ;
         }
         
+
+        /// <summary>
+        /// Determine which special type of address (if any) that an <see cref="Ipv4Subnet"/> has.
+        /// </summary>
+        /// <param name="value">An instance of <see cref="Ipv4Subnet"/></param>
+        /// <returns>
+        /// The special address type, or <see cref="Ipv4AddressRangeType.Normal"/> if the subnet does not have a special address type.
+        /// </returns>
         public static Ipv4AddressRangeType GetRangeType(this Ipv4Subnet value)
         {
             return CheckAll(value, out var type) ? type : default;
@@ -61,6 +79,19 @@ namespace NetworkPrimitives.Ipv4
             return ret;
         }
         
+        /// <summary>
+        /// Determine which address class an <see cref="Ipv4Address"/> is a part of.
+        /// </summary>
+        /// <param name="address">
+        /// An instance of an <see cref="Ipv4Address"/>
+        /// </param>
+        /// <returns>
+        /// An <see cref="Ipv4AddressClass"/> representing which address class <paramref name="address"/> is a part of.
+        /// </returns>
+        /// <remarks>
+        /// Classful IP addressing is obsolete.  This type is provided for your information, but you should
+        /// do your best to remove your need to use this type.
+        /// </remarks>
         public static Ipv4AddressClass GetAddressClass(this Ipv4Address address)
         {
             var value = address.Value;

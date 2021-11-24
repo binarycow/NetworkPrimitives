@@ -9,7 +9,7 @@ namespace NetworkPrimitives.Utilities
     {
 
         public static bool TryParseHexUshort(
-            ref this SpanWrapper text, 
+            ref this ReadOnlySpan<char> text, 
             ref int charsRead, 
             out ushort value
         )
@@ -36,7 +36,7 @@ namespace NetworkPrimitives.Utilities
             };
         }
         public static bool TryParseUInt64(
-            ref this SpanWrapper text, 
+            ref this ReadOnlySpan<char> text, 
             ref int charsRead, 
             out ulong value
         )
@@ -46,7 +46,7 @@ namespace NetworkPrimitives.Utilities
             if (length == 0) return false;
             text.SplitKeepSecond(length, out var remainder);
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-            var success = ulong.TryParse(remainder.GetSpan(), out value);
+            var success = ulong.TryParse(remainder, out value);
 #else
             var success = ulong.TryParse(remainder.GetString(), out value);
 #endif
@@ -54,8 +54,9 @@ namespace NetworkPrimitives.Utilities
             charsRead += length;
             return true;
         }
+        
         public static bool TryParseByte(
-            ref this SpanWrapper text, 
+            ref this ReadOnlySpan<char> text, 
             ref int charsRead, 
             out byte value
         )
@@ -65,16 +66,16 @@ namespace NetworkPrimitives.Utilities
             if (length == 0) return false;
             text.SplitKeepSecond(length, out var remainder);
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-            var success = byte.TryParse(remainder.GetSpan(), out value);
+            var success = byte.TryParse(remainder, out value);
 #else
-            var success = byte.TryParse(remainder.GetString(), out value);
+            var success = byte.TryParse(remainder.CreateString(), out value);
 #endif
             if (!success) return false;
             charsRead += length;
             return true;
         }
         
-        private static int GetDigitLength(SpanWrapper text)
+        private static int GetDigitLength(ReadOnlySpan<char> text)
         {
             var length = 0;
             while (text.TrySliceFirst(out var ch) && ch is >= '0' and <= '9')
@@ -82,7 +83,7 @@ namespace NetworkPrimitives.Utilities
             return length;
         }
         
-        private static int GetHexChars(SpanWrapper text)
+        private static int GetHexChars(ReadOnlySpan<char> text)
         {
             var length = 0;
             while (text.TrySliceFirst(out var ch) && ch.IsHex())
@@ -90,7 +91,7 @@ namespace NetworkPrimitives.Utilities
             return length;
         }
 
-        public static bool TryReadCharacter(ref this SpanWrapper span, ref int charsRead, char expected)
+        public static bool TryReadCharacter(ref this ReadOnlySpan<char> span, ref int charsRead, char expected)
         {
             if (!span.TrySliceFirst(out var actual) || actual != expected)
                 return false;

@@ -2,10 +2,21 @@
 
 
   <PropertyGroup>
+    <Version>1.0.0-rc1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Title>NetworkPrimitives.Ipv4</Title>
     <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address;</PackageTags>
     <Description>Lightweight package for working with IPv4 addresses, ranges, and subnets.</Description>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\NetworkPrimitives.Ipv4.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\NetworkPrimitives.Ipv4.xml</DocumentationFile>
   </PropertyGroup>
 
 

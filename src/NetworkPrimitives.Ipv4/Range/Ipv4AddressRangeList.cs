@@ -43,12 +43,12 @@ namespace NetworkPrimitives.Ipv4
 
         public static bool TryParse(string? text, out int charsRead, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
         {
-            var span = new SpanWrapper(text);
+            var span = text.GetSpan();
             charsRead = default;
             return TryParse(ref span, ref charsRead, out result);
        }
 
-        internal static bool TryParse(ref SpanWrapper text, ref int charsRead, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
+        internal static bool TryParse(ref ReadOnlySpan<char> text, ref int charsRead, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
         {
             result = default;
             var textCopy = text;
