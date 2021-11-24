@@ -75,5 +75,48 @@ namespace NetworkPrimitives
             return span.TryWrite(item, ref written);
         }
         
+        public static bool TryConsumeWhiteSpace(ref this ReadOnlySpan<char> span, ref int charsRead)
+        {
+            var atLeastOne = false;
+            while (!span.IsEmpty && char.IsWhiteSpace(span[0]))
+            {
+                span = span[1..];
+                ++charsRead;
+                atLeastOne = true;
+            }
+            return atLeastOne;
+        }
+
+        public static string GetString(this ReadOnlySpan<char> span)
+        {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+            return new string(span);
+#else
+            return new string(span.ToArray() ?? Array.Empty<char>()); // TODO: Is this the right way to do it?
+#endif
+        }
+        
+        public static void SplitKeepSecond(ref this ReadOnlySpan<char> first, int length, out ReadOnlySpan<char> second)
+        {
+            second = first[..length];
+            first = first[length..];
+        }
+
+        public static bool TrySliceFirst(ref this ReadOnlySpan<char> span, out char value)
+        {
+            value = default;
+            if (span.IsEmpty)
+                return false;
+            value = span[0];
+            if (span.Length == 1)
+            {
+                // Workaround because for some reason on .NET Framework, it turns 1..
+                // into Slice(1, -1) when resulting length will be zero?
+                span = string.Empty.AsSpan();
+                return true;
+            }
+            span = span[1..];
+            return true;
+        }
     }
 }

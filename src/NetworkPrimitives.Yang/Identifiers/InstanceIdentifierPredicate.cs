@@ -10,7 +10,7 @@ namespace NetworkPrimitives.Yang
     public abstract record InstanceIdentifierPredicate
     {
         internal static bool TryParse(
-            ref SpanWrapper text,
+            ref ReadOnlySpan<char> text,
             ref int charsRead,
             [NotNullWhen(true)] out InstanceIdentifierPredicate? predicate,
             YangRfc rfc
@@ -23,7 +23,7 @@ namespace NetworkPrimitives.Yang
             return true;
         }
         internal static bool TryParse(
-            SpanWrapper text,
+            ReadOnlySpan<char> text,
             out int charsRead,
             [NotNullWhen(true)] out InstanceIdentifierPredicate? predicate,
             YangRfc rfc
@@ -54,7 +54,7 @@ namespace NetworkPrimitives.Yang
         : InstanceIdentifierPredicate
     {
         internal static bool TryParseTyped(
-            SpanWrapper text, 
+            ReadOnlySpan<char> text, 
             out int charsRead, 
             [NotNullWhen(true)] out InstanceIdentifierPredicate? predicate,
             YangRfc rfc
@@ -77,7 +77,7 @@ namespace NetworkPrimitives.Yang
         : InstanceIdentifierPredicate
     {
         internal static bool TryParseTyped(
-            ref SpanWrapper text,
+            ref ReadOnlySpan<char> text,
             ref int charsRead,
             [NotNullWhen(true)] out InstanceIdentifierKeyedListPredicate? predicate,
             YangRfc rfc
@@ -90,7 +90,7 @@ namespace NetworkPrimitives.Yang
             return true;
         }
         internal static bool TryParseTyped(
-            SpanWrapper text, 
+            ReadOnlySpan<char> text, 
             out int charsRead, 
             [NotNullWhen(true)] out InstanceIdentifierKeyedListPredicate? predicate,
             YangRfc rfc
@@ -114,7 +114,7 @@ namespace NetworkPrimitives.Yang
         : InstanceIdentifierPredicate
     {
         internal static bool TryParseTyped(
-            SpanWrapper text, 
+            ReadOnlySpan<char> text, 
             out int charsRead, 
             [NotNullWhen(true)] out InstanceIdentifierPredicate? predicate
         )
@@ -137,7 +137,7 @@ namespace NetworkPrimitives.Yang
         : InstanceIdentifierPredicate
     {
         internal static bool TryParseTyped(
-            SpanWrapper text, 
+            ReadOnlySpan<char> text, 
             out int charsRead, 
             [NotNullWhen(true)] out InstanceIdentifierPredicate? predicate
         )

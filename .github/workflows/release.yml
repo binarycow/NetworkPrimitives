@@ -1,12 +1,5 @@
-on:  
+﻿on:
   workflow_dispatch:
-    inputs:
-      packageVersion:
-        description: 'Nuget Package Version'
-        required: true
-  #push:
-  #  tags:
-  #  - "v[0-9]+.[0-9]+.[0-9]+(-[a-z]+[0-9]+)?"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,33 +8,48 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NUGET_FEED: https://api.nuget.org/v3/index.json
       NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
-      
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      
-    - name: Verify commit exists in origin/master
-    
-      run: |
-        git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-        git branch --remote --contains | grep origin/master
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Verify commit exists in origin/master
+
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+          git branch --remote --contains | grep origin/master
+
+      - name: Set Version
+        run: |
+          echo "Will create git tag 'v${{ github.event.inputs.packageVersion }}'"
+          VERSION="${{github.event.inputs.packageVersion}}"
+
+      - name: Commit tagger
+        uses: tvdias/github-tagger@v0.0.2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          tag: v${{ github.event.inputs.packageVersion }}
+
+      - name: Build
+        run: dotnet build --configuration Release NetworkPrimitives.sln
         
-    - name: Set Version
-      run: |
-        echo "Will create git tag 'v${{ github.event.inputs.packageVersion }}'"
-        VERSION="${{github.event.inputs.packageVersion}}"
+      - name: Test
+        run: dotnet test --no-build --configuration Release NetworkPrimitives.sln --logger:"nunit;LogFilePath=../../test-results/{framework}.xml"
         
-    - name: Commit tagger
-      uses: tvdias/github-tagger@v0.0.2
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        tag: v${{ github.event.inputs.packageVersion }}
+      - name: Pack
+        run: dotnet pack --configuration Release --no-build --output . --include-symbols --include-source NetworkPrimitives.sln
         
-    - name: Build
-      run: dotnet build --configuration Release /p:Version=${{github.event.inputs.packageVersion}} NetworkPrimitives.sln
-    - name: Test
-      run: dotnet test --configuration Release /p:Version=${{github.event.inputs.packageVersion}} --no-build NetworkPrimitives.sln
-    - name: Pack
-      run: dotnet pack --configuration Release /p:Version=${{github.event.inputs.packageVersion}} --no-build --output . --include-symbols --include-source NetworkPrimitives.sln
-    - name: Push
-      run: dotnet nuget push NetworkPrimitives.*.${{github.event.inputs.packageVersion}}.nupkg --source $NUGET_FEED --api-key $NUGET_KEY
+      - name: Push
+        run: dotnet nuget push NetworkPrimitives.Ipv4.*.nupkg --source $NUGET_FEED --api-key $NUGET_KEY
+
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: test-results
+
+      - name: Upload nuget packages
+        uses: actions/upload-artifact@v2
+        with:
+          name: nuget-packages
+          path: NetworkPrimitives.Ipv4.*.nupkg

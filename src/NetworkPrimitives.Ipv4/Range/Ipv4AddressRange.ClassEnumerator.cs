@@ -8,9 +8,8 @@ namespace NetworkPrimitives.Ipv4
 {
     public readonly partial struct Ipv4AddressRange
     {
-        private class ClassEnumerator : IEnumerator<Ipv4Address>
+        private class ClassEnumerator : IEnumerator<Ipv4Address>, IEnumerable<Ipv4Address>
         {
-
             private readonly Ipv4Address startAddress;
             private readonly ulong totalAddresses;
             private const int STATE_NOT_STARTED = 0;
@@ -69,6 +68,9 @@ namespace NetworkPrimitives.Ipv4
             void IDisposable.Dispose()
             {
             }
+
+            public IEnumerator<Ipv4Address> GetEnumerator() => this;
+            IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         }
     }
 }

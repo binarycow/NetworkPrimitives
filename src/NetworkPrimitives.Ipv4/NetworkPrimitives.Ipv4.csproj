@@ -2,6 +2,7 @@
 
 
   <PropertyGroup>
+    <Version>1.0.0-rc1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Title>NetworkPrimitives.Ipv4</Title>
     <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address;</PackageTags>

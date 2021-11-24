@@ -71,27 +71,13 @@ namespace NetworkPrimitives.Ipv6
 
         public override string ToString()
             => Ipv6Formatting.FormatIpv6Address(this.Low, this.High);
-        // public string ToString(string? format) 
-        //     => Ipv6Formatting.FormatIpv6Address(this.low, this.high, format);
-        // public string ToString(string? format, IFormatProvider? formatProvider)
-        //     => Ipv6Formatting.FormatIpv6Address(this.low, this.high, format, formatProvider);
 
         public static bool TryParse(string? text, out int charsRead, out Ipv6Address result)
         {
-            var spanWrapper = new SpanWrapper(text);
+            var spanWrapper = text.GetSpan();
             return TryParse(spanWrapper, out charsRead, out result);
         }
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-        public static bool TryParse(ReadOnlySpan<char> text, out int charsRead, out Ipv6Address result)
-        {
-            var spanWrapper = new SpanWrapper(text);
-            return TryParse(spanWrapper, out charsRead, out result);
-        }
-#endif
-
-
-
-        internal static bool TryParse(SpanWrapper text, out int charsRead, out Ipv6Address result)
+        internal static bool TryParse(ReadOnlySpan<char> text, out int charsRead, out Ipv6Address result)
         {
             if (Ipv6Parsing.TryParseIpv6Address(text, out charsRead, out var high, out var low))
             {
@@ -102,7 +88,7 @@ namespace NetworkPrimitives.Ipv6
             return false;
         }
 
-        internal static bool TryParse(ref SpanWrapper text, ref int charsRead, out Ipv6Address result)
+        internal static bool TryParse(ref ReadOnlySpan<char> text, ref int charsRead, out Ipv6Address result)
         {
             if (!Ipv6Address.TryParse(text, out var length, out result)) 
                 return false;

@@ -8,6 +8,28 @@ namespace NetworkPrimitives.Ipv4
     [ExcludeFromCodeCoverage("Internal")]
     internal static class SubnetOperations
     {
+        public static Ipv4Subnet GetContainingSupernet(IEnumerable<Ipv4Address> addresses)
+        {
+            using var enumerator = addresses.GetEnumerator();
+            if (enumerator.MoveNext() == false) return default;
+            var subnet = enumerator.Current / Ipv4Cidr.Slash32;
+            while(enumerator.MoveNext())
+                subnet = GetContainingSupernet(subnet, enumerator.Current / Ipv4Cidr.Slash32);
+            return subnet;
+        }
+
+        public static Ipv4Subnet GetContainingSupernet(IReadOnlyList<Ipv4Address> addresses)
+        {
+            if (addresses.Count == 0) return default;
+            if (addresses.Count == 1) return addresses[0] / Ipv4Cidr.Slash32;
+            var subnet = addresses[0] / Ipv4Cidr.Slash32;
+            for (var i = 1; i < addresses.Count; ++i)
+            {
+                subnet = GetContainingSupernet(subnet, addresses[i] / Ipv4Cidr.Slash32);
+            }
+            return subnet;
+        }
+
         public static Ipv4Subnet GetContainingSupernet(IEnumerable<Ipv4Subnet> subnets)
         {
             using var enumerator = subnets.GetEnumerator();
@@ -32,9 +54,25 @@ namespace NetworkPrimitives.Ipv4
 
         public static Ipv4Subnet GetParent(Ipv4Subnet subnet)
         {
-            if (subnet.Mask.Value is 0) return default;
-            return subnet.NetworkAddress / Ipv4Cidr.Parse(subnet.Mask.ToCidr().Value - 1);
+            _ = SubnetOperations.TryGetParent(subnet, out var parent);
+            return parent;
         }
+        
+        public static bool TryGetParent(Ipv4Subnet subnet, out Ipv4Subnet parent)
+        {
+            parent = default;
+            if (subnet.Mask.Value is 0) return false;
+            parent = subnet.NetworkAddress / Ipv4Cidr.Parse(subnet.Mask.ToCidr().Value - 1);
+            return true;
+        }
+
+        
+        public static Ipv4Subnet GetContainingSupernet(Ipv4Address a, Ipv4Address b) 
+            => GetContainingSupernet(a / Ipv4Cidr.Slash32, b / Ipv4Cidr.Slash32);
+        public static Ipv4Subnet GetContainingSupernet(Ipv4Address a, Ipv4Subnet b) 
+            => GetContainingSupernet(a / Ipv4Cidr.Slash32, b);
+        public static Ipv4Subnet GetContainingSupernet(Ipv4Subnet a, Ipv4Address b) 
+            => GetContainingSupernet(a, b / Ipv4Cidr.Slash32);
 
         public static Ipv4Subnet GetContainingSupernet(Ipv4Subnet a, Ipv4Subnet b)
         {

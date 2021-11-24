@@ -31,11 +31,11 @@ namespace NetworkPrimitives.Yang
 
         public static bool TryParse(string? text, out YangIdentifier result, YangRfc rfc = YangRfc.Rfc6020)
         {
-            var span = new SpanWrapper(text);
+            var span = text.GetSpan();
             var charsRead = 0;
             return TryParse(ref span, ref charsRead, out result, rfc) && charsRead == text?.Length;
         }
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+        
         
         public static YangIdentifier Parse(ReadOnlySpan<char> text, YangRfc rfc = YangRfc.Rfc6020)
             => TryParse(text, out var result, rfc) ? result : throw new FormatException();
@@ -44,14 +44,13 @@ namespace NetworkPrimitives.Yang
             => TryParse(text, out var charsRead, out result, rfc) && charsRead == text.Length;
         public static bool TryParse(ReadOnlySpan<char> text, out int charsRead, out YangIdentifier result, YangRfc rfc = YangRfc.Rfc6020)
         {
-            var span = new SpanWrapper(text);
             charsRead = default;
-            return TryParse(ref span, ref charsRead, out result, rfc);
+            return TryParse(ref text, ref charsRead, out result, rfc);
         }
-#endif
         
         
-        internal static bool TryParse(ref SpanWrapper text, ref int charsRead, out YangIdentifier result, YangRfc rfc)
+        
+        internal static bool TryParse(ref ReadOnlySpan<char> text, ref int charsRead, out YangIdentifier result, YangRfc rfc)
         {
             if (text.Length == 0 || !CheckXml(text, rfc) || !IsValidFirstChar(text[0]))
             {
@@ -71,7 +70,7 @@ namespace NetworkPrimitives.Yang
             charsRead += length;
             result = new (substring.GetString());
             return true;
-            static bool CheckXml(SpanWrapper text, YangRfc rfc)
+            static bool CheckXml(ReadOnlySpan<char> text, YangRfc rfc)
             {
                 if (rfc != YangRfc.Rfc6020 || text.Length < 3)
                     return true;

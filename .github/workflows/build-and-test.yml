@@ -26,7 +26,7 @@ jobs:
         include-prerelease: true
     - name: Build
       run: dotnet build --configuration Release NetworkPrimitives.sln
-    - name: Test with output
+    - name: Test
       run: dotnet test --no-build --configuration Release NetworkPrimitives.sln --logger:"nunit;LogFilePath=../../test-results/{framework}.xml"
     - name: Upload artifacts
       uses: actions/upload-artifact@v2

@@ -8,13 +8,13 @@ namespace NetworkPrimitives.Yang
     internal static class Parsing
     {
         public static bool TryReadQuotedText(
-            ref SpanWrapper text,
+            ref ReadOnlySpan<char> text,
             ref int charsRead,
             out string result
         ) => TryReadQuotedText(ref text, ref charsRead, out result, out _);
         
         public static bool TryReadQuotedText(
-            ref SpanWrapper text,
+            ref ReadOnlySpan<char> text,
             ref int charsRead,
             out string result,
             out char quoteType
@@ -28,13 +28,13 @@ namespace NetworkPrimitives.Yang
         }
         
         public static bool TryReadQuotedText(
-            SpanWrapper text,
+            ReadOnlySpan<char> text,
             out int charsRead,
             out string result
         ) => TryReadQuotedText(text, out charsRead, out result, out _);
         
         public static bool TryReadQuotedText(
-            SpanWrapper text,
+            ReadOnlySpan<char> text,
             out int charsRead,
             out string result,
             out char quoteType

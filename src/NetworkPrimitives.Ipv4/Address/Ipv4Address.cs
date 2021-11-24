@@ -12,23 +12,18 @@ namespace NetworkPrimitives.Ipv4
     public readonly struct Ipv4Address 
         : IComparable<Ipv4Address>, IComparable, IBinaryNetworkPrimitive<Ipv4Address>
     {
-        internal const int MINIMUM_LENGTH = 7; // 1.1.1.1
-        internal const int MAXIMUM_LENGTH = 15; // 123.123.123.123
-
-        /// <summary>
-        /// Represents the Ipv4 address of 0.0.0.0
-        /// </summary>
-        public static readonly Ipv4Address Any = new (uint.MinValue);
+        [ExcludeFromCodeCoverage]
+        internal Ipv4Address AddInternal(uint delta) => new (Value + delta);
+        [ExcludeFromCodeCoverage]
+        internal Ipv4Address SubtractInternal(uint delta) => new (Value - delta);
         
         /// <summary>
-        /// Represents the Ipv4 address of 255.255.255.255
+        /// Converts a <see cref="Ipv4Address"/> instance to a <see cref="IPAddress"/>.
         /// </summary>
-        public static readonly Ipv4Address Broadcast = new (uint.MaxValue);
-        
-        /// <summary>
-        /// Represents the Ipv4 address of 127.0.0.1
-        /// </summary>
-        public static readonly Ipv4Address LocalHost = new (0x7F000000);
+        /// <returns>
+        /// An <see cref="IPAddress"/> instance that represents this <see cref="Ipv4Address"/>.
+        /// </returns>
+        public IPAddress ToIpAddress() => this.Value.ToIpAddress();
         
         private Ipv4Address(uint value) => this.Value = value;
         internal uint Value { get; }
@@ -45,6 +40,30 @@ namespace NetworkPrimitives.Ipv4
         [ExcludeFromCodeCoverage]
         public uint LittleEndianValue => Value.SwapEndianIfLittleEndian();
 
+        #region Fields
+
+        internal const int MINIMUM_LENGTH = 7; // 1.1.1.1
+        internal const int MAXIMUM_LENGTH = 15; // 123.123.123.123
+        
+        /// <summary>
+        /// Represents the Ipv4 address of 0.0.0.0
+        /// </summary>
+        public static readonly Ipv4Address Any = new (uint.MinValue);
+        
+        /// <summary>
+        /// Represents the Ipv4 address of 255.255.255.255
+        /// </summary>
+        public static readonly Ipv4Address Broadcast = new (uint.MaxValue);
+        
+        /// <summary>
+        /// Represents the Ipv4 address of 127.0.0.1
+        /// </summary>
+        public static readonly Ipv4Address LocalHost = new (0x7F000000);
+
+        #endregion Fields
+        
+        #region Equality
+
         /// <summary>
         /// Returns a value indicating whether this instance is equal to a specified <see cref="Ipv4Address"/>.
         /// </summary>
@@ -52,7 +71,7 @@ namespace NetworkPrimitives.Ipv4
         /// A value to compare to this instance.
         /// </param>
         /// <returns>
-        /// <see langword="true"/> if obj has the same value as this instance; otherwise, <see langword="false"/>.
+        /// <see langword="true"/> if <paramref name="other"/> has the same value as this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public bool Equals(Ipv4Address other) => this.Value == other.Value;
         
@@ -63,7 +82,7 @@ namespace NetworkPrimitives.Ipv4
         /// A value to compare to this instance.
         /// </param>
         /// <returns>
-        /// <see langword="true"/> if obj is an instance of <see cref="Ipv4Address"/> and equals the
+        /// <see langword="true"/> if <paramref name="obj"/> is an instance of <see cref="Ipv4Address"/> and equals the
         /// value of this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object? obj) => obj is Ipv4Address other && Equals(other);
@@ -75,37 +94,11 @@ namespace NetworkPrimitives.Ipv4
         /// A 32-bit signed integer hash code.
         /// </returns>
         public override int GetHashCode() => (int)this.Value;
-        
-        /// <summary>
-        /// Returns a value indicating whether two instances of <see cref="Ipv4Address"/> are equal.
-        /// </summary>
-        /// <param name="left">
-        /// The first <see cref="Ipv4Address"/> to compare.
-        /// </param>
-        /// <param name="right">
-        /// The second <see cref="Ipv4Address"/> to compare.
-        /// </param>
-        /// <returns>
-        /// <see langword="true"/> if <paramref name="left"/> and <paramref name="right"/> are equal; otherwise <see langword="false"/>.
-        /// </returns>
-        public static bool operator ==(Ipv4Address left, Ipv4Address right) => left.Equals(right);
-        
-        /// <summary>
-        /// Returns a value indicating whether two instances of <see cref="Ipv4Address"/> are not equal.
-        /// </summary>
-        /// <param name="left">
-        /// The first <see cref="Ipv4Address"/> to compare.
-        /// </param>
-        /// <param name="right">
-        /// The second <see cref="Ipv4Address"/> to compare.
-        /// </param>
-        /// <returns>
-        /// <see langword="true"/> if <paramref name="left"/> and <paramref name="right"/> are not equal; otherwise <see langword="false"/>.
-        /// </returns>
-        public static bool operator !=(Ipv4Address left, Ipv4Address right) => !left.Equals(right);
 
+        #endregion Equality
 
-        
+        #region Subnetting
+
         /// <summary>
         /// Perform a bitwise-and operation with an <see cref="Ipv4Address"/> and an IPv4 subnet mask (as <see cref="Ipv4Cidr"/>).
         /// </summary>
@@ -163,7 +156,6 @@ namespace NetworkPrimitives.Ipv4
         /// </returns>
         public static Ipv4Subnet operator +(Ipv4Address left, Ipv4SubnetMask right) => new (left, right);
         
-        
         /// <summary>
         /// Creates an <see cref="Ipv4NetworkMatch"/> with an <see cref="Ipv4Address"/> and <see cref="Ipv4WildcardMask"/>
         /// </summary>
@@ -178,7 +170,6 @@ namespace NetworkPrimitives.Ipv4
         /// </returns>
         public static Ipv4NetworkMatch operator +(Ipv4Address left, Ipv4WildcardMask right) => new (left, right);
         
-        
         /// <summary>
         /// Creates an <see cref="Ipv4Subnet"/> with an <see cref="Ipv4Address"/> and <see cref="Ipv4Cidr"/>
         /// </summary>
@@ -192,15 +183,6 @@ namespace NetworkPrimitives.Ipv4
         /// The <see cref="Ipv4Subnet"/>
         /// </returns>
         public static Ipv4Subnet operator /(Ipv4Address left, Ipv4Cidr right) => new (left, right);
-
-        
-        
-        [ExcludeFromCodeCoverage]
-        internal Ipv4Address AddInternal(uint delta) => new (Value + delta);
-        [ExcludeFromCodeCoverage]
-        internal Ipv4Address SubtractInternal(uint delta) => new (Value - delta);
-
-        
         
         /// <summary>
         /// Determines if this <see cref="Ipv4Address"/> instance is a part of a given <see cref="Ipv4Subnet"/>
@@ -213,6 +195,10 @@ namespace NetworkPrimitives.Ipv4
         /// otherwise, <see langword="false"/>
         /// </returns>
         public bool IsInSubnet(Ipv4Subnet subnet) => subnet.Contains(this);
+        
+        #endregion Subnetting
+
+        #region Octets
 
         /// <summary>
         /// Gets a specific octet from an <see cref="Ipv4Address"/>
@@ -238,6 +224,7 @@ namespace NetworkPrimitives.Ipv4
 
         internal byte this[int index] => GetOctet(index);
         
+        
         /// <summary>
         /// Tries to write the current IP address into a span of bytes.
         /// </summary>
@@ -260,11 +247,15 @@ namespace NetworkPrimitives.Ipv4
         /// A <see cref="byte"/> array.
         /// </returns>
         public byte[] GetBytes() => this.Value.ToBytesBigEndian();
-        
+
+        #endregion Octets
+
+        #region Formatting
+
         int ITryFormat.MaximumLengthRequired => Ipv4Address.MAXIMUM_LENGTH;
 
         /// <summary>
-        /// When this method returns, the number of bytes written into the span.
+        /// Tries to format the current IP address into the provided span.
         /// </summary>
         /// <param name="destination">
         /// When this method returns, the IP address as a span of characters.
@@ -286,7 +277,19 @@ namespace NetworkPrimitives.Ipv4
         /// </returns>
         public override string ToString() => this.GetString();
 
+        #endregion Formatting
+
+        #region Parsing
+
+
         
+        /// <summary>
+        /// Converts an unsigned 32 bit integer to an <see cref="Ipv4Address"/>
+        /// </summary>
+        /// <param name="value">An unsigned 32 bit integer</param>
+        /// <returns>
+        /// The Ipv4 address representation of <paramref name="value"/>
+        /// </returns>
         public static Ipv4Address Parse(uint value)
             => new Ipv4Address(value);
         
@@ -296,7 +299,9 @@ namespace NetworkPrimitives.Ipv4
         /// <param name="ipString">
         /// A string that contains an IP address in dotted decimal notation
         /// </param>
-        /// <returns></returns>
+        /// <returns>
+        /// The Ipv4 address representation of <paramref name="ipString"/>
+        /// </returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="ipString"/> is <see langword="null"/>.
         /// </exception>
@@ -339,6 +344,25 @@ namespace NetworkPrimitives.Ipv4
             return result;
         }
 
+        /// <summary>
+        /// Converts an IP address represented as a character span to an <see cref="Ipv4Address"/> instance.
+        /// </summary>
+        /// <param name="ipSpan">
+        /// A character span that contains an IP address in dotted decimal notation.
+        /// </param>
+        /// <returns>
+        /// The converted IP address.
+        /// </returns>
+        /// <exception cref="FormatException">
+        /// <paramref name="ipSpan"/> is not a valid IPv4 address.
+        /// </exception>
+        public static Ipv4Address Parse(ReadOnlySpan<char> ipSpan)
+            => TryParse(ipSpan, out var result) ? result : throw new FormatException();
+        
+        
+        #endregion Parsing
+
+        #region TryParse
 
         /// <summary>
         ///     Converts a <see cref="IPAddress"/> to an <see cref="Ipv4Address"/> instance.
@@ -353,12 +377,6 @@ namespace NetworkPrimitives.Ipv4
         ///     <see langword="true"/> if <paramref name="ipAddress"/> was able to be converted to an
         ///     <see cref="Ipv4Address"/>; otherwise, <see langword="false"/>.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        ///     <paramref name="ipAddress"/> is <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     <paramref name="ipAddress"/> is not <see cref="AddressFamily.InterNetwork"/>
-        /// </exception>
         public static bool TryParse(IPAddress? ipAddress, out Ipv4Address address)
         {
             address = default;
@@ -367,14 +385,6 @@ namespace NetworkPrimitives.Ipv4
             address = ParseInternal(ipAddress);
             return true;
         }
-        
-        /// <summary>
-        /// Converts a <see cref="Ipv4Address"/> instance to a <see cref="IPAddress"/>.
-        /// </summary>
-        /// <returns>
-        /// An <see cref="IPAddress"/> instance that represents this <see cref="Ipv4Address"/>.
-        /// </returns>
-        public IPAddress ToIpAddress() => this.Value.ToIpAddress();
 
         /// <summary>
         /// Determines whether the specified byte span represents a valid IP address.
@@ -466,29 +476,14 @@ namespace NetworkPrimitives.Ipv4
             address = new Ipv4Address(value);
             return true;
         }
-
-        internal static bool TryParse(ref SpanWrapper text, ref int charsRead, out Ipv4Address address)
+        
+        internal static bool TryParse(ref ReadOnlySpan<char> text, ref int charsRead, out Ipv4Address address)
         {
             address = default;
             return Ipv4Parsing.TryParseDottedDecimalUInt32(ref text, ref charsRead, out var value)
                 && TryParse(value, out address);
         }
-
-        /// <summary>
-        /// Converts an IP address represented as a character span to an <see cref="Ipv4Address"/> instance.
-        /// </summary>
-        /// <param name="ipSpan">
-        /// A character span that contains an IP address in dotted decimal notation.
-        /// </param>
-        /// <returns>
-        /// The converted IP address.
-        /// </returns>
-        /// <exception cref="FormatException">
-        /// <paramref name="ipSpan"/> is not a valid IPv4 address.
-        /// </exception>
-        public static Ipv4Address Parse(ReadOnlySpan<char> ipSpan)
-            => TryParse(ipSpan, out var result) ? result : throw new FormatException();
-
+        
         
         /// <summary>
         /// Determines whether the specified character span represents a valid IPv4 address.
@@ -530,8 +525,61 @@ namespace NetworkPrimitives.Ipv4
             return Ipv4Parsing.TryParseDottedDecimalUInt32(ipSpan, out charsRead, out var value)
                 && TryParse(value, out address);
         }
+        
+        
+        #endregion TryParse
+
+        #region Comparisons
+        
+        /// <summary>
+        /// Returns a value indicating whether two instances of <see cref="Ipv4Address"/> are equal.
+        /// </summary>
+        /// <param name="left">
+        /// The first <see cref="Ipv4Address"/> to compare.
+        /// </param>
+        /// <param name="right">
+        /// The second <see cref="Ipv4Address"/> to compare.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> if <paramref name="left"/> and <paramref name="right"/> are equal; otherwise <see langword="false"/>.
+        /// </returns>
+        public static bool operator ==(Ipv4Address left, Ipv4Address right) => left.Equals(right);
+        
+        /// <summary>
+        /// Returns a value indicating whether two instances of <see cref="Ipv4Address"/> are not equal.
+        /// </summary>
+        /// <param name="left">
+        /// The first <see cref="Ipv4Address"/> to compare.
+        /// </param>
+        /// <param name="right">
+        /// The second <see cref="Ipv4Address"/> to compare.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> if <paramref name="left"/> and <paramref name="right"/> are not equal; otherwise <see langword="false"/>.
+        /// </returns>
+        public static bool operator !=(Ipv4Address left, Ipv4Address right) => !left.Equals(right);
+        
+        /// <summary>
+        ///     Compares the value of this instance to a specified <see cref="Ipv4Address"/> value,
+        ///     and returns an integer that indicates whether this instance is less than, equal to, or
+        ///     greater than the specified <see cref="Ipv4Address"/> value.
+        /// </summary>
+        /// <param name="other">The object to compare to the current instance.</param>
+        /// <returns>A signed number indicating the relative values of this instance and the value parameter.</returns>
         public int CompareTo(Ipv4Address other) => this.Value.CompareTo(other.Value);
 
+        /// <summary>
+        ///     Compares the value of this instance to a specified object that contains a specified
+        ///     <see cref="Ipv4Address"/> value, and returns an integer that indicates whether this
+        ///     instance is less than, equal to, or greater than the specified <see cref="Ipv4Address"/> value.
+        /// </summary>
+        /// <param name="obj">
+        ///     A boxed object to compare, or null.
+        /// </param>
+        /// <returns>A signed number indicating the relative values of this instance and value.</returns>
+        /// <exception cref="ArgumentException">
+        /// value is not a <see cref="Ipv4Address"/>.
+        /// </exception>
         public int CompareTo(object? obj) => obj switch
         {
             null => 1,
@@ -539,10 +587,58 @@ namespace NetworkPrimitives.Ipv4
             _ => throw new ArgumentException($"Object must be of type {nameof(Ipv4Address)}"),
         };
 
+        /// <summary>
+        ///     Determines whether one specified <see cref="Ipv4Address"/> represents an IPv4 address
+        ///     that is less than another specified <see cref="Ipv4Address"/>.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns>
+        ///     <see langword="true"/> if <paramref name="left"/> is less than
+        ///     <paramref name="right"/>; otherwise, <see langword="false"/>.
+        /// </returns>
         public static bool operator <(Ipv4Address left, Ipv4Address right) => left.CompareTo(right) < 0;
+        
+        /// <summary>
+        ///     Determines whether one specified <see cref="Ipv4Address"/> represents an IPv4 address
+        ///     that is greater than another specified <see cref="Ipv4Address"/>.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns>
+        ///     <see langword="true"/> if <paramref name="left"/> is greater than
+        ///     <paramref name="right"/>; otherwise, <see langword="false"/>.
+        /// </returns>
         public static bool operator >(Ipv4Address left, Ipv4Address right) => left.CompareTo(right) > 0;
+        
+        /// <summary>
+        ///     Determines whether one specified <see cref="Ipv4Address"/> represents an IPv4 address
+        ///     that is less than or equal to another specified <see cref="Ipv4Address"/>.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns>
+        ///     <see langword="true"/> if <paramref name="left"/> is less than or equal to
+        ///     <paramref name="right"/>; otherwise, <see langword="false"/>.
+        /// </returns>
         public static bool operator <=(Ipv4Address left, Ipv4Address right) => left.CompareTo(right) <= 0;
+        
+        /// <summary>
+        ///     Determines whether one specified <see cref="Ipv4Address"/> represents an IPv4 address
+        ///     that is greater than or equal to another specified <see cref="Ipv4Address"/>.
+        /// </summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns>
+        ///     <see langword="true"/> if <paramref name="left"/> is greater than or equal to
+        ///     <paramref name="right"/>; otherwise, <see langword="false"/>.
+        /// </returns>
         public static bool operator >=(Ipv4Address left, Ipv4Address right) => left.CompareTo(right) >= 0;
+
+        #endregion Comparisons
+        
+
+
     }
 
 }

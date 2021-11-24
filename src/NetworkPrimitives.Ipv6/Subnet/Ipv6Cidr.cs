@@ -71,12 +71,12 @@ namespace NetworkPrimitives.Ipv6
 
         public static bool TryParse(string? text, out int charsRead, out Ipv6Cidr result)
         {
-            var span = new SpanWrapper(text);
             charsRead = default;
+            var span = text.GetSpan();
             return TryParse(ref span, ref charsRead, out result);
         }
         
-        internal static bool TryParse(ref SpanWrapper text, ref int charsRead, out Ipv6Cidr result)
+        internal static bool TryParse(ref ReadOnlySpan<char> text, ref int charsRead, out Ipv6Cidr result)
         {
             result = default;
             if (!text.TryParseByte(ref charsRead, out var value) || value > 128)
@@ -85,16 +85,14 @@ namespace NetworkPrimitives.Ipv6
             return true;
         }
 
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
         public static bool TryParse(ReadOnlySpan<char> text, out int charsRead, out Ipv6Cidr result)
         {
-            var span = new SpanWrapper(text);
             charsRead = default;
-            return TryParse(ref span, ref charsRead, out result);
+            return TryParse(ref text, ref charsRead, out result);
         }
         public static bool TryParse(ReadOnlySpan<char> text, out Ipv6Cidr result)
             => TryParse(text, out var charsRead, out result) && charsRead == text.Length;
-#endif
+        
         public Ipv6SubnetMask ToSubnetMask() => this;
     }
 }

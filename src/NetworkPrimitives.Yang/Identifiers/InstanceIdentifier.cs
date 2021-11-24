@@ -17,28 +17,13 @@ namespace NetworkPrimitives.Yang
             YangRfc rfc
         )
         {
-            var span = new SpanWrapper(text);
+            var span = text.GetSpan();
             return TryParse(span, out var charsRead, out expression, rfc) && charsRead == text.Length;
         }
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-        public static bool TryParse(
-            ReadOnlySpan<char> text,
-            [NotNullWhen(true)] out InstanceIdentifier? expression,
-            YangRfc rfc
-        ) => TryParse(text, out _, out expression, rfc);
-        public static bool TryParse(
-            ReadOnlySpan<char> text, 
-            out int charsRead,
-            [NotNullWhen(true)] out InstanceIdentifier? expression,
-            YangRfc rfc
-        )
-        {
-            var span = new SpanWrapper(text);
-            return TryParse(span, out charsRead, out expression, rfc);
-        }
-#endif
+        
+        
         internal static bool TryParse(
-            SpanWrapper text,
+            ReadOnlySpan<char> text,
             out int charsRead,
             [NotNullWhen(true)] out InstanceIdentifier? expression,
             YangRfc rfc
@@ -72,7 +57,7 @@ namespace NetworkPrimitives.Yang
         InstanceIdentifierPredicate? Predicate)
     {
         internal static bool TryParse(
-            ref SpanWrapper text,
+            ref ReadOnlySpan<char> text,
             ref int charsRead,
             [NotNullWhen(true)] out InstanceIdentifierExpression? expression,
             YangRfc rfc
@@ -86,7 +71,7 @@ namespace NetworkPrimitives.Yang
         }
         
         internal static bool TryParse(
-            SpanWrapper text,
+            ReadOnlySpan<char> text,
             out int charsRead,
             [NotNullWhen(true)] out InstanceIdentifierExpression? expression,
             YangRfc rfc
