@@ -4,6 +4,7 @@
     <RootNamespace>NetworkPrimitives</RootNamespace>
   </PropertyGroup>
   <PropertyGroup>
+    <Version>1.0.0-rc1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Title>NetworkPrimitives</Title>
     <PackageTags>network; networking;</PackageTags>
