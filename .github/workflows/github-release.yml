@@ -1,9 +1,9 @@
 ﻿# TODO: Make the trigger more strict
 on:
   push:
-    branches: [ master ]
+    branches: [ dev ]
   pull_request:
-    branches: [ master ]
+    branches: [ dev ]
     
 jobs:
   github-release:
@@ -37,3 +37,14 @@ jobs:
       #  run: dotnet nuget push --source github --api-key ${{ secrets.GITHUB_TOKEN }} NetworkPrimitives.*.nupkg --skip-duplicate
       #- name: Push to official nuget feed
       #  run: dotnet nuget push --source $NUGET_FEED --api-key $NUGET_KEY NetworkPrimitives.*.nupkg --skip-duplicate
+      - name: Create Release
+        uses: ncipollo/release-action@v1.8.10
+        with:
+          artifacts: "NetworkPrimitives.*.nupkg"
+          # bodyFile: "body.md"
+          artifactErrorsFailBuild: true
+          draft: true
+          omitBody: true
+          prerelease: true
+          tag: v1.0.0-rc2
+          token: ${{ secrets.GITHUB_TOKEN }}
