@@ -10,7 +10,9 @@ namespace NetworkPrimitives.Benchmarks
     {
         private static void Main(string[] args)
         {
-            var path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "../../../../BenchmarkResults"));
+            // var path = "../../../../BenchmarkResults";
+            var path = "../../../BenchmarkResults";
+            path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, path));
             Directory.CreateDirectory(path);
             Environment.CurrentDirectory = path;
             BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly)?.Run(args);
