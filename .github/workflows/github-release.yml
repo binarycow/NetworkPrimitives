@@ -32,4 +32,4 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release --no-build --output . --include-symbols --include-source NetworkPrimitives.sln
       - name: Push
-        run: dotnet nuget push NetworkPrimitives.Common.1.0.0-rc1.nupkg --source github ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push NetworkPrimitives.Common.1.0.0-rc1.nupkg --source github --api-key ${{ secrets.GITHUB_TOKEN }}
