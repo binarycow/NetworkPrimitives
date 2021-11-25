@@ -43,7 +43,7 @@ jobs:
           artifacts: "NetworkPrimitives.*.nupkg"
           # bodyFile: "body.md"
           artifactErrorsFailBuild: true
-          draft: true
+          # draft: true
           omitBody: true
           prerelease: true
           tag: v1.0.0-rc2
