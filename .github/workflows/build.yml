@@ -1,0 +1,41 @@
+name: build-and-test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ dev, master ]
+  pull_request:
+    branches: [ dev, master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Get Timestamp
+      uses: gerred/actions/current-time@master
+      env:
+        $TIMESTAMP: "${{ steps.current-time.outputs.time }}"
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+        include-prerelease: true
+
+    - name: Build
+      run: dotnet build --configuration Release NetworkPrimitives.sln
+
+    - name: Test
+      run: dotnet test --no-build --configuration Release NetworkPrimitives.sln --logger:"nunit;LogFilePath=../../test-results/{framework}.xml"
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: test-results
+      
+    

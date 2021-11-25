@@ -1,14 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>$(NPVer_Yang)</Version>
     <Title>NetworkPrimitives.Yang</Title>
     <PackageTags>yang;</PackageTags>
     <Description>Lightweight package for working with YANG types</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetworkPrimitives.Common\NetworkPrimitives.Common.csproj" />
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>NetworkPrimitives.Yang.Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
+  <Import Project="..\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems" Label="Shared" />
 
 </Project>

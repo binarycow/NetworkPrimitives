@@ -1,0 +1,8 @@
+﻿<Project>
+  <PropertyGroup>
+    <NPVer_IPv4>1.0.0-rc2</NPVer_IPv4>
+    <NPVer_IPv6>1.0.0-alpha13</NPVer_IPv6>
+    <NPVer_Switching>1.0.0-alpha13</NPVer_Switching>
+    <NPVer_Yang>1.0.0-alpha13</NPVer_Yang>
+  </PropertyGroup>
+</Project>
