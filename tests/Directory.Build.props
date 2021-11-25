@@ -11,12 +11,6 @@
     <PackageReference Include="coverlet.collector" Version="3.0.3" />
     <PackageReference Include="NunitXml.TestLogger" Version="3.0.117" />
   </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="$(SolutionDir)tests/randomips.json">
-      <Link>randomips.json</Link>
-    </EmbeddedResource>
-  </ItemGroup>
   
   <PropertyGroup>
     <IsPackable>false</IsPackable>
@@ -24,15 +18,15 @@
     <RootNamespace>NetworkPrimitives.Tests</RootNamespace>
     <AssemblyName>NetworkPrimitives.Tests</AssemblyName>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)src/NetworkPrimitives.Ipv4/NetworkPrimitives.Ipv4.csproj" />
-    <ProjectReference Include="$(SolutionDir)src/NetworkPrimitives.Ipv6/NetworkPrimitives.Ipv6.csproj" />
-    <ProjectReference Include="$(SolutionDir)src/NetworkPrimitives.Common/NetworkPrimitives.Common.csproj" />
-    <ProjectReference Include="$(SolutionDir)src/NetworkPrimitives.Yang/NetworkPrimitives.Yang.csproj" />
-  </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="$(SolutionDir)tests/EmbeddedResourceUtils.cs">
+      <Link>EmbeddedResourceUtils.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <!-- 
   <ItemGroup>
     <AssemblyAttribute Include="NetworkPrimitives.ExcludeFromCodeCoverageAttribute" />
   </ItemGroup>
+  -->
 </Project>

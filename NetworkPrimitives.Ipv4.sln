@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{35B4FA50-1323-4EB4-9E04-CCD6D74D395B}"
+ProjectSection(SolutionItems) = preProject
+	src\Directory.Build.props = src\Directory.Build.props
+	src\versions.props = src\versions.props
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{52B03A28-75A2-4600-80DC-B1862AF95FE5}"
+ProjectSection(SolutionItems) = preProject
+	tests\Directory.Build.props = tests\Directory.Build.props
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv4", "src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj", "{CEEA0937-6D5F-4FFE-8F16-95A8E1BEC1FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv4.Tests.Core", "tests\NetworkPrimitives.Ipv4.Tests\NetworkPrimitives.Ipv4.Tests.Core.csproj", "{8167142F-D72D-4CDF-BB72-2C0F84BC7EB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv4.Tests.Framework", "tests\NetworkPrimitives.Ipv4.Tests\NetworkPrimitives.Ipv4.Tests.Framework.csproj", "{B5A6FDA0-3517-47C7-8D20-8CDBC63CCAC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CEEA0937-6D5F-4FFE-8F16-95A8E1BEC1FB} = {35B4FA50-1323-4EB4-9E04-CCD6D74D395B}
+		{8167142F-D72D-4CDF-BB72-2C0F84BC7EB0} = {52B03A28-75A2-4600-80DC-B1862AF95FE5}
+		{B5A6FDA0-3517-47C7-8D20-8CDBC63CCAC0} = {52B03A28-75A2-4600-80DC-B1862AF95FE5}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEEA0937-6D5F-4FFE-8F16-95A8E1BEC1FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEEA0937-6D5F-4FFE-8F16-95A8E1BEC1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEEA0937-6D5F-4FFE-8F16-95A8E1BEC1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEEA0937-6D5F-4FFE-8F16-95A8E1BEC1FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8167142F-D72D-4CDF-BB72-2C0F84BC7EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8167142F-D72D-4CDF-BB72-2C0F84BC7EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8167142F-D72D-4CDF-BB72-2C0F84BC7EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8167142F-D72D-4CDF-BB72-2C0F84BC7EB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5A6FDA0-3517-47C7-8D20-8CDBC63CCAC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5A6FDA0-3517-47C7-8D20-8CDBC63CCAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5A6FDA0-3517-47C7-8D20-8CDBC63CCAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5A6FDA0-3517-47C7-8D20-8CDBC63CCAC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

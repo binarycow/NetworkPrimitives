@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>NetworkPrimitives.Yang.Tests</AssemblyName>
+    <RootNamespace>NetworkPrimitives.Yang.Tests</RootNamespace>
+  </PropertyGroup>
+</Project>

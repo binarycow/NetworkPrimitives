@@ -2,14 +2,17 @@
 
 
   <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>$(NPVer_IPv6)</Version>
     <Title>NetworkPrimitives.Ipv6</Title>
     <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address;</PackageTags>
     <Description>Lightweight package for working with IPv6 addresses, ranges, and subnets.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetworkPrimitives.Common\NetworkPrimitives.Common.csproj" />
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>NetworkPrimitives.Ipv6.Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
+  <Import Project="..\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems" Label="Shared" />
 
 </Project>

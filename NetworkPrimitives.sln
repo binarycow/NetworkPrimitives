@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9A24AE3F-E98C-406F-8EF6-8816224ECB2B}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.Build.props = src\Directory.Build.props
+		src\versions.props = src\versions.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1044DFB0-ADCA-41F0-AFA3-B942A47792A1}"
@@ -13,15 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1044DFB0
 		tests\Directory.Build.props = tests\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkPrimitives.Tests.Framework", "tests\NetworkPrimitives.Tests\NetworkPrimitives.Tests.Framework.csproj", "{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkPrimitives.Common", "src\NetworkPrimitives.Common\NetworkPrimitives.Common.csproj", "{9F88B24D-2CA8-4178-B575-CEA182FCF776}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkPrimitives.Ipv4", "src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj", "{F30DAE77-C764-4CE0-9E63-FF992AEEE251}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkPrimitives.Ipv6", "src\NetworkPrimitives.Ipv6\NetworkPrimitives.Ipv6.csproj", "{709472BB-D33D-40B3-A43B-7F1B4347B3D1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6A381B44-AB27-400F-9306-FEB6DC49F38A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C004A053-6172-4403-935C-6B60AC3B2F53}"
 	ProjectSection(SolutionItems) = preProject
@@ -43,7 +38,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestData", "TestData", "{EA
 		tests\randomips.json = tests\randomips.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Tests.Core", "tests\NetworkPrimitives.Tests\NetworkPrimitives.Tests.Core.csproj", "{7750B01A-268E-481C-845E-C94884FC449A}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NetworkPrimitives.Shared", "src\NetworkPrimitives.Shared\NetworkPrimitives.Shared.shproj", "{F91CD3ED-A1CA-4515-9DE9-264F8AC68625}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetworkPrimitives.Ipv4.Tests", "NetworkPrimitives.Ipv4.Tests", "{97D56819-0E4C-414C-A6F5-C1D256913B20}"
+ProjectSection(SolutionItems) = preProject
+	tests\NetworkPrimitives.Ipv4.Tests\Directory.Build.props = tests\NetworkPrimitives.Ipv4.Tests\Directory.Build.props
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetworkPrimitives.Ipv6.Tests", "NetworkPrimitives.Ipv6.Tests", "{6B1A176B-C45A-4981-9331-1640DD829669}"
+ProjectSection(SolutionItems) = preProject
+	tests\NetworkPrimitives.Ipv6.Tests\Directory.Build.props = tests\NetworkPrimitives.Ipv6.Tests\Directory.Build.props
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetworkPrimitives.Switching.Tests", "NetworkPrimitives.Switching.Tests", "{03733425-B7BD-49B5-9A5B-76BCD9DD5A6A}"
+ProjectSection(SolutionItems) = preProject
+	tests\NetworkPrimitives.Switching.Tests\Directory.Build.props = tests\NetworkPrimitives.Switching.Tests\Directory.Build.props
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetworkPrimitives.Yang.Tests", "NetworkPrimitives.Yang.Tests", "{50D25F74-1499-415A-A68F-664796187508}"
+ProjectSection(SolutionItems) = preProject
+	tests\NetworkPrimitives.Yang.Tests\Directory.Build.props = tests\NetworkPrimitives.Yang.Tests\Directory.Build.props
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv4.Tests.Core", "tests\NetworkPrimitives.Ipv4.Tests\NetworkPrimitives.Ipv4.Tests.Core.csproj", "{C0ED99FB-BCE3-4DF8-B6B6-6FF8055C383C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv4.Tests.Framework", "tests\NetworkPrimitives.Ipv4.Tests\NetworkPrimitives.Ipv4.Tests.Framework.csproj", "{01F09730-AAF5-4E35-9E24-63230A2F34A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv6.Tests.Core", "tests\NetworkPrimitives.Ipv6.Tests\NetworkPrimitives.Ipv6.Tests.Core.csproj", "{F6F3244D-8829-4C7E-A3A6-99023857E2F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv6.Tests.Framework", "tests\NetworkPrimitives.Ipv6.Tests\NetworkPrimitives.Ipv6.Tests.Framework.csproj", "{1FE28E58-B572-4106-9C12-228B7E6C8394}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Switching.Tests.Core", "tests\NetworkPrimitives.Switching.Tests\NetworkPrimitives.Switching.Tests.Core.csproj", "{0D5ADA70-4B67-4E06-97B1-A5F6375D73B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Switching.Tests.Framework", "tests\NetworkPrimitives.Switching.Tests\NetworkPrimitives.Switching.Tests.Framework.csproj", "{0D994960-378D-41F8-9D12-9DCE69281B72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Yang.Tests.Core", "tests\NetworkPrimitives.Yang.Tests\NetworkPrimitives.Yang.Tests.Core.csproj", "{7A3C4C76-97F8-4CEA-9D2C-79DCFF4A933A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Yang.Tests.Framework", "tests\NetworkPrimitives.Yang.Tests\NetworkPrimitives.Yang.Tests.Framework.csproj", "{2F63C80B-5C72-43FF-8E33-2592B78D5082}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -58,14 +89,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F88B24D-2CA8-4178-B575-CEA182FCF776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F88B24D-2CA8-4178-B575-CEA182FCF776}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F88B24D-2CA8-4178-B575-CEA182FCF776}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F88B24D-2CA8-4178-B575-CEA182FCF776}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F30DAE77-C764-4CE0-9E63-FF992AEEE251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F30DAE77-C764-4CE0-9E63-FF992AEEE251}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F30DAE77-C764-4CE0-9E63-FF992AEEE251}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -82,24 +105,61 @@ Global
 		{A02C01D2-375D-4774-AB09-A9C98710D0F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A02C01D2-375D-4774-AB09-A9C98710D0F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A02C01D2-375D-4774-AB09-A9C98710D0F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7750B01A-268E-481C-845E-C94884FC449A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7750B01A-268E-481C-845E-C94884FC449A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7750B01A-268E-481C-845E-C94884FC449A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7750B01A-268E-481C-845E-C94884FC449A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0ED99FB-BCE3-4DF8-B6B6-6FF8055C383C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0ED99FB-BCE3-4DF8-B6B6-6FF8055C383C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0ED99FB-BCE3-4DF8-B6B6-6FF8055C383C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0ED99FB-BCE3-4DF8-B6B6-6FF8055C383C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01F09730-AAF5-4E35-9E24-63230A2F34A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F09730-AAF5-4E35-9E24-63230A2F34A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01F09730-AAF5-4E35-9E24-63230A2F34A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01F09730-AAF5-4E35-9E24-63230A2F34A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6F3244D-8829-4C7E-A3A6-99023857E2F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6F3244D-8829-4C7E-A3A6-99023857E2F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6F3244D-8829-4C7E-A3A6-99023857E2F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6F3244D-8829-4C7E-A3A6-99023857E2F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE28E58-B572-4106-9C12-228B7E6C8394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE28E58-B572-4106-9C12-228B7E6C8394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE28E58-B572-4106-9C12-228B7E6C8394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE28E58-B572-4106-9C12-228B7E6C8394}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D5ADA70-4B67-4E06-97B1-A5F6375D73B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D5ADA70-4B67-4E06-97B1-A5F6375D73B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D5ADA70-4B67-4E06-97B1-A5F6375D73B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D5ADA70-4B67-4E06-97B1-A5F6375D73B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D994960-378D-41F8-9D12-9DCE69281B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D994960-378D-41F8-9D12-9DCE69281B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D994960-378D-41F8-9D12-9DCE69281B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D994960-378D-41F8-9D12-9DCE69281B72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A3C4C76-97F8-4CEA-9D2C-79DCFF4A933A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3C4C76-97F8-4CEA-9D2C-79DCFF4A933A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A3C4C76-97F8-4CEA-9D2C-79DCFF4A933A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A3C4C76-97F8-4CEA-9D2C-79DCFF4A933A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F63C80B-5C72-43FF-8E33-2592B78D5082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F63C80B-5C72-43FF-8E33-2592B78D5082}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F63C80B-5C72-43FF-8E33-2592B78D5082}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F63C80B-5C72-43FF-8E33-2592B78D5082}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5F5443BE-4CD8-41A4-B2EE-55F4AE84ABD6} = {6A381B44-AB27-400F-9306-FEB6DC49F38A}
-		{9F88B24D-2CA8-4178-B575-CEA182FCF776} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
 		{F30DAE77-C764-4CE0-9E63-FF992AEEE251} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
 		{709472BB-D33D-40B3-A43B-7F1B4347B3D1} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
-		{6A381B44-AB27-400F-9306-FEB6DC49F38A} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
 		{AD9EC0EF-2227-4FA4-8174-22E3544A5EF6} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
 		{A02C01D2-375D-4774-AB09-A9C98710D0F8} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
 		{EAD76E9F-50DC-47C8-ABE9-6975E6E140F3} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
-		{7750B01A-268E-481C-845E-C94884FC449A} = {6A381B44-AB27-400F-9306-FEB6DC49F38A}
+		{F91CD3ED-A1CA-4515-9DE9-264F8AC68625} = {9A24AE3F-E98C-406F-8EF6-8816224ECB2B}
+		{97D56819-0E4C-414C-A6F5-C1D256913B20} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
+		{6B1A176B-C45A-4981-9331-1640DD829669} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
+		{03733425-B7BD-49B5-9A5B-76BCD9DD5A6A} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
+		{50D25F74-1499-415A-A68F-664796187508} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
+		{C0ED99FB-BCE3-4DF8-B6B6-6FF8055C383C} = {97D56819-0E4C-414C-A6F5-C1D256913B20}
+		{01F09730-AAF5-4E35-9E24-63230A2F34A5} = {97D56819-0E4C-414C-A6F5-C1D256913B20}
+		{F6F3244D-8829-4C7E-A3A6-99023857E2F6} = {6B1A176B-C45A-4981-9331-1640DD829669}
+		{1FE28E58-B572-4106-9C12-228B7E6C8394} = {6B1A176B-C45A-4981-9331-1640DD829669}
+		{0D5ADA70-4B67-4E06-97B1-A5F6375D73B1} = {03733425-B7BD-49B5-9A5B-76BCD9DD5A6A}
+		{0D994960-378D-41F8-9D12-9DCE69281B72} = {03733425-B7BD-49B5-9A5B-76BCD9DD5A6A}
+		{7A3C4C76-97F8-4CEA-9D2C-79DCFF4A933A} = {50D25F74-1499-415A-A68F-664796187508}
+		{2F63C80B-5C72-43FF-8E33-2592B78D5082} = {50D25F74-1499-415A-A68F-664796187508}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {157805D8-FB4B-4043-ABB9-61C17CC21945}
