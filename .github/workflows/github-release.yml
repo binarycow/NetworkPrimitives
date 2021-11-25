@@ -33,7 +33,7 @@ jobs:
         run: dotnet test --configuration Release --no-build NetworkPrimitives.sln
       - name: Pack
         run: dotnet pack --configuration Release --no-build --output . --include-symbols --include-source NetworkPrimitives.sln
-      - name: Push to GitHub nuget feed
-        run: dotnet nuget push --source github --api-key ${{ secrets.GITHUB_TOKEN }} NetworkPrimitives.*.nupkg --skip-duplicate
-      - name: Push to official nuget feed
-        run: dotnet nuget push --source $NUGET_FEED --api-key $NUGET_KEY NetworkPrimitives.*.nupkg --skip-duplicate
+      #- name: Push to GitHub nuget feed
+      #  run: dotnet nuget push --source github --api-key ${{ secrets.GITHUB_TOKEN }} NetworkPrimitives.*.nupkg --skip-duplicate
+      #- name: Push to official nuget feed
+      #  run: dotnet nuget push --source $NUGET_FEED --api-key $NUGET_KEY NetworkPrimitives.*.nupkg --skip-duplicate
