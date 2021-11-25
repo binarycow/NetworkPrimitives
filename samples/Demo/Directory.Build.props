@@ -4,9 +4,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetworkPrimitives.Ipv4" Version="1.0.0-alpha12" />
-    <PackageReference Include="NetworkPrimitives.Ipv6" Version="1.0.0-alpha12" />
-    <PackageReference Include="NetworkPrimitives.Switching" Version="1.0.0-alpha12" />
-    <PackageReference Include="NetworkPrimitives.Yang" Version="1.0.0-alpha12" />
+    <ProjectReference Include="..\..\src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj" />
+    <ProjectReference Include="..\..\src\NetworkPrimitives.Ipv6\NetworkPrimitives.Ipv6.csproj" />
+    <ProjectReference Include="..\..\src\NetworkPrimitives.Switching\NetworkPrimitives.Switching.csproj" />
+    <ProjectReference Include="..\..\src\NetworkPrimitives.Yang\NetworkPrimitives.Yang.csproj" />
   </ItemGroup>
+
 </Project>

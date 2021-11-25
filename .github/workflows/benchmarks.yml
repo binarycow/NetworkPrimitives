@@ -1,0 +1,35 @@
+﻿name: benchmarks
+
+on:
+  workflow_dispatch:
+  #push:
+  #  branches: [ master ]
+  #pull_request:
+  #  branches: [ master ]
+  
+
+jobs:
+  benchmarks:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+          include-prerelease: true
+
+      - name: Build
+        run: dotnet build -c Release ./benchmarks/NetworkPrimitives.Benchmarks.csproj
+
+      - name: Run Benchmarks
+        run: dotnet run --project ./benchmarks/NetworkPrimitives.Benchmarks.csproj -- --filter "*Benchmarks.*"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: benchmark-results
+          path: BenchmarkResults

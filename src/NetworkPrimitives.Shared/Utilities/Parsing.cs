@@ -61,20 +61,48 @@ namespace NetworkPrimitives.Utilities
             out byte value
         )
         {
+            /*
+25[0-5]
+2[0-4][0-9]
+1[0-9][0-9]
+
+[1-9][0-9]
+
+[0-9]
+ */
             value = default;
-            var length = Parsing.GetDigitLength(text);
-            if (length == 0) return false;
-            text.SplitKeepSecond(length, out var remainder);
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-            var success = byte.TryParse(remainder, out value);
-#else
-            var success = byte.TryParse(remainder.CreateString(), out value);
-#endif
-            if (!success) return false;
-            charsRead += length;
-            return true;
+            var digitLength = text.Length switch
+            {
+                0 => default,
+                1 => GetByteDigitLength(text[0], default, default),
+                2 => GetByteDigitLength(text[0], text[1], default),
+                _ => GetByteDigitLength(text[0], text[1], text[2]),
+            };
+            value = 0;
+            for (var i = 0; i < digitLength; ++i)
+            {
+                value *= 10;
+                value += (byte)(text[0] - '0');
+                text = text[1..];
+                ++charsRead;
+            }
+            return digitLength > 0;
+
+            static int GetByteDigitLength(char a, char b, char c) => (a, b, c) switch
+            {
+                (a: '2'              , b: >= '0' and <= '4', c: >= '0' and <= '9') => 3,
+                (a: '2'              , b: '5'              , c: >= '0' and <= '5') => 3,
+                
+                (a: >= '2'           , b: >= '0' and <= '9', c: >= '0' and <= '9') => 0,
+                
+                (a: '1'              , b: >= '0' and <= '9', c: >= '0' and <= '9') => 3,
+                (a: >= '1' and <= '9', b: >= '0' and <= '9', c: _                ) => 2,
+                (a: >= '0' and <= '9', b: _                , c: _                ) => 1,
+                _                                                                  => 0,
+            };
+            
         }
-        
+
         private static int GetDigitLength(ReadOnlySpan<char> text)
         {
             var length = 0;

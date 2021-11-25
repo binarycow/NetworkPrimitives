@@ -19,7 +19,11 @@ namespace NetworkPrimitives.Benchmarks
     public class Ipv4AddressParsing
     {
         [Benchmark]
+#if ProjRefImports
+        public void NetworkPrimitivesProjRef()
+#else
         public void NetworkPrimitives()
+#endif
         {
             foreach (var address in TestData.RandomIpAddresses)
             {

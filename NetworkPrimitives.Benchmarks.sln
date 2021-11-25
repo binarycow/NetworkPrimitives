@@ -1,16 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Benchmarks", "tests\NetworkPrimitives.Benchmarks\NetworkPrimitives.Benchmarks.csproj", "{4127FFF8-5CEF-44F4-953A-BDDB8A4F5D5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Benchmarks", "benchmarks\NetworkPrimitives.Benchmarks.csproj", "{A175E6CC-B7EA-4822-A661-8A8B6D68FC18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv4", "src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj", "{FA3BB726-8127-4869-8242-7BC7D4E9CC1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4127FFF8-5CEF-44F4-953A-BDDB8A4F5D5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4127FFF8-5CEF-44F4-953A-BDDB8A4F5D5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4127FFF8-5CEF-44F4-953A-BDDB8A4F5D5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4127FFF8-5CEF-44F4-953A-BDDB8A4F5D5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A175E6CC-B7EA-4822-A661-8A8B6D68FC18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A175E6CC-B7EA-4822-A661-8A8B6D68FC18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA3BB726-8127-4869-8242-7BC7D4E9CC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA3BB726-8127-4869-8242-7BC7D4E9CC1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
