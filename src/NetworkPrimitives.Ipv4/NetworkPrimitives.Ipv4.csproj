@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Version>$(NPVer_IPv4)</Version>
     <Title>NetworkPrimitives.Ipv4</Title>
-    <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address;</PackageTags>
+    <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address; networking.primitives;</PackageTags>
     <Description>Lightweight package for working with IPv4 addresses, ranges, and subnets.</Description>
     <Configurations>Release</Configurations>
     <Platforms>AnyCPU</Platforms>

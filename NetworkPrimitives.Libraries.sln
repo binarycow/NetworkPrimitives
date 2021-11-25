@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkPrimitives.Ipv4.JsonConverters", "src\NetworkPrimitives.Ipv4.JsonConverters\NetworkPrimitives.Ipv4.JsonConverters.csproj", "{3208AF6B-9F5A-40F1-983E-9D87AFD2E7E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4D5F4423-0CA9-46F2-97B5-F1C76549C3F6}"
+ProjectSection(SolutionItems) = preProject
+	src\Directory.Build.props = src\Directory.Build.props
+	src\versions.props = src\versions.props
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3208AF6B-9F5A-40F1-983E-9D87AFD2E7E5}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{3208AF6B-9F5A-40F1-983E-9D87AFD2E7E5}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{3208AF6B-9F5A-40F1-983E-9D87AFD2E7E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3208AF6B-9F5A-40F1-983E-9D87AFD2E7E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3208AF6B-9F5A-40F1-983E-9D87AFD2E7E5} = {4D5F4423-0CA9-46F2-97B5-F1C76549C3F6}
+	EndGlobalSection
+EndGlobal

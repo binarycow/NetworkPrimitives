@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Version>$(NPVer_Switching)</Version>
     <Title>NetworkPrimitives.Switching</Title>
-    <PackageTags>network; networking; switching;</PackageTags>
+    <PackageTags>network; networking; switching; networking.primitives;</PackageTags>
     <Description>Lightweight package for working with network switching types.</Description>
   </PropertyGroup>
 
