@@ -11,6 +11,8 @@ jobs:
     timeout-minutes: 15
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NUGET_FEED: https://api.nuget.org/v3/index.json
+      NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
 
     steps:
       - name: Checkout
@@ -33,3 +35,5 @@ jobs:
         run: dotnet pack --configuration Release --no-build --output . --include-symbols --include-source NetworkPrimitives.sln
       - name: Push to GitHub nuget feed
         run: dotnet nuget push --source github --api-key ${{ secrets.GITHUB_TOKEN }} NetworkPrimitives.*.nupkg --skip-duplicate
+      - name: Push to official nuget feed
+        run: dotnet nuget push --source $NUGET_FEED --api-key $NUGET_KEY NetworkPrimitives.*.nupkg --skip-duplicate
