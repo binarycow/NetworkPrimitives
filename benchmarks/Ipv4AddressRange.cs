@@ -20,7 +20,11 @@ namespace NetworkPrimitives.Benchmarks
     public class Ipv4AddressRange
     {
         [Benchmark]
+#if ProjRefImports
+        public void NetworkPrimitivesProjRef()
+#else
         public void NetworkPrimitives()
+#endif
         {
             _ = Ipv4Subnet.TryParse("10.0.0.0/24", out var subnet);
             foreach (var address in subnet.GetAllAddresses())

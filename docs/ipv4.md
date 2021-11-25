@@ -32,6 +32,14 @@ public void NetworkPrimitives()
     }
 }
 
+public void DotNet()
+{
+    foreach (var address in TestData.RandomIpAddresses)
+    {
+        _ = System.Net.IPAddress.Parse(address);
+    }
+}
+        
 public void IpNetwork2()
 {
     foreach (var address in TestData.RandomIpAddresses)
@@ -41,10 +49,13 @@ public void IpNetwork2()
 }
 ```
 
-|            Method |      Mean |    Error |   StdDev |    Median |   Gen 0 | Allocated |
-|------------------ |----------:|---------:|---------:|----------:|--------:|----------:|
-| NetworkPrimitives |  51.80 μs | 1.085 μs | 2.915 μs |  50.21 μs |       - |         - |
-|        IpNetwork2 | 168.41 μs | 2.808 μs | 7.687 μs | 165.02 μs | 34.6680 | 145,053 B |
+
+|            Method |       Mean |     Error |     StdDev |   Gen 0 | Allocated |
+|------------------ |-----------:|----------:|-----------:|--------:|----------:|
+| NetworkPrimitives |   8.450 μs | 0.2642 μs |  0.7052 μs |       - |         - |
+|            DotNet |   6.634 μs | 0.1577 μs |  0.4290 μs |  0.9537 |   4,000 B |
+|        IpNetwork2 | 207.892 μs | 4.8725 μs | 13.5017 μs | 34.6680 | 145,053 B |
+
 
 ### Iterating IP addresses
 
@@ -68,10 +79,10 @@ public void IpNetwork2()
 }
 ```
 
-|            Method |       Mean |      Error |      StdDev |     Median |    Gen 0 | Allocated |
-|------------------ |-----------:|-----------:|------------:|-----------:|---------:|----------:|
-| NetworkPrimitives |   1.514 μs |  0.0815 μs |   0.2203 μs |   1.447 μs |        - |         - |
-|        IpNetwork2 | 540.961 μs | 41.5761 μs | 113.8139 μs | 518.839 μs | 134.7656 | 564,865 B |
+|            Method |         Mean |       Error |       StdDev |       Median |    Gen 0 | Allocated |
+|------------------ |-------------:|------------:|-------------:|-------------:|---------:|----------:|
+| NetworkPrimitives |     970.7 ns |    28.79 ns |     75.84 ns |     932.9 ns |        - |         - |
+|        IpNetwork2 | 450,398.3 ns | 5,960.03 ns | 15,908.54 ns | 447,500.9 ns | 134.7656 | 564,865 B |
 
 
 
