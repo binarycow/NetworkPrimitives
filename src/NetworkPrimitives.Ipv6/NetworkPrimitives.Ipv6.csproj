@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Version>$(NPVer_IPv6)</Version>
     <Title>NetworkPrimitives.Ipv6</Title>
-    <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address;</PackageTags>
+    <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address; networking.primitives;</PackageTags>
     <Description>Lightweight package for working with IPv6 addresses, ranges, and subnets.</Description>
   </PropertyGroup>
 

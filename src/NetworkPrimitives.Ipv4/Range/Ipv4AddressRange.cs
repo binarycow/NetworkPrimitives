@@ -85,6 +85,8 @@ namespace NetworkPrimitives.Ipv4
         public bool TryFormat(Span<char> destination, out int charsWritten) 
             => Ipv4Formatting.TryFormat(this, destination, out charsWritten, null, null);
 
+        public override string ToString() => this.GetString();
+
         #endregion Formatting
 
         #region Subnetting

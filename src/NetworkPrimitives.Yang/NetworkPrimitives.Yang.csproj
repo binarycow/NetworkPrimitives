@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Version>$(NPVer_Yang)</Version>
     <Title>NetworkPrimitives.Yang</Title>
-    <PackageTags>yang;</PackageTags>
+    <PackageTags>yang; networking.primitives;</PackageTags>
     <Description>Lightweight package for working with YANG types</Description>
   </PropertyGroup>
 
