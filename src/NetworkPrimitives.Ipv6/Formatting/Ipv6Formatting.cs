@@ -154,14 +154,18 @@ namespace NetworkPrimitives.Ipv6
         )
         {
             var (_, compressGroup, hex, upper) = format;
-            sb.Append((hex, upper, compressGroup) switch
+            var text = (hex, upper, compressGroup) switch
             {
                 (hex: true, upper: true, compressGroup: true) => bitGroup.ToString("X"),
                 (hex: true, upper: true, compressGroup: false) => bitGroup.ToString("X4"),
                 (hex: true, upper: false, compressGroup: true) => bitGroup.ToString("x"),
                 (hex: true, upper: false, compressGroup: false) => bitGroup.ToString("x4"),
                 _ => bitGroup.ToString(),
-            } ?? string.Empty);
+            };
+            #if !NET5_0_OR_GREATER
+            text ??= string.Empty;
+            #endif
+            sb.Append(text);
         }
 
         private static void PopulateBitGroups(ulong low, ulong high, Span<ushort> bitGroups)

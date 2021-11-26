@@ -7,6 +7,7 @@ namespace NetworkPrimitives
     /// <summary>
     /// Provides build information
     /// </summary>
+    [AttributeUsage(AttributeTargets.Assembly)]
     public class BuildInformationAttribute : Attribute
     {
         /// <summary>

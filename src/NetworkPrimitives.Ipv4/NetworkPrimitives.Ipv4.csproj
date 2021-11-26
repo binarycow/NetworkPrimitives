@@ -11,16 +11,12 @@
     <DocumentationFile>bin\Release\NetworkPrimitives.Ipv4.xml</DocumentationFile>
     <WarningsNotAsErrors>CS1591</WarningsNotAsErrors>
   </PropertyGroup>
-  
+
+  <Import Project="..\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems" Label="Shared" />
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>NetworkPrimitives.Ipv4.Tests</_Parameter1>
     </AssemblyAttribute>
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Shipped.txt" />
-    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Unshipped.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,5 +25,16 @@
     </Compile>
   </ItemGroup>
 
-  <Import Project="..\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems" Label="Shared" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+	
+  <ItemGroup>
+    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+
 </Project>
