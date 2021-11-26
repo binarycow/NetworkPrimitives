@@ -4,4 +4,12 @@
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\randomips.json">
+      <Link>randomips.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\range-test-cases.json">
+      <Link>range-test-cases.json</Link>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

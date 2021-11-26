@@ -233,6 +233,7 @@ namespace NetworkPrimitives.Tests.Common
         [TestCase((char)253, false)]
         [TestCase((char)254, false)]
         [TestCase((char)255, false)]
+        [Category("parsing")]
         public void TestIsHex(char ch, bool isHex)
         {
             Assert.AreEqual(isHex, ch.IsHex());

@@ -9,7 +9,7 @@
     <Platforms>AnyCPU</Platforms>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <DocumentationFile>bin\Release\NetworkPrimitives.Ipv4.xml</DocumentationFile>
-    <WarningsNotAsErrors>CS1591</WarningsNotAsErrors>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS1591</WarningsNotAsErrors>
   </PropertyGroup>
 
   <Import Project="..\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems" Label="Shared" />
@@ -17,12 +17,6 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>NetworkPrimitives.Ipv4.Tests</_Parameter1>
     </AssemblyAttribute>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="RangeList\Ipv4AddressRangeList.Builder.cs">
-      <DependentUpon>Ipv4AddressRangeList.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

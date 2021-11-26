@@ -9,44 +9,10 @@ using System.Linq;
 namespace NetworkPrimitives.Ipv4
 {
     /// <summary>
-    /// Represents an immutable list of <see cref="Ipv4AddressRange"/>
+    /// Extension methods for IP address range lists
     /// </summary>
-    public sealed partial class Ipv4AddressRangeList : IReadOnlyList<Ipv4AddressRange>
+    public static class IpAddressRangeListExtensions
     {
-        private IReadOnlyList<Ipv4AddressRange> Items { get; }
-        /// <summary>
-        /// An empty instance of <see cref="Ipv4AddressRangeList"/>
-        /// </summary>
-        public static Ipv4AddressRangeList Empty { get; } = new ();
-        private Ipv4AddressRangeList() : this(Array.Empty<Ipv4AddressRange>()) { }
-        private Ipv4AddressRangeList(IReadOnlyList<Ipv4AddressRange> ranges) => Items = ranges;
-
-        /// <summary>
-        /// Create a mutable list builder
-        /// </summary>
-        /// <returns>
-        /// An instance of <see cref="Builder"/>
-        /// </returns>
-        public Builder ToBuilder() => new Builder(this.Items.ToList());
-
-        
-        
-        #region IReadOnlyList
-
-        /// <summary>
-        /// The number of <see cref="Ipv4AddressRange"/> in this instance.
-        /// </summary>
-        public int Count => Items.Count;
-
-        IEnumerator<Ipv4AddressRange> IEnumerable<Ipv4AddressRange>.GetEnumerator() => Items.GetEnumerator();
-
-        /// <summary>
-        /// Get a ref struct enumerator to iterate over the ranges covered by this range list.
-        /// </summary>
-        /// <returns>
-        /// A ref struct enumerator
-        /// </returns>
-        public Ipv4AddressRangeListEnumerator GetEnumerator() => new (new (Items));
         
         /// <summary>
         /// Get a listing of all individual addresses in this set of ranges.
@@ -54,22 +20,37 @@ namespace NetworkPrimitives.Ipv4
         /// <returns>
         /// An <see cref="Ipv4AddressListSpan"/> that represents all individual IP addresses in this instance.
         /// </returns>
-        public Ipv4AddressListSpan GetAllAddresses() => Ipv4AddressListSpan.CreateNew(Items);
-
-        IEnumerator IEnumerable.GetEnumerator() => Items.GetEnumerator();
-
+        public static Ipv4AddressListSpan GetAllAddresses(this IReadOnlyList<Ipv4AddressRange> ranges)
+        {
+            return Ipv4AddressListSpan.CreateNew(ranges);
+        }
+        
         /// <summary>
-        /// Gets the range at the specified index.
+        /// Get a listing of all individual addresses in this set of ranges.
         /// </summary>
-        /// <param name="index">
-        /// The zero-based index of the range to get.
-        /// </param>
-        public Ipv4AddressRange this[int index] => this.Items[index];
-
-        #endregion IReadOnlyList
-        
-        
-        #region Parse
+        /// <returns>
+        /// An <see cref="Ipv4AddressListSpan"/> that represents all individual IP addresses in this instance.
+        /// </returns>
+        public static Ipv4AddressListSpan GetAllAddresses(this IEnumerable<Ipv4AddressRange> ranges)
+        {
+            return Ipv4AddressListSpan.CreateNew(ranges.ToList());
+        }
+    }
+    
+    
+    
+    /// <summary>
+    /// Represents an list of <see cref="Ipv4AddressRange"/>
+    /// </summary>
+    public class Ipv4AddressRangeList : List<Ipv4AddressRange>
+    {
+        /// <summary>
+        /// Get a listing of all individual addresses in this set of ranges.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="Ipv4AddressListSpan"/> that represents all individual IP addresses in this instance.
+        /// </returns>
+        public Ipv4AddressListSpan GetAllAddresses() => Ipv4AddressListSpan.CreateNew(this.AsReadOnly());
 
         /// <summary>
         /// Converts an IP address range string to an <see cref="Ipv4AddressRangeList"/> instance.
@@ -86,7 +67,7 @@ namespace NetworkPrimitives.Ipv4
         /// <exception cref="FormatException">
         /// <paramref name="text"/> is not a valid IP address range string.
         /// </exception>
-        public static Ipv4AddressRangeList Parse(string? text)
+        public static List<Ipv4AddressRange> Parse(string? text)
         {
             text = text ?? throw new ArgumentNullException(nameof(text));
             return Ipv4AddressRangeList.TryParse(text, out var result)
@@ -116,9 +97,6 @@ namespace NetworkPrimitives.Ipv4
                 : throw new FormatException();
         
 
-        #endregion Parse
-
-        #region TryParse
 
         
         /// <summary>
@@ -216,29 +194,20 @@ namespace NetworkPrimitives.Ipv4
             _ = textCopy.TryConsumeWhiteSpace(ref charsReadCopy);
             if (!Ipv4AddressRange.TryParse(ref textCopy, ref charsReadCopy, out var range))
                 return false;
-            text = textCopy;
-            charsRead = charsReadCopy;
-
-            // var builder = ImmutableList.CreateBuilder<Ipv4AddressRange>();
-            var builder = new List<Ipv4AddressRange> { range };
+            result ??= new ();
+            result.Add(range);
 
             while (textCopy.TryConsumeWhiteSpace(ref charsReadCopy))
             {
                 if (!Ipv4AddressRange.TryParse(ref textCopy, ref charsReadCopy, out range))
                     break;
-                builder.Add(range);
-                text = textCopy;
-                charsRead = charsReadCopy;
+                result.Add(range);
             }
             _ = textCopy.TryConsumeWhiteSpace(ref charsReadCopy);
             text = textCopy;
             charsRead = charsReadCopy;
-            result = new (builder.AsReadOnly());
             return true;
         }
-
-        #endregion TryParse
-
 
 
     }

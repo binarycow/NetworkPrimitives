@@ -13,6 +13,7 @@ namespace NetworkPrimitives.Tests.Common
         [Test]
         [TestCase((uint)0x00112233, (uint)0x33221100)]
         [TestCase(0xFF116600, (uint)0x006611FF)]
+        [Category("numbers")]
         public void TestEndianSwap(uint input, uint expected)
         {
             Assert.AreEqual(expected, input.SwapEndian());

@@ -5,6 +5,7 @@ NetworkPrimitives.BuildInformationAttribute.BuildInformationAttribute(string? co
 NetworkPrimitives.BuildInformationAttribute.BuildNumber.get -> string?
 NetworkPrimitives.BuildInformationAttribute.BuildTimestamp.get -> string?
 NetworkPrimitives.BuildInformationAttribute.CommitHash.get -> string?
+NetworkPrimitives.Ipv4.IpAddressRangeListExtensions
 NetworkPrimitives.Ipv4.Ipv4Address
 NetworkPrimitives.Ipv4.Ipv4Address.BigEndianValue.get -> uint
 NetworkPrimitives.Ipv4.Ipv4Address.CompareTo(NetworkPrimitives.Ipv4.Ipv4Address other) -> int
@@ -53,25 +54,8 @@ NetworkPrimitives.Ipv4.Ipv4AddressRange.this[uint index].get -> NetworkPrimitive
 NetworkPrimitives.Ipv4.Ipv4AddressRange.ToEnumerable() -> System.Collections.Generic.IEnumerable<NetworkPrimitives.Ipv4.Ipv4Address>!
 NetworkPrimitives.Ipv4.Ipv4AddressRange.TryFormat(System.Span<char> destination, out int charsWritten) -> bool
 NetworkPrimitives.Ipv4.Ipv4AddressRangeList
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.Add(NetworkPrimitives.Ipv4.Ipv4AddressRange item) -> void
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.Clear() -> void
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.Contains(NetworkPrimitives.Ipv4.Ipv4AddressRange item) -> bool
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.Count.get -> int
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.GetAllAddresses() -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.GetEnumerator() -> NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.IndexOf(NetworkPrimitives.Ipv4.Ipv4AddressRange item) -> int
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.Insert(int index, NetworkPrimitives.Ipv4.Ipv4AddressRange item) -> void
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.Remove(NetworkPrimitives.Ipv4.Ipv4AddressRange item) -> bool
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.RemoveAt(int index) -> void
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.this[int index].get -> NetworkPrimitives.Ipv4.Ipv4AddressRange
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.this[int index].set -> void
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder.ToImmutable() -> NetworkPrimitives.Ipv4.Ipv4AddressRangeList!
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Count.get -> int
 NetworkPrimitives.Ipv4.Ipv4AddressRangeList.GetAllAddresses() -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.GetEnumerator() -> NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.this[int index].get -> NetworkPrimitives.Ipv4.Ipv4AddressRange
-NetworkPrimitives.Ipv4.Ipv4AddressRangeList.ToBuilder() -> NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Builder!
+NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Ipv4AddressRangeList() -> void
 NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator
 NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator.Current.get -> NetworkPrimitives.Ipv4.Ipv4AddressRange
 NetworkPrimitives.Ipv4.Ipv4AddressRangeListEnumerator.Ipv4AddressRangeListEnumerator() -> void
@@ -91,6 +75,7 @@ NetworkPrimitives.Ipv4.Ipv4AddressRangeType.Rfc1918 = 1 -> NetworkPrimitives.Ipv
 NetworkPrimitives.Ipv4.Ipv4Cidr
 NetworkPrimitives.Ipv4.Ipv4Cidr.CompareTo(byte other) -> int
 NetworkPrimitives.Ipv4.Ipv4Cidr.CompareTo(NetworkPrimitives.Ipv4.Ipv4Cidr other) -> int
+NetworkPrimitives.Ipv4.Ipv4Cidr.CompareTo(NetworkPrimitives.Ipv4.Ipv4SubnetMask other) -> int
 NetworkPrimitives.Ipv4.Ipv4Cidr.CompareTo(object? obj) -> int
 NetworkPrimitives.Ipv4.Ipv4Cidr.Equals(NetworkPrimitives.Ipv4.Ipv4Cidr other) -> bool
 NetworkPrimitives.Ipv4.Ipv4Cidr.Equals(NetworkPrimitives.Ipv4.Ipv4SubnetMask other) -> bool
@@ -180,6 +165,8 @@ override NetworkPrimitives.Ipv4.Ipv4SubnetMask.ToString() -> string!
 override NetworkPrimitives.Ipv4.Ipv4WildcardMask.Equals(object? obj) -> bool
 override NetworkPrimitives.Ipv4.Ipv4WildcardMask.GetHashCode() -> int
 override NetworkPrimitives.Ipv4.Ipv4WildcardMask.ToString() -> string!
+static NetworkPrimitives.Ipv4.IpAddressRangeListExtensions.GetAllAddresses(this System.Collections.Generic.IEnumerable<NetworkPrimitives.Ipv4.Ipv4AddressRange>! ranges) -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
+static NetworkPrimitives.Ipv4.IpAddressRangeListExtensions.GetAllAddresses(this System.Collections.Generic.IReadOnlyList<NetworkPrimitives.Ipv4.Ipv4AddressRange>! ranges) -> NetworkPrimitives.Ipv4.Ipv4AddressListSpan
 static NetworkPrimitives.Ipv4.Ipv4Address.operator !=(NetworkPrimitives.Ipv4.Ipv4Address left, NetworkPrimitives.Ipv4.Ipv4Address right) -> bool
 static NetworkPrimitives.Ipv4.Ipv4Address.operator &(NetworkPrimitives.Ipv4.Ipv4Address left, NetworkPrimitives.Ipv4.Ipv4Cidr right) -> NetworkPrimitives.Ipv4.Ipv4Address
 static NetworkPrimitives.Ipv4.Ipv4Address.operator &(NetworkPrimitives.Ipv4.Ipv4Address left, NetworkPrimitives.Ipv4.Ipv4SubnetMask right) -> NetworkPrimitives.Ipv4.Ipv4Address
@@ -212,8 +199,7 @@ static NetworkPrimitives.Ipv4.Ipv4AddressRange.TryParse(string? text, out int ch
 static NetworkPrimitives.Ipv4.Ipv4AddressRange.TryParse(string? text, out NetworkPrimitives.Ipv4.Ipv4AddressRange result) -> bool
 static NetworkPrimitives.Ipv4.Ipv4AddressRange.TryParse(System.ReadOnlySpan<char> text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4AddressRange result) -> bool
 static NetworkPrimitives.Ipv4.Ipv4AddressRange.TryParse(System.ReadOnlySpan<char> text, out NetworkPrimitives.Ipv4.Ipv4AddressRange result) -> bool
-static NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Empty.get -> NetworkPrimitives.Ipv4.Ipv4AddressRangeList!
-static NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Parse(string? text) -> NetworkPrimitives.Ipv4.Ipv4AddressRangeList!
+static NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Parse(string? text) -> System.Collections.Generic.List<NetworkPrimitives.Ipv4.Ipv4AddressRange>!
 static NetworkPrimitives.Ipv4.Ipv4AddressRangeList.Parse(System.ReadOnlySpan<char> text) -> NetworkPrimitives.Ipv4.Ipv4AddressRangeList!
 static NetworkPrimitives.Ipv4.Ipv4AddressRangeList.TryParse(string? text, out int charsRead, out NetworkPrimitives.Ipv4.Ipv4AddressRangeList? result) -> bool
 static NetworkPrimitives.Ipv4.Ipv4AddressRangeList.TryParse(string? text, out NetworkPrimitives.Ipv4.Ipv4AddressRangeList? result) -> bool

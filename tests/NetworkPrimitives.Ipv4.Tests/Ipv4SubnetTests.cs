@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using NetworkPrimitives.Ipv4;
 using NUnit.Framework;
@@ -10,12 +11,38 @@ namespace NetworkPrimitives.Tests.Ipv4
     {
         public static IReadOnlyList<Ipv4TestCase> GetTestCases() 
             => Ipv4TestCaseProvider.LoadTestCases("randomips.json");
-        
+
+
         [Test]
         [TestCaseSource(nameof(Ipv4SubnetTests.GetTestCases))]
         public void TestParse(Ipv4TestCase testCase)
         {
-            Assume.That(Ipv4Subnet.TryParse(testCase.SubnetInput, out var subnet), Is.True);
+            var input = testCase.SubnetInput;
+            var span = input.AsSpan();
+            var length = span.Length;
+            
+            Assert.That(Ipv4Subnet.TryParse(input, out var charsRead, out _));
+            Assert.That(charsRead, Is.EqualTo(length));
+            
+            Assert.That(Ipv4Subnet.TryParse(span, out charsRead, out _));
+            Assert.That(charsRead, Is.EqualTo(length));
+            
+            Assert.That(Ipv4Subnet.TryParse(input, out _));
+            
+            Assert.That(Ipv4Subnet.TryParse(span, out _));
+
+            Assert.DoesNotThrow(() => _ = Ipv4Subnet.Parse(input));
+            Assert.DoesNotThrow(() => _ = Ipv4Subnet.Parse(input.AsSpan()));
+        }
+
+
+        
+        
+        [Test]
+        [TestCaseSource(nameof(Ipv4SubnetTests.GetTestCases))]
+        public void TestProperties(Ipv4TestCase testCase)
+        {
+            Assert.That(Ipv4Subnet.TryParse(testCase.SubnetInput, out var subnet), Is.True);
             
             Assert.Multiple(() =>
             {
@@ -46,11 +73,48 @@ namespace NetworkPrimitives.Tests.Ipv4
         
         
         [Test]
+        [TestCase("10.0.0.0", "10.0.0.2", "10.0.0.0/30")]
+        public void TestGetContainingSupernetAddresses(string aString, string bString, string expectedString)
+        {
+            Assume.That(Ipv4Address.TryParse(aString, out var a), Is.True);
+            Assume.That(Ipv4Address.TryParse(bString, out var b), Is.True);
+            
+            Assert.Multiple(() =>
+            {
+                var supernet = Ipv4Subnet.GetContainingSupernet(a, b);
+                Assert.That(supernet.ToString(), Is.EqualTo(expectedString));
+                supernet = Ipv4Subnet.GetContainingSupernet(b, a);
+                Assert.That(supernet.ToString(), Is.EqualTo(expectedString));
+            });
+        }
+        
+        [Test]
+        [TestCase("10.0.0.0", "10.0.0.2", "10.0.0.4", "10.0.0.0/29")]
+        public void TestGetContainingSupernetAddresses(string aString, string bString, string cString, string expectedString)
+        {
+            Assume.That(Ipv4Address.TryParse(aString, out var a), Is.True);
+            Assume.That(Ipv4Address.TryParse(bString, out var b), Is.True);
+            Assume.That(Ipv4Address.TryParse(cString, out var c), Is.True);
+            
+            Assert.Multiple(() =>
+            {
+                IReadOnlyList<Ipv4Address> list = new[] { a, b, c };
+                IEnumerable<Ipv4Address> enumerable = list;
+                var supernet = Ipv4Subnet.GetContainingSupernet(list);
+                var supernet2 = Ipv4Subnet.GetContainingSupernet(enumerable);
+                var supernet3 = Ipv4Subnet.GetContainingSupernet(a, b, c);
+                Assert.That(supernet.ToString(), Is.EqualTo(expectedString));
+                Assert.That(supernet2, Is.EqualTo(supernet));
+                Assert.That(supernet3, Is.EqualTo(supernet));
+            });
+        }
+        
+        [Test]
         [TestCase("10.0.0.0/25", "10.0.0.128/25", "10.0.0.0/24")]
         [TestCase("255.255.255.255/32", "0.0.0.0/32", "0.0.0.0/0")]
         [TestCase("10.10.10.10/0", "10.10.10.10/32", "0.0.0.0/0")]
         [TestCase("10.0.0.0/24", "10.0.0.50/32", "10.0.0.0/24")]
-        public void TestGetContainingSupernet(string aString, string bString, string expectedString)
+        public void TestGetContainingSupernetSubnets(string aString, string bString, string expectedString)
         {
             Assume.That(Ipv4Subnet.TryParse(aString, out var a), Is.True);
             Assume.That(Ipv4Subnet.TryParse(bString, out var b), Is.True);
@@ -66,7 +130,7 @@ namespace NetworkPrimitives.Tests.Ipv4
         
         [Test]
         [TestCase("10.0.0.0/24", "10.0.1.0/25", "10.0.2.0/25", "10.0.0.0/22")]
-        public void TestGetContainingSupernet(string aString, string bString, string cString, string expectedString)
+        public void TestGetContainingSupernetSubnets(string aString, string bString, string cString, string expectedString)
         {
             Assume.That(Ipv4Subnet.TryParse(aString, out var a), Is.True);
             Assume.That(Ipv4Subnet.TryParse(bString, out var b), Is.True);
@@ -77,13 +141,13 @@ namespace NetworkPrimitives.Tests.Ipv4
                 IReadOnlyList<Ipv4Subnet> list = new[] { a, b, c };
                 IEnumerable<Ipv4Subnet> enumerable = list;
                 var supernet = Ipv4Subnet.GetContainingSupernet(list);
-                Assert.That(supernet.ToString(), Is.EqualTo(expectedString));
                 var supernet2 = Ipv4Subnet.GetContainingSupernet(enumerable);
+                var supernet3 = Ipv4Subnet.GetContainingSupernet(a, b, c);
+                Assert.That(supernet.ToString(), Is.EqualTo(expectedString));
                 Assert.That(supernet2, Is.EqualTo(supernet));
+                Assert.That(supernet3, Is.EqualTo(supernet));
             });
         }
-        
-        
         
         [Test]
         [TestCase("10.200.40.128/25", "10.200.40.128", "255.255.255.128")]
@@ -162,6 +226,16 @@ namespace NetworkPrimitives.Tests.Ipv4
             } while (range.MoveNext());
             --expected;
             Assert.That(Ipv4Address.Parse((uint)expected), Is.EqualTo(end));
+        }
+
+        [Test]
+        [TestCase("10.0.0.0/24", "10.0.0.0/23")]
+        [TestCase("10.0.0.64/26", "10.0.0.0/25")]
+        public void TestTryGetParent(string subnetString, string parentSubnet)
+        {
+            Assume.That(Ipv4Subnet.TryParse(subnetString, out var subnet));
+            Assert.That(subnet.TryGetParentSubnet(out var parent));
+            Assert.That(parent.ToString(), Is.EqualTo(parentSubnet));
         }
     }
 }
