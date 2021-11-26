@@ -5,6 +5,10 @@ NetworkPrimitives.BuildInformationAttribute.BuildInformationAttribute(string? co
 NetworkPrimitives.BuildInformationAttribute.BuildNumber.get -> string?
 NetworkPrimitives.BuildInformationAttribute.BuildTimestamp.get -> string?
 NetworkPrimitives.BuildInformationAttribute.CommitHash.get -> string?
+NetworkPrimitives.Casing
+NetworkPrimitives.Casing.Lowercase = 2 -> NetworkPrimitives.Casing
+NetworkPrimitives.Casing.NotSpecified = 0 -> NetworkPrimitives.Casing
+NetworkPrimitives.Casing.Uppercase = 1 -> NetworkPrimitives.Casing
 NetworkPrimitives.Ipv4.IpAddressRangeListExtensions
 NetworkPrimitives.Ipv4.Ipv4Address
 NetworkPrimitives.Ipv4.Ipv4Address.BigEndianValue.get -> uint

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)BuildInformationAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Casing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExcludeFromCodeCoverageAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\CharExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IpAddressExtensions.cs" />
