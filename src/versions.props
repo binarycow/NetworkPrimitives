@@ -1,8 +1,15 @@
 ﻿<Project>
   <PropertyGroup>
-    <NPVer_IPv4>1.0.0-rc2</NPVer_IPv4>
-    <NPVer_IPv6>1.0.0-alpha13</NPVer_IPv6>
-    <NPVer_Switching>1.0.0-alpha13</NPVer_Switching>
-    <NPVer_Yang>1.0.0-alpha13</NPVer_Yang>
+    <!-- Release -->
+    
+    <!-- Release Candidate -->
+    <NPVer_IPv4>1.0.0-rc3</NPVer_IPv4>
+    
+    <!-- Alpha -->
+    <NPVer_Alpha>1.0.0-alpha14</NPVer_Alpha>
+    
+    <NPVer_IPv6>$(NPVer_Alpha)</NPVer_IPv6>
+    <NPVer_Switching>$(NPVer_Alpha)</NPVer_Switching>
+    <NPVer_Yang>$(NPVer_Alpha)</NPVer_Yang>
   </PropertyGroup>
 </Project>
