@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+
   <PropertyGroup>
     <Version>$(NPVer_IPv4)</Version>
     <Title>NetworkPrimitives.Ipv4</Title>
@@ -9,24 +10,23 @@
     <Platforms>AnyCPU</Platforms>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <DocumentationFile>bin\Release\NetworkPrimitives.Ipv4.xml</DocumentationFile>
-    <WarningsNotAsErrors>CS1591</WarningsNotAsErrors>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>NetworkPrimitives.Ipv4.Tests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\NetworkPrimitives.Ipv4.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release (ProjRef)' ">
+    <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
+  </PropertyGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Shipped.txt" />
     <AdditionalFiles Include="PublicAPI/$(TargetFramework)/PublicAPI.Unshipped.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="RangeList\Ipv4AddressRangeList.Builder.cs">
-      <DependentUpon>Ipv4AddressRangeList.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <Import Project="..\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems" Label="Shared" />

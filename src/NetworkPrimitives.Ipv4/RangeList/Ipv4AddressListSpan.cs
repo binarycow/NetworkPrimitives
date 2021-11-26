@@ -1,84 +1,15 @@
 ﻿#nullable enable
 
 using System;
-using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Collections.Immutable;
-using System.Diagnostics.CodeAnalysis;
 using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
 {
-    public sealed class Ipv4AddressRangeList  //: ImmutableListWrapper<Ipv4AddressRangeList, Ipv4AddressRange>
-    {
-        private IReadOnlyList<Ipv4AddressRange> Items { get; }
-        public static Ipv4AddressRangeList Empty { get; } = new Ipv4AddressRangeList();
-        private Ipv4AddressRangeList() : this(Array.Empty<Ipv4AddressRange>())
-        {
-        }
-        private Ipv4AddressRangeList(IReadOnlyList<Ipv4AddressRange> ranges) // : base(ranges)
-        {
-            Items = ranges;
-        }
-
-        public int Count => Items.Count;
-        
-        // protected override IEqualityComparer<Ipv4AddressRange> EqualityComparer => Ipv4AddressRange.EqualityComparer;
-        // protected override Ipv4AddressRangeList CreateInstance(ImmutableList<Ipv4AddressRange> items) => new (items);
-
-        public static Ipv4AddressRangeList Parse(string? text)
-            => TryParse(text, out var result)
-                ? result
-                : throw new FormatException();
-        
-        public static bool TryParse(string? text, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
-        {
-            result = default;
-            return text is not null && Ipv4AddressRangeList.TryParse(text, out var charsRead, out result) && charsRead == text.Length;
-        }
-
-        public Ipv4AddressRangeListEnumerator GetEnumerator() => new (new (Items));
-        public Ipv4AddressListSpan GetAllAddresses() => Ipv4AddressListSpan.CreateNew(Items);
-
-        public static bool TryParse(string? text, out int charsRead, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
-        {
-            var span = text.GetSpan();
-            charsRead = default;
-            return TryParse(ref span, ref charsRead, out result);
-       }
-
-        internal static bool TryParse(ref ReadOnlySpan<char> text, ref int charsRead, [NotNullWhen(true)] out Ipv4AddressRangeList? result)
-        {
-            result = default;
-            var textCopy = text;
-            var charsReadCopy = charsRead;
-            _ = textCopy.TryConsumeWhiteSpace(ref charsReadCopy);
-            if (!Ipv4AddressRange.TryParse(ref textCopy, ref charsReadCopy, out var range))
-                return false;
-            text = textCopy;
-            charsRead = charsReadCopy;
-
-            // var builder = ImmutableList.CreateBuilder<Ipv4AddressRange>();
-            var builder = new List<Ipv4AddressRange> { range };
-
-            while (textCopy.TryConsumeWhiteSpace(ref charsReadCopy))
-            {
-                if (!Ipv4AddressRange.TryParse(ref textCopy, ref charsReadCopy, out range))
-                    break;
-                builder.Add(range);
-                text = textCopy;
-                charsRead = charsReadCopy;
-            }
-            _ = textCopy.TryConsumeWhiteSpace(ref charsReadCopy);
-            text = textCopy;
-            charsRead = charsReadCopy;
-            result = new (builder.AsReadOnly());
-            return true;
-        }
-    }
-    
-    
+    /// <summary>
+    /// A lightweight accessor to a list of <see cref="Ipv4AddressRange"/>
+    /// </summary>
     public readonly struct Ipv4AddressListSpan : ISlice<Ipv4AddressListSpan, Ipv4Address>, IEnumerable<Ipv4Address>
     {
         private readonly ReadOnlyListSpan<Ipv4AddressRange> ranges;
@@ -96,6 +27,15 @@ namespace NetworkPrimitives.Ipv4
             this.Length = length;
         }
 
+        /// <summary>
+        /// Create a new instance of <see cref="Ipv4AddressListSpan"/>
+        /// </summary>
+        /// <param name="ranges">
+        /// A list of <see cref="Ipv4AddressRange"/>
+        /// </param>
+        /// <returns>
+        /// An instance of <see cref="Ipv4AddressListSpan"/>
+        /// </returns>
         public static Ipv4AddressListSpan CreateNew(IReadOnlyList<Ipv4AddressRange>? ranges)
         {
             var span = new ReadOnlyListSpan<Ipv4AddressRange>(ranges);
@@ -108,6 +48,12 @@ namespace NetworkPrimitives.Ipv4
             return new (span, firstSlice, length);
         }
 
+        /// <summary>
+        /// Gets the address at the given zero-based index.
+        /// </summary>
+        /// <param name="index">
+        /// The zero-based index of the address to get.
+        /// </param>
         public Ipv4Address this[int index] => GetItem(index);
 
         private Ipv4Address GetItem(int index)
@@ -145,15 +91,51 @@ namespace NetworkPrimitives.Ipv4
         }
 
         private ulong CurrentRangeLength => this.currentRange.Length;
+        
+        /// <summary>
+        /// The number of addresses covered by this instance
+        /// </summary>
         public ulong Length { get; }
         int ISlice<Ipv4AddressListSpan, Ipv4Address>.Length => (int)Length;
 
         
+        /// <summary>
+        /// Retrieves a portion of addresses from this instance. The portion starts at a
+        /// specified index and has a specified length.
+        /// </summary>
+        /// <param name="start">
+        /// The zero-based starting index of the resulting <see cref="Ipv4AddressListSpan"/>.
+        /// </param>
+        /// <returns>
+        /// An <see cref="Ipv4AddressListSpan"/> that is equivalent to the portion
+        /// of addresses beginning at <paramref name="start"/> in this instance
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="start"/> is invalid.
+        /// </exception>
         public Ipv4AddressListSpan Slice(int start) 
             => start >= 0 
                 ? this.Slice((ulong)start) 
                 : throw new ArgumentOutOfRangeException();
 
+        /// <summary>
+        /// Retrieves a portion of addresses from this instance. The portion starts at a
+        /// specified index and has a specified length.
+        /// </summary>
+        /// <param name="start">
+        /// The zero-based starting index of the resulting <see cref="Ipv4AddressListSpan"/>.
+        /// </param>
+        /// <param name="length">
+        /// The number of addresses in the resulting <see cref="Ipv4AddressListSpan"/>.
+        /// </param>
+        /// <returns>
+        /// An <see cref="Ipv4AddressListSpan"/> that is equivalent to the portion
+        /// of addresses of length <paramref name="length"/> that begins
+        /// at <paramref name="start"/> in this instance
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="start"/> or <paramref name="length"/> are invalid.
+        /// </exception>
         public Ipv4AddressListSpan Slice(int start, int length)
         {
             if (start < 0 || length < 0)
@@ -161,7 +143,41 @@ namespace NetworkPrimitives.Ipv4
             return Slice((ulong)start, (ulong)length);
         }
 
+        /// <summary>
+        /// Retrieves a portion of addresses from this instance. The portion starts at a
+        /// specified index and has a specified length.
+        /// </summary>
+        /// <param name="start">
+        /// The zero-based starting index of the resulting <see cref="Ipv4AddressListSpan"/>.
+        /// </param>
+        /// <returns>
+        /// An <see cref="Ipv4AddressListSpan"/> that is equivalent to the portion
+        /// of addresses beginning at <paramref name="start"/> in this instance
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="start"/> is invalid.
+        /// </exception>
         public Ipv4AddressListSpan Slice(ulong start) => Slice(start, Length - start);
+        
+        
+        /// <summary>
+        /// Retrieves a portion of addresses from this instance. The portion starts at a
+        /// specified index and has a specified length.
+        /// </summary>
+        /// <param name="start">
+        /// The zero-based starting index of the resulting <see cref="Ipv4AddressListSpan"/>.
+        /// </param>
+        /// <param name="length">
+        /// The number of addresses in the resulting <see cref="Ipv4AddressListSpan"/>.
+        /// </param>
+        /// <returns>
+        /// An <see cref="Ipv4AddressListSpan"/> that is equivalent to the portion
+        /// of addresses of length <paramref name="length"/> that begins
+        /// at <paramref name="start"/> in this instance
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="start"/> or <paramref name="length"/> are invalid.
+        /// </exception>
         public Ipv4AddressListSpan Slice(ulong start, ulong length)
         {
             if (start > this.Length || length > this.Length - start)
@@ -217,6 +233,12 @@ namespace NetworkPrimitives.Ipv4
             return new (copy, firstRange, this.Length - skippedLength);
         }
 
+        /// <summary>
+        /// Get an enumerator to iterate over the addresses in this <see cref="Ipv4AddressListSpan"/>
+        /// </summary>
+        /// <returns>
+        /// An <see cref="Ipv4Address"/> enumerator.
+        /// </returns>
         public IEnumerator<Ipv4Address> GetEnumerator() => new Ipv4AddressListSpanEnumerator(this);
 
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
@@ -246,23 +268,4 @@ namespace NetworkPrimitives.Ipv4
         }
     }
 
-    
-    public ref struct Ipv4AddressRangeListEnumerator
-    {
-        private readonly ReadOnlyListSpan<Ipv4AddressRange> original;
-        private ReadOnlyListSpan<Ipv4AddressRange> available;
-        private Ipv4AddressRange current;
-        internal Ipv4AddressRangeListEnumerator(ReadOnlyListSpan<Ipv4AddressRange> original)
-        {
-            this.available = this.original = original;
-            this.current = default;
-        }
-        public bool MoveNext() => this.available.TrySliceFirst(out this.current);
-        public Ipv4AddressRange Current => current;
-        public void Reset()
-        {
-            this.available = this.original;
-            this.current = default;
-        }
-    }
 }

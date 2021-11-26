@@ -21,7 +21,7 @@ namespace NetworkPrimitives.Tests.Yang
         [TestCase("foo123", true)]
         public void TestParse(string? name, bool success)
         {
-            Assert.AreEqual(success, YangIdentifier.TryParse(name, out var ident));
+            Assert.AreEqual(success, YangIdentifier.TryParse(name, out _));
         }
     }
 }

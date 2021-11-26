@@ -160,8 +160,8 @@ namespace NetworkPrimitives.Ipv6
                 (hex: true, upper: true, compressGroup: false) => bitGroup.ToString("X4"),
                 (hex: true, upper: false, compressGroup: true) => bitGroup.ToString("x"),
                 (hex: true, upper: false, compressGroup: false) => bitGroup.ToString("x4"),
-                _ => bitGroup.ToString() ?? "0",
-            });
+                _ => bitGroup.ToString(),
+            } ?? string.Empty);
         }
 
         private static void PopulateBitGroups(ulong low, ulong high, Span<ushort> bitGroups)

@@ -17,7 +17,7 @@ namespace NetworkPrimitives
     [ExcludeFromCodeCoverage("Internal")]
     internal sealed class ExcludeFromCodeCoverageAttribute : Attribute
     {
-        public ExcludeFromCodeCoverageAttribute(string? reason = null) => Reason = Reason;
+        public ExcludeFromCodeCoverageAttribute(string? reason = null) => Reason = reason;
         public string? Reason { get; set; }
     }
 }
