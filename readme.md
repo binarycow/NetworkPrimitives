@@ -4,6 +4,7 @@ Lightweight libraries for working with various networking objects
 
 - [Ipv4](#networkprimitivesipv4)
 - [Ipv6](#networkprimitivesipv6)
+- [Notes about performance](docs/performance.md)
 
 ## NetworkPrimitives.Ipv4
 

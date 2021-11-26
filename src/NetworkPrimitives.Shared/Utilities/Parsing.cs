@@ -102,6 +102,8 @@ namespace NetworkPrimitives.Utilities
             };
             
         }
+        
+        
 
         private static int GetDigitLength(ReadOnlySpan<char> text)
         {

@@ -43,6 +43,17 @@ namespace NetworkPrimitives
             return true;
         }
         
+        
+        [ExcludeFromCodeCoverage("Internal")]
+        public static bool TryWriteBigEndian(this ushort value, ref Span<byte> span, ref int bytesWritten)
+        {
+            if (!BinaryPrimitives.TryWriteUInt16BigEndian(span, value))
+                return false;
+            span = span[2..];
+            bytesWritten += 2;
+            return true;
+        }
+        
         [ExcludeFromCodeCoverage("Internal")]
         public static uint SwapEndianIfLittleEndian(this uint value) 
             => BitConverter.IsLittleEndian ? value.SwapEndian() : value;
