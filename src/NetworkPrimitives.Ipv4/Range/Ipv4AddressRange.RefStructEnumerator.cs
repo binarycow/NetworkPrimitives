@@ -2,6 +2,9 @@
 
 namespace NetworkPrimitives.Ipv4
 {
+    /// <summary>
+    /// Allocation-less enumerator over a range of <see cref="Ipv4Address"/>
+    /// </summary>
     public ref struct Ipv4AddressEnumerator
     {
         private readonly Ipv4Address startAddress;
@@ -24,6 +27,13 @@ namespace NetworkPrimitives.Ipv4
             this.Reset();
         }
 
+        /// <summary>
+        /// Advances the enumerator to the next address
+        /// </summary>
+        /// <returns>
+        /// <see langword="true"/> if the enumerator was successfully advanced to the next element;
+        /// <see langword="false"/>  if the enumerator has passed the end of the range.
+        /// </returns>
         public bool MoveNext()
         {
             switch (this.state)
@@ -43,6 +53,10 @@ namespace NetworkPrimitives.Ipv4
                     return false;
             }
         }
+        
+        /// <summary>
+        /// Sets the enumerator to its initial position, which is before the first address in the range.
+        /// </summary>
         public void Reset()
         {
             this.state = default;
@@ -50,6 +64,12 @@ namespace NetworkPrimitives.Ipv4
             this.current = default;
         }
         
+        /// <summary>
+        /// The current address
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// The enumerator has not yet started, or the enumerator has already finished.
+        /// </exception>
         public Ipv4Address Current => state switch
         {
             0 => throw new InvalidOperationException("Enumeration not yet started."),

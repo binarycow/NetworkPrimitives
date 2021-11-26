@@ -85,6 +85,12 @@ namespace NetworkPrimitives.Ipv4
         public bool TryFormat(Span<char> destination, out int charsWritten) 
             => Ipv4Formatting.TryFormat(this, destination, out charsWritten, null, null);
 
+        /// <summary>
+        /// Converts this <see cref="Ipv4AddressRange"/> to its string representation
+        /// </summary>
+        /// <returns>
+        /// The string representation of this instance.
+        /// </returns>
         public override string ToString() => this.GetString();
 
         #endregion Formatting

@@ -62,7 +62,7 @@ namespace NetworkPrimitives.Tests.Ipv4
         public void TestEquality(Ipv4TestCase testCase)
         {
             Assume.That(Ipv4Address.TryParse(testCase.IpString, out var address));
-            Assume.That(Ipv4Address.TryParse(testCase.FirstUsable, out var other));
+            Assume.That(Ipv4Address.TryParse(testCase.FirstUsable, out var _));
             
             Assert.AreEqual(testCase.Ip.GetHashCode(), address.GetHashCode());
         }

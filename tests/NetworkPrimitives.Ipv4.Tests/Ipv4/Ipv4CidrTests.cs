@@ -89,7 +89,7 @@ namespace NetworkPrimitives.Tests.Ipv4
         [SuppressMessage("ReSharper", "EqualExpressionComparison")]
         public void TestEquality(Ipv4CidrTestCase testCase)
         {
-            var (value, totalHosts, usableHosts, mask) = testCase;
+            var (value, _, _, _) = testCase;
             object objValue = value;
             Assume.That(Ipv4Cidr.TryParse(value.ToString(), out var cidr), Is.True);
             Assert.Multiple(() =>
@@ -113,7 +113,7 @@ namespace NetworkPrimitives.Tests.Ipv4
         [SuppressMessage("ReSharper", "EqualExpressionComparison")]
         public void TestOperators(Ipv4CidrTestCase testCase)
         {
-            var (value, totalHosts, usableHosts, mask) = testCase;
+            var (value, _, _, _) = testCase;
             Assume.That(Ipv4Cidr.TryParse(value.ToString(), out var cidr));
             Assert.Multiple(() =>
             {
