@@ -31,7 +31,7 @@ namespace NetworkPrimitives.Tests.Ipv4
     {
         public static IReadOnlyList<Ipv4TestCase> LoadTestCases(string path)
         {
-            var jsonString = EmbeddedResourceUtils.ReadFromResourceFile("randomips.json") ?? "[]";
+            var jsonString = EmbeddedResourceUtils.ReadFromResourceFile(path) ?? "[]";
             var strings = JsonSerializer.Deserialize<Ipv4TestCaseStrings[]>(jsonString)
                 ?? Array.Empty<Ipv4TestCaseStrings>();
             return strings.Select(ParseTestCase).ToList();

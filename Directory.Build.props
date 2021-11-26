@@ -6,6 +6,9 @@
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);RS0016</WarningsNotAsErrors>
+  </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' And '$(TargetFramework)' == 'net6.0' ">
     <EnablePreviewFeatures>True</EnablePreviewFeatures>

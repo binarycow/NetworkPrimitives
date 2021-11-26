@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace NetworkPrimitives.Utilities
@@ -26,6 +27,14 @@ namespace NetworkPrimitives.Utilities
             if ((uint)start > (uint)this.Length || (uint)length > (uint)(this.Length - start))
                 throw new ArgumentOutOfRangeException();
             return new (this.list, this.startIndex + start, length);
+        }
+
+        public IEnumerable<T> ToEnumerable()
+        {
+            for (var i = 0; i < this.Length; ++i)
+            {
+                yield return this[i];
+            }
         }
 
         public bool Equals(ReadOnlyListSpan<T> other) => this.list.Equals(other.list) && this.startIndex == other.startIndex && this.Length == other.Length;

@@ -346,6 +346,7 @@ namespace NetworkPrimitives.Tests.Common
 
         [Test]
         [TestCaseSource(nameof(SuccessfulTestCases))]
+        [Category("parsing")]
         public void SuccessfulByteParse(ByteParseTestCase testCase)
         {
             var (input, expectedValue, expectedLength) = testCase;
@@ -363,6 +364,7 @@ namespace NetworkPrimitives.Tests.Common
 
         [Test]
         [TestCaseSource(nameof(FailedTestCases))]
+        [Category("parsing")]
         public void FailedByteParse(ByteParseTestCase testCase)
         {
             var input = testCase.Input;

@@ -82,10 +82,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Core", "samples\Demo\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Framework", "samples\Demo\Demo.Framework.csproj", "{C53DE5F2-870E-4A8B-A9E6-0C714A7FC14E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetworkPrimitives.Shared.Tests", "NetworkPrimitives.Shared.Tests", "{18A708CF-90DE-4843-B9A5-D5D4BD5F67BF}"
+	ProjectSection(SolutionItems) = preProject
+		tests\NetworkPrimitives.Shared.Tests\Directory.Build.props = tests\NetworkPrimitives.Shared.Tests\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkPrimitives.Shared.Tests.Core", "tests\NetworkPrimitives.Shared.Tests\NetworkPrimitives.Shared.Tests.Core.csproj", "{ABCB5EF6-5533-4386-8B24-0AECB5FFF67B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkPrimitives.Shared.Tests.Framework", "tests\NetworkPrimitives.Shared.Tests\NetworkPrimitives.Shared.Tests.Framework.csproj", "{9AEC69CA-5C54-4643-A349-91E83FF53203}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{709472bb-d33d-40b3-a43b-7f1b4347b3d1}*SharedItemsImports = 5
+		src\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{9aec69ca-5c54-4643-a349-91e83ff53203}*SharedItemsImports = 5
 		src\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{a02c01d2-375d-4774-ab09-a9c98710d0f8}*SharedItemsImports = 5
+		src\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{abcb5ef6-5533-4386-8b24-0aecb5fff67b}*SharedItemsImports = 5
 		src\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{ad9ec0ef-2227-4fa4-8174-22e3544a5ef6}*SharedItemsImports = 5
 		src\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{f30dae77-c764-4ce0-9e63-ff992aeee251}*SharedItemsImports = 5
 		src\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems*{f91cd3ed-a1ca-4515-9de9-264f8ac68625}*SharedItemsImports = 13
@@ -151,6 +162,14 @@ Global
 		{C53DE5F2-870E-4A8B-A9E6-0C714A7FC14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C53DE5F2-870E-4A8B-A9E6-0C714A7FC14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C53DE5F2-870E-4A8B-A9E6-0C714A7FC14E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCB5EF6-5533-4386-8B24-0AECB5FFF67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCB5EF6-5533-4386-8B24-0AECB5FFF67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCB5EF6-5533-4386-8B24-0AECB5FFF67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCB5EF6-5533-4386-8B24-0AECB5FFF67B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AEC69CA-5C54-4643-A349-91E83FF53203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AEC69CA-5C54-4643-A349-91E83FF53203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AEC69CA-5C54-4643-A349-91E83FF53203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AEC69CA-5C54-4643-A349-91E83FF53203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -176,6 +195,9 @@ Global
 		{2F63C80B-5C72-43FF-8E33-2592B78D5082} = {50D25F74-1499-415A-A68F-664796187508}
 		{96F4A4B9-9A95-4ABA-89AC-9279DD385331} = {27430A89-25BF-45CC-9F7B-A7F3432045D5}
 		{C53DE5F2-870E-4A8B-A9E6-0C714A7FC14E} = {27430A89-25BF-45CC-9F7B-A7F3432045D5}
+		{18A708CF-90DE-4843-B9A5-D5D4BD5F67BF} = {1044DFB0-ADCA-41F0-AFA3-B942A47792A1}
+		{ABCB5EF6-5533-4386-8B24-0AECB5FFF67B} = {18A708CF-90DE-4843-B9A5-D5D4BD5F67BF}
+		{9AEC69CA-5C54-4643-A349-91E83FF53203} = {18A708CF-90DE-4843-B9A5-D5D4BD5F67BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {157805D8-FB4B-4043-ABB9-61C17CC21945}

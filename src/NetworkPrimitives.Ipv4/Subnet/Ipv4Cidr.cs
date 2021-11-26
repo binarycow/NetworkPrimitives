@@ -9,6 +9,7 @@ namespace NetworkPrimitives.Ipv4
     public readonly struct Ipv4Cidr 
         : INetworkPrimitive<Ipv4Cidr>, 
             IComparable<Ipv4Cidr>, 
+            IComparable<Ipv4SubnetMask>, 
             IComparable<byte>, 
             IComparable,
             IEquatable<Ipv4Cidr>,
@@ -562,14 +563,15 @@ namespace NetworkPrimitives.Ipv4
         /// </param>
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
         /// <exception cref="ArgumentException">
-        /// value is not a <see cref="Ipv4Cidr"/> or <see cref="byte"/>.
+        /// value is not a <see cref="Ipv4Cidr"/>, <see cref="Ipv4SubnetMask"/> or <see cref="byte"/>.
         /// </exception>
         public int CompareTo(object? obj) => obj switch
         {
             null => 1,
             Ipv4Cidr other => CompareTo(other),
+            Ipv4SubnetMask other => CompareTo(other),
             byte other => CompareTo(other),
-            _ => throw new ArgumentException($"Object must be of type {nameof(Ipv4Address)}"),
+            _ => throw new ArgumentException($"Object must be of type {nameof(Ipv4Cidr)}, {nameof(Ipv4SubnetMask)}, or byte."),
         };
         
         /// <summary>
@@ -580,6 +582,18 @@ namespace NetworkPrimitives.Ipv4
         /// <param name="other">The object to compare to the current instance.</param>
         /// <returns>A signed number indicating the relative values of this instance and the value parameter.</returns>
         public int CompareTo(Ipv4Cidr other) => this.Value.CompareTo(other.Value);
+        
+        
+
+        /// <summary>
+        ///     Compares the value of this instance to a specified <see cref="Ipv4SubnetMask"/> value,
+        ///     and returns an integer that indicates whether this instance is less than, equal to, or
+        ///     greater than the specified <see cref="Ipv4SubnetMask"/> value.
+        /// </summary>
+        /// <param name="other">The object to compare to the current instance.</param>
+        /// <returns>A signed number indicating the relative values of this instance and the value parameter.</returns>
+        public int CompareTo(Ipv4SubnetMask other) => this.CompareTo(other.ToCidr());
+        
         /// <summary>
         ///     Compares the value of this instance to a specified <see cref="byte"/> value,
         ///     and returns an integer that indicates whether this instance is less than, equal to, or
