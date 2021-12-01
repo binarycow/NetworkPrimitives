@@ -8,14 +8,22 @@ namespace NetworkPrimitives.Tests.Ipv4.RangeList
 {
     public class AddressListSpanTests : RangeListTests
     {
+
         [Test]
-        [TestCaseSource(nameof(TestCases))]
-        public void TestIndexer2(RangeListTestCase testCase)
+        public void TestRanges()
         {
-            var (input, _, expectedAddresses) = testCase;
-            
-            Assert.That(Ipv4AddressRangeList.TryParse(input, out var rangeList));
+            var rangeText = @"
+10.0.0.0-10
+10.0.1.0/29
+10.1.0.40
+";
+            var rangeList = Ipv4AddressRangeList.Parse(rangeText);
+            foreach (var range in rangeList)
+            {
+                Assert.DoesNotThrow(() => range.ToString());
+            }
         }
+        
         [Test]
         [TestCaseSource(nameof(TestCases))]
         public void TestIndexer(RangeListTestCase testCase)

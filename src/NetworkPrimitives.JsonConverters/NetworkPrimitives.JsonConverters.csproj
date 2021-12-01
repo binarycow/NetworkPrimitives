@@ -6,17 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NetworkPrimitives\NetworkPrimitives.csproj" />
-  </ItemGroup>
-  <!--
   <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ProjectReference Include="..\NetworkPrimitives\NetworkPrimitives.csproj" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Debug' ">
-    <PackageReference Include="NetworkPrimitives" Version="latest" />
+    <PackageReference Include="NetworkPrimitives" Version="$(NP_Version)" />
   </ItemGroup>
-  -->
 
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="6.0.0" />
