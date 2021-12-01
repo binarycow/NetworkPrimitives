@@ -1,6 +1,6 @@
 ﻿# NetworkPrimitives
 
-Lightweight libraries for working with various networking objects
+Lightweight library for working with various networking objects
 
 - [Ipv4](#networkprimitivesipv4)
 - [Ipv6](#networkprimitivesipv6)

@@ -1,7 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>NetworkPrimitives.Ipv6.Tests</AssemblyName>
-    <RootNamespace>NetworkPrimitives.Ipv6.Tests</RootNamespace>
-  </PropertyGroup>
-</Project>

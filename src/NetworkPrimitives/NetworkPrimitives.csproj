@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>NetworkPrimitives</Title>
+    <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address; mac address; networking.primitives; network.primitives; primitives;</PackageTags>
+    <Description>Lightweight package for working with networking types such as IPv4 addresses, IPv6 addresses, ranges, and subnets.</Description>
+    <DocumentationFile>bin\Release\NetworkPrimitives.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>NetworkPrimitives.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="NetworkPrimitives.BuildInformationAttribute">
+      <_Parameter1>$(GITHUB_SHA)</_Parameter1> <!-- GITHUB_SHA -->
+      <_Parameter2>$(TIMESTAMP)</_Parameter2> <!-- GITHUB_REF -->
+      <_Parameter3>$(GITHUB_RUN_ID)</_Parameter3>
+      <_Parameter4>$(GITHUB_REF_NAME)</_Parameter4>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="IsExternalInit" Version="1.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="IndexRange" Version="1.0.1-beta.1" />
+    <PackageReference Include="Nullable" Version="1.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

@@ -18,13 +18,6 @@
     <PackageReference Include="IPNetwork2" Version="2.5.381" Aliases="Lib_IPN2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj" />
+    <ProjectReference Include="..\src\NetworkPrimitives\NetworkPrimitives.csproj" />
   </ItemGroup>
-  <!-- 
-  
-  <ItemGroup>
-    <PackageReference Include="NetworkPrimitives.Ipv4" Version="1.0.0-rc2" />
-  </ItemGroup>
-  
-  -->
 </Project>
