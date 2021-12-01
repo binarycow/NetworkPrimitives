@@ -41,6 +41,7 @@ Overall goals are:
 
 ### Detailed usage
 
+- [Benchmarks](docs/benchmarks.md)
 - [Subnetting](docs/subnetting.md)
 - [Address Ranges / Lists](docs/range-lists.md)
 - [Performance](docs/performance.md)
