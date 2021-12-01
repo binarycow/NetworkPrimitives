@@ -20,13 +20,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\NetworkPrimitives\NetworkPrimitives.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(SolutionDir)tests\range-test-cases.json">
+      <Link>range-test-cases.json</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(SolutionDir)tests\randomips.json">
+      <Link>randomips.json</Link>
+    </EmbeddedResource>
     <Compile Include="$(SolutionDir)tests/EmbeddedResourceUtils.cs">
       <Link>EmbeddedResourceUtils.cs</Link>
     </Compile>
   </ItemGroup>
-  <!-- 
-  <ItemGroup>
-    <AssemblyAttribute Include="NetworkPrimitives.ExcludeFromCodeCoverageAttribute" />
-  </ItemGroup>
-  -->
 </Project>

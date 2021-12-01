@@ -1,7 +1,0 @@
-﻿<Project>
-  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
-
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)src\NetworkPrimitives.Switching\NetworkPrimitives.Switching.csproj" />
-  </ItemGroup>
-</Project>

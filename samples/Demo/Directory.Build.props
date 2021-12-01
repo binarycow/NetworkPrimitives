@@ -4,10 +4,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\NetworkPrimitives.Ipv4\NetworkPrimitives.Ipv4.csproj" />
-    <ProjectReference Include="..\..\src\NetworkPrimitives.Ipv6\NetworkPrimitives.Ipv6.csproj" />
-    <ProjectReference Include="..\..\src\NetworkPrimitives.Switching\NetworkPrimitives.Switching.csproj" />
-    <ProjectReference Include="..\..\src\NetworkPrimitives.Yang\NetworkPrimitives.Yang.csproj" />
+    <ProjectReference Include="..\..\src\NetworkPrimitives\NetworkPrimitives.csproj" />
   </ItemGroup>
 
 </Project>

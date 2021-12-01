@@ -1,8 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>NetworkPrimitives.Shared.Tests</AssemblyName>
-    <RootNamespace>NetworkPrimitives.Shared.Tests</RootNamespace>
-  </PropertyGroup>
-  <Import Project="..\..\src\NetworkPrimitives.Shared\NetworkPrimitives.Shared.projitems" Label="Shared" />
-</Project>
