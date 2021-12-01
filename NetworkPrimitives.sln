@@ -19,11 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkPrimitives", "src\Ne
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C004A053-6172-4403-935C-6B60AC3B2F53}"
 	ProjectSection(SolutionItems) = preProject
-		docs\ipv4.md = docs\ipv4.md
-		docs\ipv6.md = docs\ipv6.md
 		LICENSE = LICENSE
 		readme.md = readme.md
-		docs\switching.md = docs\switching.md
+		docs\subnetting.md = docs\subnetting.md
+		docs\performance.md = docs\performance.md
+		docs\json-converters.md = docs\json-converters.md
+		docs\range-lists.md = docs\range-lists.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{27430A89-25BF-45CC-9F7B-A7F3432045D5}"
