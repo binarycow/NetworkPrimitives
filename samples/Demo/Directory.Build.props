@@ -4,7 +4,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\NetworkPrimitives.JsonConverters\NetworkPrimitives.JsonConverters.csproj" />
     <ProjectReference Include="..\..\src\NetworkPrimitives\NetworkPrimitives.csproj" />
   </ItemGroup>
-
 </Project>

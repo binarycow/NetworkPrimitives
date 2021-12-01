@@ -160,10 +160,16 @@ namespace NetworkPrimitives.Ipv4
                 charsWritten = default;
                 Span<char> chars = stackalloc char[Ipv4Address.MAXIMUM_LENGTH + 4];
                 var lastOctet = value.LastAddressInclusive.GetOctet(3);
-                return value.StartAddress.TryWriteTo(ref chars, ref charsWritten)
-                    && '-'.TryWriteTo(ref chars, ref charsWritten)
-                    && lastOctet.TryFormatTo(ref chars, ref charsWritten)
-                    && chars[..charsWritten].TryCopyTo(destination);
+
+                if (!value.StartAddress.TryWriteTo(ref chars, ref charsWritten))
+                    return false;
+                if (!'-'.TryWriteTo(ref chars, ref charsWritten))
+                    return false;
+                if (!lastOctet.TryFormatTo(ref chars, ref charsWritten))
+                    return false;
+                if (!chars.TryCopyTo(destination))
+                    return false;
+                return true;
             }
         }
     }
