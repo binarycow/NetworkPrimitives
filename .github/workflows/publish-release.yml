@@ -44,18 +44,18 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: packages
-          path: NetworkPrimitives.*.nupkg
+          path: NetworkPrimitives*.nupkg
 
       - name: Push to GitHub nuget feed
-        run: dotnet nuget push --source github --api-key ${{ secrets.GITHUB_TOKEN }} NetworkPrimitives.*.nupkg --skip-duplicate
+        run: dotnet nuget push --source github --api-key ${{ secrets.GITHUB_TOKEN }} NetworkPrimitives.nupkg --skip-duplicate
 
       - name: Push to official nuget feed
-        run: dotnet nuget push --source $NUGET_FEED --api-key $NUGET_KEY NetworkPrimitives.*.nupkg --skip-duplicate
+        run: dotnet nuget push --source $NUGET_FEED --api-key $NUGET_KEY NetworkPrimitives.nupkg --skip-duplicate
 
       - name: Create Release
         uses: ncipollo/release-action@v1.8.10
         with:
-          artifacts: "NetworkPrimitives.*.nupkg"
+          artifacts: "NetworkPrimitives.nupkg"
           artifactErrorsFailBuild: true
           omitBody: true
           prerelease: true
