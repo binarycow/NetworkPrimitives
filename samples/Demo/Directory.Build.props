@@ -7,9 +7,4 @@
     <ProjectReference Include="..\..\src\NetworkPrimitives.JsonConverters\NetworkPrimitives.JsonConverters.csproj" />
     <ProjectReference Include="..\..\src\NetworkPrimitives\NetworkPrimitives.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="6.0.0" />
-  </ItemGroup>
-
 </Project>
