@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NetworkPrimitives.Ipv4;
 using NUnit.Framework;
 
@@ -236,6 +237,58 @@ namespace NetworkPrimitives.Tests.Ipv4
             Assume.That(Ipv4Subnet.TryParse(subnetString, out var subnet));
             Assert.That(subnet.TryGetParentSubnet(out var parent));
             Assert.That(parent.ToString(), Is.EqualTo(parentSubnet));
+        }
+
+
+
+        [Test]
+        [TestCase("192.168.1.0/24", "60;30;20;2;2", "192.168.1.0/26;192.168.1.128/30;192.168.1.132/30;192.168.1.64/27;192.168.1.96/27")]
+        public void TestVlsm(string input, string sizeString, string expectedString)
+        {
+            var numberOfHosts = sizeString.Split(';')
+                .Select(uint.Parse).ToArray();
+            var expectedSubnets = expectedString.Split(';')
+                .Select(text => Ipv4Subnet.Parse(text));
+            
+            
+            Assert.That(Ipv4Subnet.TryParse(input, out var subnet));
+            Assert.That(subnet.TryVariableLengthSubnet(out var subnets, numberOfHosts));
+            Assert.That(subnets, Is.EquivalentTo(expectedSubnets));
+        }
+        
+        
+
+        [Test]
+        [TestCase("10.0.0.0/24", 60, "10.0.0.0/26;10.0.0.64/26;10.0.0.128/26;10.0.0.192/26")]
+        public void TestSubnetBasedOnSize(string input, int size, string expectedString)
+        {
+            var expectedSubnets = expectedString.Split(';')
+                .Select(text => Ipv4Subnet.Parse(text));
+            Assert.That(Ipv4Subnet.TryParse(input, out var subnet));
+            Assert.That(subnet.TrySubnetBasedOnSize(size, out var subnets));
+            Assert.That(subnets, Is.EquivalentTo(expectedSubnets));
+        }
+
+        [Test]
+        [TestCase("10.0.0.0/24", 4, "10.0.0.0/26;10.0.0.64/26;10.0.0.128/26;10.0.0.192/26")]
+        public void TestSubnetBasedOnCount(string input, int count, string expectedString)
+        {
+            var expectedSubnets = expectedString.Split(';')
+                .Select(text => Ipv4Subnet.Parse(text));
+            Assert.That(Ipv4Subnet.TryParse(input, out var subnet));
+            Assert.That(subnet.TrySubnetBasedOnCount(count, out var subnets));
+            Assert.That(subnets, Is.EquivalentTo(expectedSubnets));
+        }
+
+        [Test]
+        public void TestTrySubnetThrows()
+        {
+            Assert.Multiple(() =>
+            {
+                var subnet = Ipv4Subnet.Parse("10.0.0.0/24");
+                Assert.Throws<ArgumentOutOfRangeException>(() => subnet.TrySubnetBasedOnCount(-1, out _));
+                Assert.Throws<ArgumentOutOfRangeException>(() => subnet.TrySubnetBasedOnSize(-1, out _));
+            });
         }
     }
 }

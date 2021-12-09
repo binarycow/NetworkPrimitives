@@ -1,7 +1,9 @@
 ﻿#nullable enable
 
-using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Numerics;
 
 namespace NetworkPrimitives.Ipv4
 {
@@ -86,5 +88,102 @@ namespace NetworkPrimitives.Ipv4
             } while (a.Contains(b) == false);
             return a;
         }
+
+        public static bool TrySubnetBasedOnCount(
+            Ipv4Subnet ipv4Subnet, 
+            uint numberOfNetworks,
+            [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets
+        )
+        {
+            var (networkAddress, mask) = ipv4Subnet;
+            numberOfNetworks = BitOperationsEx.RoundUpToPowerOf2(
+                numberOfNetworks
+            );
+            subnets = default;
+            var popCount = BitOperations.PopCount(numberOfNetworks - 1);
+            var cidrValue = (byte)mask.ToCidr() + popCount;
+            if (!Ipv4Cidr.TryParse(cidrValue, out var cidr))
+                return false;
+            subnets = SubnetBasedOnCidr(networkAddress, cidr, numberOfNetworks);
+            return true;
+        }
+        
+        public static bool TrySubnetBasedOnSize(
+            Ipv4Subnet ipv4Subnet, 
+            Ipv4Cidr cidr,
+            [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets
+        )
+        {
+            subnets = default;
+            if (cidr < ipv4Subnet.Mask) return false;
+            if (cidr == ipv4Subnet.Mask)
+            {
+                subnets = new[] { ipv4Subnet };
+                return true;
+            }
+            subnets = SubnetBasedOnCidr(ipv4Subnet.NetworkAddress, cidr, (uint)(cidr.TotalHosts / ipv4Subnet.TotalHosts));
+            return true;
+        }
+        
+        private static Ipv4Subnet[] SubnetBasedOnCidr(
+            Ipv4Address networkAddress, 
+            Ipv4Cidr cidr,
+            uint numberOfNetworks
+        )
+        {
+            var delta = (uint)cidr.TotalHosts;
+            var subnets = new Ipv4Subnet[numberOfNetworks];
+            for (var i = 0; i < numberOfNetworks; ++i)
+            {
+                subnets[i] = new (networkAddress, cidr);
+                networkAddress = networkAddress.AddInternal(delta);
+            }
+            return subnets;
+        }
+
+        public static bool TrySubnetBasedOnSize(
+            Ipv4Subnet ipv4Subnet,
+            uint sizeOfSubnets,
+            [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets
+        )
+        {
+            subnets = default;
+            var (networkAddress, mask) = ipv4Subnet;
+            var minimumCidrNeeded = SubnetMaskLookups.GetCidrNeededForUsableHosts(sizeOfSubnets);
+            if (minimumCidrNeeded < ipv4Subnet.Cidr) return false;
+            if (!Ipv4Cidr.TryParse(minimumCidrNeeded, out var cidr)) return false;
+            var numberOfNetworks = (uint)(mask.TotalHosts / cidr.TotalHosts);
+            subnets = SubnetBasedOnCidr(networkAddress, cidr, numberOfNetworks);
+            return true;
+        }
+
+        public static bool TryVariableLengthSubnet(
+            Ipv4Subnet masterSubnet, 
+            IEnumerable<uint> numberOfHosts, 
+            [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets
+        )
+        {
+            subnets = default;
+            var (networkAddress, mask) = masterSubnet;
+            var sortedRequirements = numberOfHosts.OrderByDescending(x => x);
+            List<Ipv4Subnet>? subnetList = null;
+            var remainingAddresses = mask.TotalHosts;
+
+            foreach (var requirement in sortedRequirements)
+            {
+                var minimumCidrNeeded = SubnetMaskLookups.GetCidrNeededForUsableHosts(requirement);
+                if (!Ipv4Cidr.TryParse(minimumCidrNeeded, out var cidr)) return false;
+                if(remainingAddresses < cidr.TotalHosts) return false;
+                var subnet = new Ipv4Subnet(networkAddress, cidr);
+                networkAddress = networkAddress.AddInternal((uint)cidr.TotalHosts);
+                remainingAddresses -= cidr.TotalHosts;
+                subnetList ??= new ();
+                subnetList.Add(subnet);
+            }
+            if (subnetList is null) return false;
+            subnets = subnetList.AsReadOnly();
+            return true;
+        }
+
     }
 }

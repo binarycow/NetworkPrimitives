@@ -2,7 +2,7 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net5.0;netstandard2.0</TargetFrameworks>
     <Version>1.0.0</Version>
     <PackageTags>network; networking; subnet; ip-address; ipaddress; ip address; mac address; networking.primitives; network.primitives; primitives;</PackageTags>
     <Description>Lightweight package for working with networking types such as IPv4 addresses, IPv6 addresses, ranges, and subnets.</Description>
