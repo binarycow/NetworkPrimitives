@@ -211,6 +211,42 @@ namespace NetworkPrimitives.Ipv4
             return success;
         }
 
+        public static byte GetCidrNeededForUsableHosts(uint usableHosts) => usableHosts switch
+        {
+            > 0x7FFFFFFE => 0,
+            > 0x3FFFFFFE => 1,
+            > 0x1FFFFFFE => 2,
+            > 0x0FFFFFFE => 3,
+            > 0x07FFFFFE => 4,
+            > 0x03FFFFFE => 5,
+            > 0x01FFFFFE => 6,
+            > 0x00FFFFFE => 7,
+            > 0x007FFFFE => 8,
+            > 0x003FFFFE => 9,
+            > 0x001FFFFE => 10,
+            > 0x000FFFFE => 11,
+            > 0x0007FFFE => 12,
+            > 0x0003FFFE => 13,
+            > 0x0001FFFE => 14,
+            > 0x0000FFFE => 15,
+            > 0x00007FFE => 16,
+            > 0x00003FFE => 17,
+            > 0x00001FFE => 18,
+            > 0x00000FFE => 19,
+            > 0x000007FE => 20,
+            > 0x000003FE => 21,
+            > 0x000001FE => 22,
+            > 0x000000FE => 23,
+            > 0x0000007E => 24,
+            > 0x0000003E => 25,
+            > 0x0000001E => 26,
+            > 0x0000000E => 27,
+            > 0x00000006 => 28,
+            > 0x00000002 => 29,
+            > 0x00000001 => 30,
+            _ => 32,
+        };
+
         public static uint GetUsableHosts(uint value) => value switch
         {
             0x00000000 => 4294967294,

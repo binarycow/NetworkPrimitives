@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using NetworkPrimitives.Utilities;
 
 namespace NetworkPrimitives.Ipv4
@@ -308,6 +308,136 @@ namespace NetworkPrimitives.Ipv4
         public bool TryGetParentSubnet(out Ipv4Subnet parentSubnet) 
             => SubnetOperations.TryGetParent(this, out parentSubnet);
 
+        /// <summary>
+        ///     Attempt to subnet this instance into a given number of subnets, all of equal size.
+        /// </summary>
+        /// <param name="numberOfNetworks">
+        ///     The number of equal-sized subnets to create
+        /// </param>
+        /// <param name="subnets">
+        ///     If successful, a list containing <i>at least</i> <paramref name="numberOfNetworks"/> instances of
+        ///     <see cref="Ipv4Subnet"/>, all of equal size.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> if the subnetting was successful, <see langword="false"/> if not successful.
+        /// </returns>
+        public bool TrySubnetBasedOnCount(uint numberOfNetworks, [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets)
+            => SubnetOperations.TrySubnetBasedOnCount(this, numberOfNetworks, out subnets);
+        
+
+        /// <summary>
+        ///     Attempt to subnet this instance into a given number of subnets, all of equal size.
+        /// </summary>
+        /// <param name="numberOfNetworks">
+        ///     The number of equal-sized subnets to create
+        /// </param>
+        /// <param name="subnets">
+        ///     If successful, a list containing <i>at least</i> <paramref name="numberOfNetworks"/> instances of
+        ///     <see cref="Ipv4Subnet"/>, all of equal size.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> if the subnetting was successful, <see langword="false"/> if not successful.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// If <paramref name="numberOfNetworks"/> is negative.
+        /// </exception>
+        public bool TrySubnetBasedOnCount(int numberOfNetworks, [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets)
+        {
+            if (numberOfNetworks < 0) throw new ArgumentOutOfRangeException(nameof(numberOfNetworks));
+            return SubnetOperations.TrySubnetBasedOnCount(this, (uint)numberOfNetworks, out subnets);
+        }
+
+        /// <summary>
+        ///     Attempt to subnet this instance into a given number of subnets, all of equal size.
+        /// </summary>
+        /// <param name="sizeOfSubnets">
+        ///     The minimum size of the subnets to create
+        /// </param>
+        /// <param name="subnets">
+        ///     If successful, a list containing one or more subnets, each containing <i>at least</i>
+        ///     <paramref name="sizeOfSubnets"/> usable IP addresses.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> if the subnetting was successful, <see langword="false"/> if not successful.
+        /// </returns>
+        public bool TrySubnetBasedOnSize(Ipv4SubnetMask sizeOfSubnets, [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets)
+            => SubnetOperations.TrySubnetBasedOnSize(this, sizeOfSubnets, out subnets);
+        
+        /// <summary>
+        ///     Attempt to subnet this instance into a given number of subnets, all of equal size.
+        /// </summary>
+        /// <param name="sizeOfSubnets">
+        ///     The minimum size of the subnets to create
+        /// </param>
+        /// <param name="subnets">
+        ///     If successful, a list containing one or more subnets, each containing <i>at least</i>
+        ///     <paramref name="sizeOfSubnets"/> usable IP addresses.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> if the subnetting was successful, <see langword="false"/> if not successful.
+        /// </returns>
+        public bool TrySubnetBasedOnSize(Ipv4Cidr sizeOfSubnets, [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets)
+            => SubnetOperations.TrySubnetBasedOnSize(this, sizeOfSubnets, out subnets);
+
+        /// <summary>
+        ///     Attempt to subnet this instance into a given number of subnets, all of equal size.
+        /// </summary>
+        /// <param name="sizeOfSubnets">
+        ///     The minimum size of the subnets to create
+        /// </param>
+        /// <param name="subnets">
+        ///     If successful, a list containing one or more subnets, each containing <i>at least</i>
+        ///     <paramref name="sizeOfSubnets"/> usable IP addresses.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> if the subnetting was successful, <see langword="false"/> if not successful.
+        /// </returns>
+        public bool TrySubnetBasedOnSize(uint sizeOfSubnets, [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets)
+            => SubnetOperations.TrySubnetBasedOnSize(this, sizeOfSubnets, out subnets);
+        
+
+        /// <summary>
+        ///     Attempt to subnet this instance into a given number of subnets, all of equal size.
+        /// </summary>
+        /// <param name="sizeOfSubnets">
+        ///     The minimum size of the subnets to create
+        /// </param>
+        /// <param name="subnets">
+        ///     If successful, a list containing one or more subnets, each containing <i>at least</i>
+        ///     <paramref name="sizeOfSubnets"/> usable IP addresses.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> if the subnetting was successful, <see langword="false"/> if not successful.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// If <paramref name="sizeOfSubnets"/> is negative.
+        /// </exception>
+        public bool TrySubnetBasedOnSize(int sizeOfSubnets, [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets)
+        {
+            if (sizeOfSubnets < 0) throw new ArgumentOutOfRangeException(nameof(sizeOfSubnets));
+            return SubnetOperations.TrySubnetBasedOnSize(this, (uint)sizeOfSubnets, out subnets);
+        }
+
+        /// <summary>
+        ///     Attempt to subnet this instance into multiple appropriate-sized subnets.
+        /// </summary>
+        /// <param name="subnets">
+        ///     If successful, a list containing the subnets.  It will contain at least one subnet for each item in
+        ///     <paramref name="numberOfHosts"/> (possibly with some additional subnets).
+        /// </param>
+        /// <param name="numberOfHosts">
+        /// An array that represents the networks to create.  Each element contains he number of usable hosts to place in each subnet.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> if the subnetting was successful, <see langword="false"/> if not successful.
+        /// </returns>
+        public bool TryVariableLengthSubnet(
+            [NotNullWhen(true)] out IReadOnlyList<Ipv4Subnet>? subnets,
+            params uint[] numberOfHosts
+        ) => SubnetOperations.TryVariableLengthSubnet(this, numberOfHosts, out subnets);
+        
+        
+        
         #endregion Subnetting
         
 
