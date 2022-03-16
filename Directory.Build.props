@@ -14,14 +14,6 @@
     <WarningsNotAsErrors>$(WarningsNotAsErrors);RS0016</WarningsNotAsErrors>
   </PropertyGroup>
   
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' And '$(TargetFramework)' == 'net6.0' ">
-    <EnablePreviewFeatures>True</EnablePreviewFeatures>
-    <DefineConstants>$(DefineConstants);STATIC_ABSTRACT</DefineConstants>
-  </PropertyGroup>
-
-  <ItemGroup Condition=" '$(EnablePreviewFeatures)' == 'True' ">
-  </ItemGroup>
-
   <PropertyGroup>
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
   </PropertyGroup>
