@@ -8,38 +8,32 @@ using NetworkPrimitives.Ipv4;
 
 using IPN2 = Lib_IPN2::System.Net.IPNetwork;
 
-namespace NetworkPrimitives.Benchmarks
+namespace NetworkPrimitives.Benchmarks;
+
+public class Ipv4AddressRange
 {
-    [MemoryDiagnoser]
-    [MarkdownExporter]
-    [CsvExporter]
-    [CsvMeasurementsExporter]
-    [HtmlExporter]
-    [MarkdownExporterAttribute.GitHub]
-    [SimpleJob(RuntimeMoniker.Net50, launchCount: 3, warmupCount: 10, targetCount: 30)]
-    public class Ipv4AddressRange
+    [Benchmark]
+    public void NetworkPrimitives()
     {
-        [Benchmark]
-#if ProjRefImports
-        public void NetworkPrimitivesProjRef()
-#else
-        public void NetworkPrimitives()
-#endif
+        foreach (var subnetString in TestData.RandomSubnets)
         {
-            _ = Ipv4Subnet.TryParse("10.0.0.0/24", out var subnet);
+            var subnet = Ipv4Subnet.Parse(subnetString);
             foreach (var address in subnet.GetAllAddresses())
             {
-
+                _ = address;
             }
         }
+    }
 
-        [Benchmark]
-        public void IpNetwork2()
+    [Benchmark]
+    public void IpNetwork2()
+    {
+        foreach (var subnetString in TestData.RandomSubnets)
         {
-            var subnet = IPN2.Parse("10.0.0.0/24");
+            var subnet = IPN2.Parse(subnetString);
             foreach (var address in subnet.ListIPAddress())
             {
-                
+                _ = address;
             }
         }
     }
