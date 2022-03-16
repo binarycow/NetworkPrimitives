@@ -36,4 +36,31 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Ipv4\SubnetTree\Ipv4SubnetDictionary.Nodes.cs">
+      <DependentUpon>Ipv4SubnetDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Ipv4\SubnetTree\Ipv4SubnetDictionary.NodeEnumerator.cs">
+      <DependentUpon>Ipv4SubnetDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Ipv4\SubnetTree\Ipv4SubnetDictionary.Lookups.cs">
+      <DependentUpon>Ipv4SubnetDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Ipv4\SubnetTree\Ipv4SubnetDictionary.KeyCollection.cs">
+      <DependentUpon>Ipv4SubnetDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Ipv4\SubnetTree\Ipv4SubnetDictionary.Collections.cs">
+      <DependentUpon>Ipv4SubnetDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Ipv4\SubnetTree\Ipv4SubnetDictionary.Add.cs">
+      <DependentUpon>Ipv4SubnetDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Ipv4\SubnetTree\Ipv4SubnetDictionary.Remove.cs">
+      <DependentUpon>Ipv4SubnetDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Ipv4\SubnetTree\Ipv4SubnetDictionary.Consolidate.cs">
+      <DependentUpon>Ipv4SubnetDictionary.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
