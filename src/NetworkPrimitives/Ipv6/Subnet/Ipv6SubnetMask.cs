@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 
+#pragma warning disable CS1591
 namespace NetworkPrimitives.Ipv6
 {
     public readonly struct Ipv6SubnetMask : IEquatable<Ipv6SubnetMask>

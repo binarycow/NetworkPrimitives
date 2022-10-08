@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net48;net5.0;net6.0;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;net48;</TargetFrameworks>
  </PropertyGroup>
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -13,9 +13,9 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.1" />
-    <PackageReference Include="IPNetwork2" Version="2.5.381" Aliases="Lib_IPN2" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.2" />
+    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.2" />
+    <PackageReference Include="IPNetwork2" Version="2.6.472" Aliases="Lib_IPN2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\NetworkPrimitives\NetworkPrimitives.csproj" />

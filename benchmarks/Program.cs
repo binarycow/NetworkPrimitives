@@ -15,10 +15,6 @@ namespace NetworkPrimitives.Benchmarks
 {
     internal static class Program
     {
-        internal const int LAUNCH_COUNT = 1;
-        internal const int WARMUP_COUNT = 0;
-        internal const int TARGET_COUNT = 1;
-
         private static void Main(string[] args)
         {
             var path = "../../../../BenchmarkResults";
@@ -47,14 +43,15 @@ namespace NetworkPrimitives.Benchmarks
             this.AddDiagnoser(MemoryDiagnoser.Default!);
             this.AddLogger(ConsoleLogger.Default!);
             this.AddJob(
-                Job.Dry!
-                    .WithWarmupCount(Program.WARMUP_COUNT)!
-                    .WithLaunchCount(Program.LAUNCH_COUNT)!
-                    .WithRuntime(CoreRuntime.Core60!)!
-                .WithRuntime(CoreRuntime.Core50!)!
-                .WithRuntime(CoreRuntime.Core30!)!
-                .WithRuntime(ClrRuntime.Net48!)!
+                CreateJob(CoreRuntime.Core70),
+                CreateJob(CoreRuntime.Core60),
+                CreateJob(CoreRuntime.Core50),
+                CreateJob(CoreRuntime.Core31),
+                CreateJob(ClrRuntime.Net48)
             );
         }
+
+        private static Job CreateJob(Runtime runtime)
+            => Job.Default.WithRuntime(runtime);
     }
 }

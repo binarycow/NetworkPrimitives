@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using NetworkPrimitives.Ipv4;
 using NetworkPrimitives.Utilities;
 
+#pragma warning disable CS1591
 namespace NetworkPrimitives.Ipv6
 {
     public readonly struct Ipv6Subnet : IEquatable<Ipv6Subnet>
