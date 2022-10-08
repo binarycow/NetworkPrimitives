@@ -5,10 +5,18 @@
     <RootNamespace>NetworkPrimitives.Tests</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="IsExternalInit" Version="1.0.1">
+    <PackageReference Include="IsExternalInit" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="6.0.0" />
+    <PackageReference Include="System.Text.Json" Version="6.0.6" />
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageReference Update="NUnit" Version="3.13.3" />
+    <PackageReference Update="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Update="coverlet.collector" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Update="NunitXml.TestLogger" Version="3.0.127" />
   </ItemGroup>
 </Project>

@@ -286,6 +286,7 @@ namespace NetworkPrimitives.Ipv4
         /// <exception cref="ArgumentException">
         ///     <paramref name="ipAddress"/> is not <see cref="AddressFamily.InterNetwork"/>
         /// </exception>
+        // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
         public static Ipv4Address Parse(IPAddress? ipAddress) => ipAddress?.AddressFamily switch
         {
             null => throw new ArgumentNullException(nameof(ipAddress)),

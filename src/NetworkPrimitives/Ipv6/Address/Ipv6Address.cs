@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using NetworkPrimitives.Utilities;
 
+#pragma warning disable CS1591
 namespace NetworkPrimitives.Ipv6
 {
     public readonly struct Ipv6Address : IEquatable<Ipv6Address>// , IFormattable

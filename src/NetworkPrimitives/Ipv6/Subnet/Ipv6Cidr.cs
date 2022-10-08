@@ -1,6 +1,7 @@
 ﻿using System;
 using NetworkPrimitives.Utilities;
 
+#pragma warning disable CS1591
 namespace NetworkPrimitives.Ipv6
 {
     public readonly struct Ipv6Cidr : ITryFormat, IEquatable<Ipv6Cidr>
